@@ -2,7 +2,7 @@
 
 ## LICENCE AND COPYRIGHT NOTICE
 
-This file is distributed under [CC BY 4.0 Deed Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/)
+The grammar file, `grammar_custom.xml` is distributed under [CC BY 4.0 Deed Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/)
 
 * (c) 2019/08/20 Japan Translation Federation
 * (c) 2024/05/12 Tomoyuki Sakurai (@trombik)
@@ -14,7 +14,7 @@ This file is distributed under [CC BY 4.0 Deed Attribution 4.0 International](ht
 * [Available postags](https://github.com/lucene-gosen/lucene-gosen/blob/5e8465e1b762bc877dfe836951ace723a331aae0/example/stoptags_ja.txt)
 * [Examples for Japanese rules](https://github.com/languagetool-org/languagetool/blob/1c6058be324617a4e57dc83d528c397de6950ae4/languagetool-language-modules/ja/src/main/resources/org/languagetool/rules/ja/grammar.xml)
 
-## References
+## Requirements
 
 ### Unix OS
 
