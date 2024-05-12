@@ -1,0 +1,8 @@
+#!/bin/sh
+
+CUSTOM_GRAMMAR_FILE_NAME="grammar_custom.xml"
+LANGUAGETOOL_VERSION="6.4"
+LANGUAGETOOL_FILE_ZIP="LanguageTool-${LANGUAGETOOL_VERSION}.zip"
+LANGUAGETOOL_DIR="LanguageTool-${LANGUAGETOOL_VERSION}"
+LANGUAGETOOL_DIR_RULES="org/languagetool/rules/ja"
+LANGUAGETOOL_URL="https://languagetool.org/download/${LANGUAGETOOL_FILE_ZIP}"
