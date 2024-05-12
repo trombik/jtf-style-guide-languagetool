@@ -21,6 +21,7 @@ This file is distributed under [CC BY 4.0 Deed Attribution 4.0 International](ht
 * Java
 * `curl`
 * `unzip`
+* `xmllint`
 
 ## Setup
 
