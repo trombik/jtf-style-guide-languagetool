@@ -54,7 +54,12 @@ cd LanguageTool-${VERSION}
 java -cp languagetool-server.jar org.languagetool.server.HTTPServer -config server.properties -port 8081 -allow-origin -v
 ```
 
-The server is available at [http://127.0.0.1:8081](http://127.0.0.1:8081).
+The server is available at [http://127.0.0.1:8081](http://127.0.0.1:8081).  To
+see if it works, call `languages` API, i.e.
+[http://127.0.0.1:8081/v2/languages](http://127.0.0.1:8081/v2/languages).
+
+Available API verbs are listed at:
+[https://languagetool.org/http-api/swagger-ui/](https://languagetool.org/http-api/swagger-ui/)
 
 An example to check a text, `abc`:
 
@@ -71,3 +76,14 @@ xmllint --format org/languagetool/rules/ja/grammar_custom.xml
 ```
 
 There should be no error.
+
+## Usage
+
+### Desktop
+
+TBW.
+
+### OmegaT
+
+For OmegaT, open `Options` > `Preferences` > `LanguageTool`. Select `Remote
+server`, and type `http://127.0.0.1:8081/v2/check` in `URL`.
