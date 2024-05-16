@@ -2,31 +2,31 @@
 <?xml-stylesheet type="text/xsl" href="../print.xsl" title="Pretty print" ?>
 <?xml-stylesheet type="text/css" href="../rules.css" title="Easy editing stylesheet" ?>
 <rules xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" lang="ja" xsi:noNamespaceSchemaLocation="../rules.xsd">
-  <category id="JTF-2_1_8" name="算用数字">
+  <category id="JTF-2_1_8" name="">
     <!-- 2.1.8 算用数字 -->
-    <rule id="JTF-2_1_8-hankaku-suuji" name="半角数字">
-      <pattern>
-        <!-- [/SENT_START*] 二[二/名詞-数*] 部[部/名詞-接尾-助数詞*] ください[くださる/動詞-自立*,くださる/SENT_END*] -->
-        <antipattern>
-          <token>一部</token>
-        </antipattern>
-        <and>
-          <token postag="名詞-数"/>
-          <token regexp="yes">[一-十]</token>
-        </and>
-        <token postag="名詞-接尾-助数詞"/>
-      </pattern>
-      <message>半角数字を使います。</message>
-      <suggestion>2<match no="2"/></suggestion>
-      <example correction="2枚">新聞紙を<marker>二枚</marker>ください。</example>
-      <example correction="2部">新聞紙を<marker>二部</marker>ください。</example>
-      <example correction="2冊">本を<marker>二冊</marker>ください。</example>
-      <example correction="2桁">数字が<marker>二桁</marker>違う。</example>
-      <example correction="2回"><marker>二回</marker>やってみよう。</example>
-      <example correction="2番目"><marker>二番目</marker>の人です。。</example>
-    </rule>
-    <rulegroup id="JTF-2_1_8-kansuuji" name="漢数字">
-      <rule id="JTF-2_1_8-kansuuji" name="漢数字">
+    <rulegroup id="JTF-2_1_8" name="算用数字">
+      <rule id="JTF-2_1_8-hankaku-suuji">
+        <pattern>
+          <!-- [/SENT_START*] 二[二/名詞-数*] 部[部/名詞-接尾-助数詞*] ください[くださる/動詞-自立*,くださる/SENT_END*] -->
+          <antipattern>
+            <token>一部</token>
+          </antipattern>
+          <and>
+            <token postag="名詞-数"/>
+            <token regexp="yes">[一-十]</token>
+          </and>
+          <token postag="名詞-接尾-助数詞"/>
+        </pattern>
+        <message>半角数字を使います。</message>
+        <suggestion>2<match no="2"/></suggestion>
+        <example correction="2枚">新聞紙を<marker>二枚</marker>ください。</example>
+        <example correction="2部">新聞紙を<marker>二部</marker>ください。</example>
+        <example correction="2冊">本を<marker>二冊</marker>ください。</example>
+        <example correction="2桁">数字が<marker>二桁</marker>違う。</example>
+        <example correction="2回"><marker>二回</marker>やってみよう。</example>
+        <example correction="2番目"><marker>二番目</marker>の人です。。</example>
+      </rule>
+      <rule id="JTF-2_1_8-kansuuji">
         <pattern>
           <!-- [/SENT_START*] もう[もう/副詞-一般*] 1[1/未知語*] 度[度/名詞-接尾-一般*] やっ[やる/動詞-自立*] て[て/助詞-接続助詞*] みよ[みる/動詞-非自立*] う[う/助動詞*] 。[。/記号-句点*,。/SENT_END*] -->
           <token>もう</token>
@@ -35,102 +35,6 @@
         </pattern>
         <message>漢数字を使います。「<suggestion>もう一度</suggestion>」を使います。</message>
         <example correction="もう一度"><marker>もう1度</marker>やってみよう。</example>
-      </rule>
-      <rule id="JTF-2_1_8-kansuuji-nikohbunpu" name="二項分布">
-        <pattern>
-          <!-- 2[2/未知語*] 項[項/名詞-一般*] 分布[分布/名詞-サ変接続*] は[は/助詞-係助詞*] 難しい[難しい/形容詞-自立*] です[です/助動詞*] 。[。/記号-句点*,。/SENT_END*] -->
-          <token>2</token>
-          <token>項</token>
-          <token>分布</token>
-        </pattern>
-        <message>漢数字を使います。「<suggestion>二項分布</suggestion>」を使います。</message>
-        <example correction="二項分布"><marker>2項分布</marker>は難しいです。</example>
-      </rule>
-      <rule id="JTF-2_1_8-kansuuji-saishounijouhou" name="最小二乗法">
-        <pattern>
-          <!-- 最小[最小/名詞-一般*] 2[2/未知語*] 乗法[乗法/名詞-一般*] は[は/助詞-係助詞*] 難しい[難しい/形容詞-自立*] です[です/助動詞*] 。[。/記号-句点*,。/SENT_END*] -->
-          <token>最小</token>
-          <token>2</token>
-          <token>乗法</token>
-        </pattern>
-        <message>漢数字を使います。「<suggestion>最小二乗法</suggestion>」を使います。</message>
-        <example correction="最小二乗法"><marker>最小2乗法</marker>は難しいです。</example>
-      </rule>
-      <rule id="JTF-2_1_8-kansuuji-shinhou-2" name="2進法">
-        <pattern>
-          <!-- [/SENT_START*] 二進法[二進法/名詞-一般*,二進法/SENT_END*] -->
-          <token>二進法</token>
-        </pattern>
-        <message>半角数字を使います。「<suggestion>2進法</suggestion>」を使います。</message>
-        <example correction="2進法"><marker>二進法</marker>で計算する</example>
-      </rule>
-      <rule id="JTF-2_1_8-kansuuji-shinhou-8" name="8進法">
-        <pattern>
-          <!-- 八[八/名詞-数*] 進[進/名詞-接尾-助数詞*] 法[法/名詞-接尾-一般*] で[で/助詞-格助詞-一般*] 計算[計算/名詞-サ変接続*] する[する/動詞-自立*,する/SENT_END*] -->
-          <token>八</token>
-          <token>進</token>
-          <token>法</token>
-        </pattern>
-        <message>半角数字を使います。「<suggestion>8進法</suggestion>」を使います。</message>
-        <example correction="8進法"><marker>八進法</marker>で計算する</example>
-      </rule>
-      <rule id="JTF-2_1_8-kansuuji-shinhou-16" name="16進法">
-        <pattern>
-          <!-- 十[十/名詞-数*] 六[六/名詞-数*] 進[進/名詞-接尾-助数詞*] 法[法/名詞-接尾-一般*,法/SENT_END*] -->
-          <token>十</token>
-          <token>六</token>
-          <token>進</token>
-          <token>法</token>
-        </pattern>
-        <message>半角数字を使います。「<suggestion>16進法</suggestion>」を使います。</message>
-        <example correction="16進法"><marker>十六進法</marker>で指定します</example>
-      </rule>
-      <rule id="JTF-2_1_8-kansuuji-hyakubunnisuu" name="百分位数">
-        <pattern>
-          <!-- 100[100/未知語*] 分[分/名詞-接尾-一般*] 位[位/名詞-一般*] 数[数/名詞-接尾-一般*] -->
-          <token>100</token>
-          <token>分</token>
-          <token>位</token>
-          <token>数</token>
-        </pattern>
-        <message>漢数字を使います。「<suggestion>百分位数</suggestion>」を使います。</message>
-        <example correction="百分位数"><marker>100分位数</marker>で考える</example>
-      </rule>
-      <rule id="JTF-2_1_8-kansuuji-hyakubunritu" name="百分率">
-        <pattern>
-          <token>100</token>
-          <token>分</token>
-          <token>率</token>
-        </pattern>
-        <message>漢数字を使います。「<suggestion>百分率</suggestion>」を使います</message>
-        <example correction="百分率"><marker>100分率</marker>で言いますと</example>
-      </rule>
-      <rule id="JTF-2_1_8-kansuuji-sishagonyuu" name="四捨五入">
-        <pattern>
-          <token>4</token>
-          <token>捨</token>
-          <token>5</token>
-          <token>入</token>
-        </pattern>
-        <message>漢数字を使います。「<suggestion>四捨五入</suggestion>」を使います。</message>
-        <example correction="四捨五入"><marker>4捨5入</marker>すると</example>
-      </rule>
-      <rule id="JTF-2_1_8-kansuuji-sekaiiti" name="世界一">
-        <pattern>
-          <token>世界</token>
-          <token>1</token>
-        </pattern>
-        <message>漢数字を使います。「<suggestion>世界一</suggestion>」を使います。</message>
-        <example correction="世界一"><marker>世界1</marker>美しい</example>
-      </rule>
-      <rule id="JTF-2_1_8-kansuuji-itijiteki" name="一時的">
-        <pattern>
-          <token>1</token>
-          <token>時</token>
-          <token>的</token>
-        </pattern>
-        <message>漢数字を使います。「<suggestion>一時的</suggestion>」を使います。</message>
-        <example correction="一時的">雨は<marker>1時的</marker>だったようだ</example>
       </rule>
     </rulegroup>
   </category>

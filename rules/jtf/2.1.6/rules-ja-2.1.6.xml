@@ -1643,42 +1643,5 @@
         <message>長音を省略します。<suggestion>ローラ</suggestion>を使います</message>
         <example correction="ローラ">カタカナ用語には<marker>ローラー</marker>があります。</example>
       </rule>
-    </rulegroup>
-    <!-- 2.1.7 カタカナ複合語 -->
-    <rulegroup id="JTF-2_1_7" name="カタカナ複合語">
-        </rulegroup>
-    <!-- 2.1.8 算用数字 -->
-    <rulegroup id="JTF-2_1_8" name="算用数字">
-      <rule id="JTF-2_1_8-hankaku-suuji">
-        <pattern>
-          <!-- [/SENT_START*] 二[二/名詞-数*] 部[部/名詞-接尾-助数詞*] ください[くださる/動詞-自立*,くださる/SENT_END*] -->
-          <antipattern>
-            <token>一部</token>
-          </antipattern>
-          <and>
-            <token postag="名詞-数"/>
-            <token regexp="yes">[一-十]</token>
-          </and>
-          <token postag="名詞-接尾-助数詞"/>
-        </pattern>
-        <message>半角数字を使います。</message>
-        <suggestion>2<match no="2"/></suggestion>
-        <example correction="2枚">新聞紙を<marker>二枚</marker>ください。</example>
-        <example correction="2部">新聞紙を<marker>二部</marker>ください。</example>
-        <example correction="2冊">本を<marker>二冊</marker>ください。</example>
-        <example correction="2桁">数字が<marker>二桁</marker>違う。</example>
-        <example correction="2回"><marker>二回</marker>やってみよう。</example>
-        <example correction="2番目"><marker>二番目</marker>の人です。。</example>
-      </rule>
-      <rule id="JTF-2_1_8-kansuuji">
-        <pattern>
-          <!-- [/SENT_START*] もう[もう/副詞-一般*] 1[1/未知語*] 度[度/名詞-接尾-一般*] やっ[やる/動詞-自立*] て[て/助詞-接続助詞*] みよ[みる/動詞-非自立*] う[う/助動詞*] 。[。/記号-句点*,。/SENT_END*] -->
-          <token>もう</token>
-          <token>1</token>
-          <token>度</token>
-        </pattern>
-        <message>漢数字を使います。「<suggestion>もう一度</suggestion>」を使います。</message>
-        <example correction="もう一度"><marker>もう1度</marker>やってみよう。</example>
-      </rule>
   </category>
 </rules>
