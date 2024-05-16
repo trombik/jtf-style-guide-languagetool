@@ -1,0 +1,26 @@
+---
+
+name: Test all rules
+on:
+  - pull_request
+  - push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+          bundler-cache: true
+
+      - name: Setup
+        run: |
+          sh setup.sh
+      - name: Test
+        run: |
+          bundle exec rake test
