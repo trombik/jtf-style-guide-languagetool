@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../print.xsl" title="Pretty print" ?>
+<?xml-stylesheet type="text/css" href="../rules.css" title="Easy editing stylesheet" ?>
+<rules xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" lang="ja" xsi:noNamespaceSchemaLocation="../rules.xsd">
+  <category id="JTF-2_2_1" name="ひらがなと漢字の使い分け">
+    <!-- 2.2.1 ひらがなと漢字の使い分け -->
+    <rule id="JTF-2_2_1-ARAKAJIME" name="あらかじめ">
+      <pattern>
+        <token>予め</token>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。<suggestion>あらかじめ</suggestion>を使います。</message>
+      <example correction="あらかじめ"><marker>予め</marker>準備する。</example>
+    </rule>
+    <rule id="JTF-2_2_1-IZURE" name="いずれ">
+      <pattern>
+        <token>何れ</token>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。<suggestion>いずれ</suggestion>を使います。</message>
+      <example correction="いずれ"><marker>何れ</marker>にせよ</example>
+      <example correction="いずれ"><marker>何れ</marker>かを選ぶ</example>
+    </rule>
+    <rule id="JTF-2_2_1-OYOSO" name="およそ">
+      <pattern>
+        <token>凡そ</token>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。<suggestion>およそ</suggestion>を使います。</message>
+      <example correction="およそ"><marker>凡そ</marker>1時間かかります。</example>
+    </rule>
+    <rule id="JTF-2_2_1-OMOMURONI" name="おもむろに">
+      <pattern>
+        <!--
+                [/SENT_START*] 彼[彼/名詞-代名詞-一般*] は[は/助詞-係助詞*] 徐[徐/名詞-固有名詞-人名-姓*] ろ[ろ/名詞-一般*] に[に/助詞-格助詞-一般*] ナイフ[ナイフ/名詞-一般*] を[を/助詞-格助詞-一般*] 取り出し[取り出す/動詞-自立*] た[た/助動詞*] 。[。/記号-句点*,。/SENT_END*]
+                -->
+        <token>徐</token>
+        <token>ろ</token>
+        <token>に</token>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。<suggestion>おもむろに</suggestion>を使います。</message>
+      <example correction="おもむろに">彼は<marker>徐ろに</marker>ナイフを取り出した。</example>
+    </rule>
+    <rule id="JTF-2_2_1-KAETTE" name="却って">
+      <pattern>
+        <token>却って</token>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。<suggestion>かえって</suggestion>を使います。</message>
+      <example correction="かえって"><marker>却って</marker>逆効果になる。</example>
+    </rule>
+  </category>
+</rules>

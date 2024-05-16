@@ -2,7 +2,7 @@
 
 ## LICENCE AND COPYRIGHT NOTICE
 
-The grammar file, `grammar_custom.xml` is distributed under [CC BY 4.0 Deed Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/)
+The grammar file is distributed under [CC BY 4.0 Deed Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/)
 
 * (c) 2019/08/20 Japan Translation Federation
 * (c) 2024/05/12 Tomoyuki Sakurai (@trombik)
@@ -22,6 +22,8 @@ The grammar file, `grammar_custom.xml` is distributed under [CC BY 4.0 Deed Attr
 * `curl`
 * `unzip`
 * `xmllint`
+* `jq`
+* `ruby` and `bundler` (for build, optional)
 
 ## Setup
 
@@ -36,16 +38,41 @@ Run:
 sh setup.sh
 ```
 
+## Testing a rule file
+
 To test the rules, run:
 
 ```sh
-cd LanguageTool-${VERSION}
-sh ./testrules.sh ja
+sh test.sh $RULE_XML
 ```
 
-Replace `${VERSION}` with the version number of `languagetool`.
+For instance:
+
+```sh
+sh test.sh rules/jtf/2.1.8/rules-ja-2.1.8.xml
+```
 
 There should be no exceptions in the output.
+
+## Building the grammar file
+
+Make sure to install `ruby` and `bundler`. `bundle install` will install all
+the dependencies.
+
+Run:
+
+```sh
+bundle exec ruby build.rb | xmllint --format - > new.xml
+```
+
+## Install the grammar file
+
+```sh
+cp new.xml LanguageTool-6.4/org/languagetool/rules/ja/grammar_custom.xml
+```
+
+
+## Running the server
 
 To run the server, run:
 
@@ -66,16 +93,6 @@ An example to check a text, `abc`:
 ```text
 http://127.0.0.1:8081/v2/check?language=ja-JP&text=abc
 ```
-
-## Before commit
-
-Always format the `grammar_custom.xml` with:
-
-```sh
-xmllint --format org/languagetool/rules/ja/grammar_custom.xml
-```
-
-There should be no error.
 
 ## Usage
 
