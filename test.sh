@@ -42,7 +42,12 @@ if [ $? != 0 ]; then
     cleanup_and_fail
 fi
 
-if grep "Test failure" "${TMPFILE}"; then
+if grep -q "Exception in thread" "${TMPFILE}"; then
+    echo "languagetool raised an exception"
+    cleanup_and_fail
+fi
+
+if grep -q "Test failure" "${TMPFILE}"; then
     echo "languagetool tests failed"
     cleanup_and_fail
 fi

@@ -2,6 +2,7 @@
 
 source "https://rubygems.org"
 
-gem "nokogiri"
-gem "rubocop"
 gem "irb"
+gem "nokogiri"
+gem "rake"
+gem "rubocop"
