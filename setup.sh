@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. env.sh
+. ./env.sh
 
 if [ ! -f "${LANGUAGETOOL_FILE_ZIP}" ]; then
     curl -O "${LANGUAGETOOL_URL}"
