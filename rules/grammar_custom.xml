@@ -1,0 +1,1932 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../print.xsl" title="Pretty print" ?>
+<?xml-stylesheet type="text/css" href="../rules.css" title="Easy editing stylesheet" ?>
+<rules xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" lang="ja" xsi:noNamespaceSchemaLocation="../rules.xsd">
+  <category id="JTF-1_2_1" name="句読点の使用">
+    <!-- 1.2.1 句点（。）と読点（、） -->
+    <rulegroup id="JTF-1_2_1" name="ITF 句点（。）と読点（、）">
+      <rule>
+        <pattern>
+          <and>
+            <token>．</token>
+            <token postag="記号-句点"/>
+          </and>
+        </pattern>
+        <message>全角のピリオドは句読点に使いません。句読点には全角の「、」と全角の「<suggestion>。</suggestion>」を使います。</message>
+        <example correction="。">これは、見本となる例です<marker>．</marker>正しくは句点を使います。</example>
+      </rule>
+      <rule>
+        <pattern>
+          <or>
+            <!-- there could be more postags here -->
+            <token postag="動詞.*" postag_regexp="yes"/>
+            <token postag="助動詞"/>
+            <token postag="助詞-終助詞"/>
+            <token postag="助詞-副助詞／並立助詞／終助詞"/>
+            <token postag="感動詞"/>
+          </or>
+          <marker>
+            <and>
+              <token>.</token>
+              <!-- the analyzer cannot recognize the period as "句点". -->
+              <token postag="未知語"/>
+            </and>
+          </marker>
+        </pattern>
+        <message>半角のピリオドは句読点に使いません。句読点には全角の「、」と全角の「<suggestion>。</suggestion>」を使います。</message>
+        <!--
+                [/SENT_START*] これ[これ/名詞-代名詞-一般*] は[は/助詞-係助詞*] 、[、/記号-読点*] 見本[見本/名詞-一般*] と[と/助詞-格助詞-一般*] なる[なる/動詞-自立*] 例[例/名詞-一般*] です[です/助動詞*] .[./未知語*] 正しく[正しい/形容詞-自立*] は[は/助詞-係助詞*] 句点[句点/名詞-一般*] を[を/助詞-格助詞-一般*] 使い[使う/動詞-自立*] ます[ます/助動詞*] 。[。/記号-句点*,。/SENT_END*]
+                -->
+        <example correction="。">これは、見本となる例です<marker>.</marker>正しくは句点を使います。</example>
+        <example correction="。">サポートされているバージョンは1.1以降です<marker>.</marker>あしからずご了承ください。</example>
+        <example correction="。">全角の句点を使いましょうね<marker>.</marker></example>
+        <example correction="。">全角の句点を使わないのですか<marker>.</marker></example>
+      </rule>
+    </rulegroup>
+  </category>
+  <category id="JTF-1_2_2" name="ピリオド（.）とカンマ（,）">
+    <!-- 1.2.2 ピリオド（.）とカンマ（,）-->
+  </category>
+  <category id="JTF-2_1_1" name="ひらがな">
+    <!-- 2.1.1 ひらがな -->
+  </category>
+  <category id="JTF-2_1_2" name="漢字">
+    <!-- 2.1.2 漢字 -->
+  </category>
+  <category id="JTF-2_1_3" name="漢字の送りがな">
+    <rule>
+      <!--
+                [/SENT_START*] 儀式[儀式/名詞-一般*] を[を/助詞-格助詞-一般*] 行なっ[行なう/動詞-自立*] た[た/助動詞*,た/SENT_END*]
+                -->
+      <pattern>
+        <token inflected="yes">行なう</token>
+      </pattern>
+      <message>不適切な送り仮名があります。<suggestion><match no="1" regexp_match="な([っうい])" regexp_replace="$1"/></suggestion>を使います。</message>
+      <example correction="行う">儀式を<marker>行なう</marker></example>
+      <example correction="行っ">儀式を<marker>行なっ</marker>た</example>
+      <example correction="行い">儀式を<marker>行ない</marker>ながら</example>
+      <example correction="行え">儀式を<marker>行なえ</marker>ない</example>
+    </rule>
+    <rule>
+      <!--
+                [/SENT_START*] 儀式[儀式/名詞-一般*] を[を/助詞-格助詞-一般*] 行[行/名詞-一般*] なえ[なえる/動詞-自立*] ない[ない/助動詞*,ない/SENT_END*]
+                -->
+      <pattern>
+        <and>
+          <token postag="名詞-一般"/>
+          <token>行</token>
+        </and>
+        <and>
+          <token postag="動詞-自立"/>
+          <token inflected="yes">なえる</token>
+        </and>
+      </pattern>
+      <message>不適切な送り仮名があります。<suggestion>行<match no="2" regexp_match="な(え)" regexp_replace="$1"/></suggestion>を使います。</message>
+      <example correction="行え">儀式を<marker>行なえ</marker>ない</example>
+    </rule>
+    <rule>
+      <!-- [/SENT_START*] A[A/未知語*] は[は/助詞-係助詞*] B[B/未知語*] を[を/助詞-格助詞-一般*] 表わす[表わす/動詞-自立*,表わす/SENT_END*] -->
+      <pattern>
+        <marker>
+          <and>
+            <token postag="動詞-自立"/>
+            <token inflected="yes">表わす</token>
+          </and>
+        </marker>
+      </pattern>
+      <message>不適切な送り仮名があります。「<suggestion><match no="1" regexp_match="わ([さしすせそ])" regexp_replace="$1"/></suggestion>」を使います。</message>
+      <example correction="表さ">Aで<marker>表わさ</marker>ない</example>
+      <example correction="表し">AはBを<marker>表わし</marker>ます</example>
+      <example correction="表す">AはBを<marker>表わす</marker></example>
+      <example correction="表せ">AはBを<marker>表わせ</marker>ません</example>
+      <example correction="表そ">Aで<marker>表わそ</marker>う</example>
+    </rule>
+  </category>
+  <category id="JTF-2_1_6" name="カタカナ語の長音">
+    <rule id="JTF-2_1_6-identity_" name="アイデンティティー">
+      <pattern><token>アイデンティティ</token>が失われた</pattern>
+      <message>長音を省略しません。<suggestion>アイデンティティー</suggestion>を使います</message>
+      <example correction="アイデンティティー">カタカナ用語には<marker>アイデンティティ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-accessory_" name="アクセサリー">
+      <pattern>
+        <token>アクセサリ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>アクセサリー</suggestion>を使います</message>
+      <example correction="アクセサリー">カタカナ用語には<marker>アクセサリ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-assmebler_" name="アセンブラー">
+      <pattern>
+        <token>アセンブラ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>アセンブラー</suggestion>を使います</message>
+      <example correction="アセンブラー">カタカナ用語には<marker>アセンブラ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-assembly_" name="アセンブリー">
+      <pattern>
+        <token>アセンブリ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>アセンブリー</suggestion>を使います</message>
+      <example correction="アセンブリー">カタカナ用語には<marker>アセンブリ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30a230c030d730bf" name="アダプター (長音)">
+      <pattern>
+        <token>アダプタ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>アダプター</suggestion>を使います</message>
+      <example correction="アダプター">カタカナ用語には<marker>アダプタ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30a230c030d730bf_" name="アダプタ" default="off">
+      <pattern>
+        <token>アダプター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>アダプタ</suggestion>を使います</message>
+      <example correction="アダプタ">カタカナ用語には<marker>アダプター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30a230c930d030a430b6" name="アドバイザー (長音)">
+      <pattern>
+        <token>アドバイザ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>アドバイザー</suggestion>を使います</message>
+      <example correction="アドバイザー">カタカナ用語には<marker>アドバイザ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30a230c930d030a430b6_" name="アドバイザ" default="off">
+      <pattern>
+        <token>アドバイザー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>アドバイザ</suggestion>を使います</message>
+      <example correction="アドバイザ">カタカナ用語には<marker>アドバイザー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30a230d630bd30fc30d0" name="アブソーバー (長音)">
+      <pattern>
+        <token>アブソーバ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>アブソーバー</suggestion>を使います</message>
+      <example correction="アブソーバー">カタカナ用語には<marker>アブソーバ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30a230d630bd30fc30d0_" name="アブソーバ" default="off">
+      <pattern>
+        <token>アブソーバー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>アブソーバ</suggestion>を使います</message>
+      <example correction="アブソーバ">カタカナ用語には<marker>アブソーバー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30a430ec30fc30b5" name="イレーサー (長音)">
+      <pattern>
+        <token>イレーサ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>イレーサー</suggestion>を使います</message>
+      <example correction="イレーサー">カタカナ用語には<marker>イレーサ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30a430ec30fc30b5_" name="イレーサ" default="off">
+      <pattern>
+        <token>イレーサー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>イレーサ</suggestion>を使います</message>
+      <example correction="イレーサ">カタカナ用語には<marker>イレーサー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30a430f330b830b130fc30bf" name="インジケーター (長音)">
+      <pattern>
+        <token>インジケータ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>インジケーター</suggestion>を使います</message>
+      <example correction="インジケーター">カタカナ用語には<marker>インジケータ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30a430f330b830b130fc30bf_" name="インジケータ" default="off">
+      <pattern>
+        <token>インジケーター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>インジケータ</suggestion>を使います</message>
+      <example correction="インジケータ">カタカナ用語には<marker>インジケーター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30a430f330b930c830e930af30bf" name="インストラクター (長音)">
+      <pattern>
+        <!-- イン[イン/名詞-一般*] ス[スる/動詞-自立*] トラクタ[トラクタ/名詞-一般*] -->
+        <token>イン</token>
+        <token>ス</token>
+        <token>トラクタ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>インストラクター</suggestion>を使います</message>
+      <example correction="インストラクター">カタカナ用語には<marker>インストラクタ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30a430f330b930c830e930af30bf_" name="インストラクタ" default="off">
+      <pattern>
+        <token>インストラクター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>インストラクタ</suggestion>を使います</message>
+      <example correction="インストラクタ">カタカナ用語には<marker>インストラクター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30a430f330bf30d330e5" name="インタビュー (長音)">
+      <pattern>
+        <token>インタビュ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>インタビュー</suggestion>を使います</message>
+      <example correction="インタビュー">カタカナ用語には<marker>インタビュ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30a430f330bf30d330e5_" name="インタビュ" default="off">
+      <pattern>
+        <token>インタビュー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>インタビュ</suggestion>を使います</message>
+      <example correction="インタビュ">カタカナ用語には<marker>インタビュー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30a830af30b930d730ed30fc30e9" name="エクスプローラー (長音)">
+      <pattern>
+        <token>エクスプローラ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>エクスプローラー</suggestion>を使います</message>
+      <example correction="エクスプローラー">カタカナ用語には<marker>エクスプローラ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30a830af30b930d730ed30fc30e9_" name="エクスプローラ" default="off">
+      <pattern>
+        <token>エクスプローラー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>エクスプローラ</suggestion>を使います</message>
+      <example correction="エクスプローラ">カタカナ用語には<marker>エクスプローラー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30a830b930ab30ec30fc30bf" name="エスカレーター (長音)">
+      <pattern>
+        <token>エスカレータ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>エスカレーター</suggestion>を使います</message>
+      <example correction="エスカレーター">カタカナ用語には<marker>エスカレータ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30a830b930ab30ec30fc30bf_" name="エスカレータ" default="off">
+      <pattern>
+        <token>エスカレーター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>エスカレータ</suggestion>を使います</message>
+      <example correction="エスカレータ">カタカナ用語には<marker>エスカレーター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30a830c730a330bf" name="エディター (長音)">
+      <pattern>
+        <token>エディタ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>エディター</suggestion>を使います</message>
+      <example correction="エディター">カタカナ用語には<marker>エディタ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30a830c730a330bf_" name="エディタ" default="off">
+      <pattern>
+        <token>エディター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>エディタ</suggestion>を使います</message>
+      <example correction="エディタ">カタカナ用語には<marker>エディター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30a830cd30eb30ae" name="エネルギー (長音)">
+      <pattern>
+        <token>エネルギ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>エネルギー</suggestion>を使います</message>
+      <example correction="エネルギー">カタカナ用語には<marker>エネルギ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30a830cd30eb30ae_" name="エネルギ" default="off">
+      <pattern>
+        <token>エネルギー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>エネルギ</suggestion>を使います</message>
+      <example correction="エネルギ">カタカナ用語には<marker>エネルギー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30a830ec30d930fc30bf" name="エレベーター (長音)">
+      <pattern>
+        <token>エレベータ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>エレベーター</suggestion>を使います</message>
+      <example correction="エレベーター">カタカナ用語には<marker>エレベータ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30a830ec30d930fc30bf_" name="エレベータ" default="off">
+      <pattern>
+        <token>エレベーター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>エレベータ</suggestion>を使います</message>
+      <example correction="エレベータ">カタカナ用語には<marker>エレベーター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30a830f330c830ea" name="エントリー (長音)">
+      <pattern>
+        <token>エントリ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>エントリー</suggestion>を使います</message>
+      <example correction="エントリー">カタカナ用語には<marker>エントリ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30a830f330c830ea_" name="エントリ" default="off">
+      <pattern>
+        <token>エントリー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>エントリ</suggestion>を使います</message>
+      <example correction="エントリ">カタカナ用語には<marker>エントリー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30aa30da30ec30fc30bf" name="オペレーター (長音)">
+      <pattern>
+        <token>オペレータ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>オペレーター</suggestion>を使います</message>
+      <example correction="オペレーター">カタカナ用語には<marker>オペレータ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30aa30da30ec30fc30bf_" name="オペレータ" default="off">
+      <pattern>
+        <token>オペレーター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>オペレータ</suggestion>を使います</message>
+      <example correction="オペレータ">カタカナ用語には<marker>オペレーター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30ab30a630f330bf" name="カウンター (長音)">
+      <pattern>
+        <token>カウンタ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>カウンター</suggestion>を使います</message>
+      <example correction="カウンター">カタカナ用語には<marker>カウンタ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30ab30a630f330bf_" name="カウンタ" default="off">
+      <pattern>
+        <token>カウンター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>カウンタ</suggestion>を使います</message>
+      <example correction="カウンタ">カタカナ用語には<marker>カウンター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30ab30b930bf30de" name="カスタマー (長音)">
+      <pattern>
+        <!-- カス[カス/名詞-固有名詞-一般*] タマ[タマ/名詞-固有名詞-人名-名*] -->
+        <token>カス</token>
+        <token>タマ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>カスタマー</suggestion>を使います</message>
+      <example correction="カスタマー">カタカナ用語には<marker>カスタマ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30ab30b930bf30de_" name="カスタマ" default="off">
+      <pattern>
+        <token>カスタマー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>カスタマ</suggestion>を使います</message>
+      <example correction="カスタマ">カタカナ用語には<marker>カスタマー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30ab30c630b430ea" name="カテゴリー (長音)">
+      <pattern>
+        <token>カテゴリ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>カテゴリー</suggestion>を使います</message>
+      <example correction="カテゴリー">カタカナ用語には<marker>カテゴリ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30ab30c630b430ea_" name="カテゴリ" default="off">
+      <pattern>
+        <token>カテゴリー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>カテゴリ</suggestion>を使います</message>
+      <example correction="カテゴリ">カタカナ用語には<marker>カテゴリー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30ab30d730e9" name="カプラー (長音)">
+      <pattern>
+        <token>カプラ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>カプラー</suggestion>を使います</message>
+      <example correction="カプラー">カタカナ用語には<marker>カプラ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30ab30d730e9_" name="カプラ" default="off">
+      <pattern>
+        <token>カプラー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>カプラ</suggestion>を使います</message>
+      <example correction="カプラ">カタカナ用語には<marker>カプラー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30ab30ec30f330c0" name="カレンダー (長音)">
+      <pattern>
+        <token>カレンダ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>カレンダー</suggestion>を使います</message>
+      <example correction="カレンダー">カタカナ用語には<marker>カレンダ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30ab30ec30f330c0_" name="カレンダ" default="off">
+      <pattern>
+        <token>カレンダー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>カレンダ</suggestion>を使います</message>
+      <example correction="カレンダ">カタカナ用語には<marker>カレンダー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30ad30e330e930af30bf" name="キャラクター (長音)">
+      <pattern>
+        <token>キャラクタ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>キャラクター</suggestion>を使います</message>
+      <example correction="キャラクター">カタカナ用語には<marker>キャラクタ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30ad30e330e930af30bf_" name="キャラクタ" default="off">
+      <pattern>
+        <token>キャラクター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>キャラクタ</suggestion>を使います</message>
+      <example correction="キャラクタ">カタカナ用語には<marker>キャラクター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30af30fc30e9" name="クーラー (長音)">
+      <pattern>
+        <token>クーラ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>クーラー</suggestion>を使います</message>
+      <example correction="クーラー">カタカナ用語には<marker>クーラ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30af30fc30e9_" name="クーラ" default="off">
+      <pattern>
+        <token>クーラー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>クーラ</suggestion>を使います</message>
+      <example correction="クーラ">カタカナ用語には<marker>クーラー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30af30ea30fc30ca" name="クリーナー (長音)">
+      <pattern>
+        <!-- ク[ク/名詞-一般*] リー[リー/名詞-固有名詞-人名-姓*] ナ[ナ/助詞-終助詞*] -->
+        <token>ク</token>
+        <token>リー</token>
+        <token>ナ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>クリーナー</suggestion>を使います</message>
+      <example correction="クリーナー">カタカナ用語には<marker>クリーナ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30af30ea30fc30ca_" name="クリーナ" default="off">
+      <pattern>
+        <token>クリーナー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>クリーナ</suggestion>を使います</message>
+      <example correction="クリーナ">カタカナ用語には<marker>クリーナー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b330fc30c730a330cd30fc30bf" name="コーディネーター (長音)">
+      <pattern>
+        <token>コーディネータ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>コーディネーター</suggestion>を使います</message>
+      <example correction="コーディネーター">カタカナ用語には<marker>コーディネータ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b330fc30c730a330cd30fc30bf_" name="コーディネータ" default="off">
+      <pattern>
+        <token>コーディネーター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>コーディネータ</suggestion>を使います</message>
+      <example correction="コーディネータ">カタカナ用語には<marker>コーディネーター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b330fc30ca" name="コーナー (長音)">
+      <pattern>
+        <token>コーナ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>コーナー</suggestion>を使います</message>
+      <example correction="コーナー">カタカナ用語には<marker>コーナ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b330fc30ca_" name="コーナ" default="off">
+      <pattern>
+        <token>コーナー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>コーナ</suggestion>を使います</message>
+      <example correction="コーナ">カタカナ用語には<marker>コーナー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b330cd30af30bf" name="コネクター (長音)">
+      <pattern>
+        <token>コネクタ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>コネクター</suggestion>を使います</message>
+      <example correction="コネクター">カタカナ用語には<marker>コネクタ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b330cd30af30bf_" name="コネクタ" default="off">
+      <pattern>
+        <token>コネクター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>コネクタ</suggestion>を使います</message>
+      <example correction="コネクタ">カタカナ用語には<marker>コネクター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b330df30e530cb30c630a3" name="コミュニティー (長音)">
+      <pattern>
+        <token>コミュニティ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>コミュニティー</suggestion>を使います</message>
+      <example correction="コミュニティー">カタカナ用語には<marker>コミュニティ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b330df30e530cb30c630a3_" name="コミュニティ" default="off">
+      <pattern>
+        <token>コミュニティー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>コミュニティ</suggestion>を使います</message>
+      <example correction="コミュニティ">カタカナ用語には<marker>コミュニティー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b330f330c030af30bf" name="コンダクター (長音)">
+      <pattern>
+        <token>コンダクタ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>コンダクター</suggestion>を使います</message>
+      <example correction="コンダクター">カタカナ用語には<marker>コンダクタ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b330f330c030af30bf_" name="コンダクタ" default="off">
+      <pattern>
+        <token>コンダクター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>コンダクタ</suggestion>を使います</message>
+      <example correction="コンダクタ">カタカナ用語には<marker>コンダクター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b330f330c730f330b5" name="コンデンサー (長音)">
+      <pattern>
+        <token>コンデンサ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>コンデンサー</suggestion>を使います</message>
+      <example correction="コンデンサー">カタカナ用語には<marker>コンデンサ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b330f330c730f330b5_" name="コンデンサ" default="off">
+      <pattern>
+        <token>コンデンサー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>コンデンサ</suggestion>を使います</message>
+      <example correction="コンデンサ">カタカナ用語には<marker>コンデンサー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b330f330c830ed30fc30e9" name="コントローラー (長音)">
+      <pattern>
+        <token>コントローラ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>コントローラー</suggestion>を使います</message>
+      <example correction="コントローラー">カタカナ用語には<marker>コントローラ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b330f330c830ed30fc30e9_" name="コントローラ" default="off">
+      <pattern>
+        <token>コントローラー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>コントローラ</suggestion>を使います</message>
+      <example correction="コントローラ">カタカナ用語には<marker>コントローラー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b330f330d030fc30bf" name="コンバーター (長音)">
+      <pattern>
+        <token>コンバータ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>コンバーター</suggestion>を使います</message>
+      <example correction="コンバーター">カタカナ用語には<marker>コンバータ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b330f330d030fc30bf_" name="コンバータ" default="off">
+      <pattern>
+        <token>コンバーター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>コンバータ</suggestion>を使います</message>
+      <example correction="コンバータ">カタカナ用語には<marker>コンバーター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b330f330d130a430e9" name="コンパイラー (長音)">
+      <pattern>
+        <token>コンパイラ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>コンパイラー</suggestion>を使います</message>
+      <example correction="コンパイラー">カタカナ用語には<marker>コンパイラ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b330f330d130a430e9_" name="コンパイラ" default="off">
+      <pattern>
+        <token>コンパイラー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>コンパイラ</suggestion>を使います</message>
+      <example correction="コンパイラ">カタカナ用語には<marker>コンパイラー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b330f330d430e530fc30bf" name="コンピューター (長音)">
+      <pattern>
+        <token>コンピュータ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>コンピューター</suggestion>を使います</message>
+      <example correction="コンピューター">カタカナ用語には<marker>コンピュータ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b330f330d430e530fc30bf_" name="コンピュータ" default="off">
+      <pattern>
+        <token>コンピューター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>コンピュータ</suggestion>を使います</message>
+      <example correction="コンピュータ">カタカナ用語には<marker>コンピューター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b530de30ea" name="サマリー (長音)">
+      <pattern>
+        <!-- サマ[サマ/名詞-接尾-人名*] リ[リ/名詞-固有名詞-一般*] -->
+        <token>サマ</token>
+        <token>リ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>サマリー</suggestion>を使います</message>
+      <example correction="サマリー">カタカナ用語には<marker>サマリ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b530de30ea_" name="サマリ" default="off">
+      <pattern>
+        <token>サマリー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>サマリ</suggestion>を使います</message>
+      <example correction="サマリ">カタカナ用語には<marker>サマリー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b830a730cd30ec30fc30bf" name="ジェネレーター (長音)">
+      <pattern>
+        <token>ジェネレータ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>ジェネレーター</suggestion>を使います</message>
+      <example correction="ジェネレーター">カタカナ用語には<marker>ジェネレータ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b830a730cd30ec30fc30bf_" name="ジェネレータ" default="off">
+      <pattern>
+        <token>ジェネレーター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>ジェネレータ</suggestion>を使います</message>
+      <example correction="ジェネレータ">カタカナ用語には<marker>ジェネレーター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b730df30e530ec30fc30bf" name="シミュレーター (長音)">
+      <pattern>
+        <token>シミュレータ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>シミュレーター</suggestion>を使います</message>
+      <example correction="シミュレーター">カタカナ用語には<marker>シミュレータ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b730df30e530ec30fc30bf_" name="シミュレータ" default="off">
+      <pattern>
+        <token>シミュレーター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>シミュレータ</suggestion>を使います</message>
+      <example correction="シミュレータ">カタカナ用語には<marker>シミュレーター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b730e330c330bf" name="シャッター (長音)">
+      <pattern>
+        <token>シャッタ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>シャッター</suggestion>を使います</message>
+      <example correction="シャッター">カタカナ用語には<marker>シャッタ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b730e330c330bf_" name="シャッタ" default="off">
+      <pattern>
+        <token>シャッター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>シャッタ</suggestion>を使います</message>
+      <example correction="シャッタ">カタカナ用語には<marker>シャッター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b730f330ca" name="シンナー (長音)">
+      <pattern>
+        <!-- シ[シ/名詞-一般*] ン[ン/名詞-非自立-一般*] ナ[ナ/助詞-終助詞*] -->
+        <token>シ</token>
+        <token>ン</token>
+        <token>ナ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>シンナー</suggestion>を使います</message>
+      <example correction="シンナー">カタカナ用語には<marker>シンナ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b730f330ca_" name="シンナ" default="off">
+      <pattern>
+        <token>シンナー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>シンナ</suggestion>を使います</message>
+      <example correction="シンナ">カタカナ用語には<marker>シンナー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b930fc30d130fc30d030a430b6" name="スーパーバイザー (長音)">
+      <pattern>
+        <token>スーパーバイザ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>スーパーバイザー</suggestion>を使います</message>
+      <example correction="スーパーバイザー">カタカナ用語には<marker>スーパーバイザ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b930fc30d130fc30d030a430b6_" name="スーパーバイザ" default="off">
+      <pattern>
+        <!-- スーパー[スーパー/名詞-一般*] バイザー[バイザー/名詞-一般*] -->
+        <token>スーパー</token>
+        <token>バイザー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>スーパーバイザ</suggestion>を使います</message>
+      <example correction="スーパーバイザ">カタカナ用語には<marker>スーパーバイザー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b930ad30e330ca" name="スキャナー (長音)">
+      <pattern>
+        <token>スキャナ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>スキャナー</suggestion>を使います</message>
+      <example correction="スキャナー">カタカナ用語には<marker>スキャナ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b930ad30e330ca_" name="スキャナ" default="off">
+      <pattern>
+        <token>スキャナー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>スキャナ</suggestion>を使います</message>
+      <example correction="スキャナ">カタカナ用語には<marker>スキャナー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b930bf30c330ab" name="スタッカー (長音)">
+      <pattern>
+        <token>スタッカ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>スタッカー</suggestion>を使います</message>
+      <example correction="スタッカー">カタカナ用語には<marker>スタッカ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30b930bf30c330ab_" name="スタッカ" default="off">
+      <pattern>
+        <token>スタッカー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>スタッカ</suggestion>を使います</message>
+      <example correction="スタッカ">カタカナ用語には<marker>スタッカー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30bb30fc30d0" name="セーバー (長音)">
+      <pattern>
+        <token>セーバ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>セーバー</suggestion>を使います</message>
+      <example correction="セーバー">カタカナ用語には<marker>セーバ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30bb30fc30d0_" name="セーバ" default="off">
+      <pattern>
+        <token>セーバー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>セーバ</suggestion>を使います</message>
+      <example correction="セーバ">カタカナ用語には<marker>セーバー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30bb30fc30d530c630a3" name="セーフティー (長音)">
+      <pattern>
+        <token>セーフティ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>セーフティー</suggestion>を使います</message>
+      <example correction="セーフティー">カタカナ用語には<marker>セーフティ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30bb30fc30d530c630a3_" name="セーフティ" default="off">
+      <pattern>
+        <token>セーフティー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>セーフティ</suggestion>を使います</message>
+      <example correction="セーフティ">カタカナ用語には<marker>セーフティー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30bb30ad30e530ea30c630a3" name="セキュリティー (長音)">
+      <pattern>
+        <token>セキュリティ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>セキュリティー</suggestion>を使います</message>
+      <example correction="セキュリティー">カタカナ用語には<marker>セキュリティ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30bb30ad30e530ea30c630a3_" name="セキュリティ" default="off">
+      <pattern>
+        <token>セキュリティー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>セキュリティ</suggestion>を使います</message>
+      <example correction="セキュリティ">カタカナ用語には<marker>セキュリティー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30bb30d130ec30fc30bf" name="セパレーター (長音)">
+      <pattern>
+        <token>セパレータ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>セパレーター</suggestion>を使います</message>
+      <example correction="セパレーター">カタカナ用語には<marker>セパレータ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30bb30d130ec30fc30bf_" name="セパレータ" default="off">
+      <pattern>
+        <token>セパレーター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>セパレータ</suggestion>を使います</message>
+      <example correction="セパレータ">カタカナ用語には<marker>セパレーター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30bb30ec30af30bf" name="セレクター (長音)">
+      <pattern>
+        <token>セレクタ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>セレクター</suggestion>を使います</message>
+      <example correction="セレクター">カタカナ用語には<marker>セレクタ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30bb30ec30af30bf_" name="セレクタ" default="off">
+      <pattern>
+        <token>セレクター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>セレクタ</suggestion>を使います</message>
+      <example correction="セレクタ">カタカナ用語には<marker>セレクター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30bb30f330b5" name="センサー (長音)">
+      <pattern>
+        <token>センサ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>センサー</suggestion>を使います</message>
+      <example correction="センサー">カタカナ用語には<marker>センサ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30bb30f330b5_" name="センサ" default="off">
+      <pattern>
+        <token>センサー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>センサ</suggestion>を使います</message>
+      <example correction="センサ">カタカナ用語には<marker>センサー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30bd30fc30bf" name="ソーター (長音)">
+      <pattern>
+        <token>ソータ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>ソーター</suggestion>を使います</message>
+      <example correction="ソーター">カタカナ用語には<marker>ソータ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30bd30fc30bf_" name="ソータ" default="off">
+      <pattern>
+        <token>ソーター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>ソータ</suggestion>を使います</message>
+      <example correction="ソータ">カタカナ用語には<marker>ソーター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30c030a430a230ea" name="ダイアリー (長音)">
+      <pattern>
+        <token>ダイアリ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>ダイアリー</suggestion>を使います</message>
+      <example correction="ダイアリー">カタカナ用語には<marker>ダイアリ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30c030a430a230ea_" name="ダイアリ" default="off">
+      <pattern>
+        <token>ダイアリー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>ダイアリ</suggestion>を使います</message>
+      <example correction="ダイアリ">カタカナ用語には<marker>ダイアリー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30bf30a430d730e930a430bf" name="タイプライター (長音)">
+      <pattern>
+        <token>タイプライタ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>タイプライター</suggestion>を使います</message>
+      <example correction="タイプライター">カタカナ用語には<marker>タイプライタ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30bf30a430d730e930a430bf_" name="タイプライタ" default="off">
+      <pattern>
+        <token>タイプライター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>タイプライタ</suggestion>を使います</message>
+      <example correction="タイプライタ">カタカナ用語には<marker>タイプライター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30bf30a430de" name="タイマー (長音)">
+      <pattern>
+        <token>タイマ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>タイマー</suggestion>を使います</message>
+      <example correction="タイマー">カタカナ用語には<marker>タイマ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30bf30a430de_" name="タイマ" default="off">
+      <pattern>
+        <token>タイマー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>タイマ</suggestion>を使います</message>
+      <example correction="タイマ">カタカナ用語には<marker>タイマー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30c130e330fc30b830e3" name="チャージャー (長音)">
+      <pattern>
+        <token>チャージャ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>チャージャー</suggestion>を使います</message>
+      <example correction="チャージャー">カタカナ用語には<marker>チャージャ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30c130e330fc30b830e3_" name="チャージャ" default="off">
+      <pattern>
+        <token>チャージャー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>チャージャ</suggestion>を使います</message>
+      <example correction="チャージャ">カタカナ用語には<marker>チャージャー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30c730a330ec30af30bf" name="ディレクター (長音)">
+      <pattern>
+        <token>ディレクタ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>ディレクター</suggestion>を使います</message>
+      <example correction="ディレクター">カタカナ用語には<marker>ディレクタ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30c730a330ec30af30bf_" name="ディレクタ" default="off">
+      <pattern>
+        <token>ディレクター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>ディレクタ</suggestion>を使います</message>
+      <example correction="ディレクタ">カタカナ用語には<marker>ディレクター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30c730a330ec30af30c830ea" name="ディレクトリー (長音)">
+      <pattern>
+        <token>ディレクトリ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>ディレクトリー</suggestion>を使います</message>
+      <example correction="ディレクトリー">カタカナ用語には<marker>ディレクトリ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30c730a330ec30af30c830ea_" name="ディレクトリ" default="off">
+      <pattern>
+        <token>ディレクトリー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>ディレクトリ</suggestion>を使います</message>
+      <example correction="ディレクトリ">カタカナ用語には<marker>ディレクトリー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30c730b330fc30c0" name="デコーダー (長音)">
+      <pattern>
+        <token>デコーダ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>デコーダー</suggestion>を使います</message>
+      <example correction="デコーダー">カタカナ用語には<marker>デコーダ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30c730b330fc30c0_" name="デコーダ" default="off">
+      <pattern>
+        <token>デコーダー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>デコーダ</suggestion>を使います</message>
+      <example correction="デコーダ">カタカナ用語には<marker>デコーダー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30c730ea30d030ea" name="デリバリー (長音)">
+      <pattern>
+        <!-- デ[デ/助詞-格助詞-一般*] リ[リ/名詞-固有名詞-一般*] バリ[バリ/名詞-固有名詞-地域-一般*] -->
+        <token>デ</token>
+        <token>リ</token>
+        <token>バリ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>デリバリー</suggestion>を使います</message>
+      <example correction="デリバリー">カタカナ用語には<marker>デリバリ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30c730ea30d030ea_" name="デリバリ" default="off">
+      <pattern>
+        <token>デリバリー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>デリバリ</suggestion>を使います</message>
+      <example correction="デリバリ">カタカナ用語には<marker>デリバリー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30c930e930a430d0" name="ドライバー (長音)">
+      <pattern>
+        <token>ドライバ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>ドライバー</suggestion>を使います</message>
+      <example correction="ドライバー">カタカナ用語には<marker>ドライバ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30c930e930a430d0_" name="ドライバ" default="off">
+      <pattern>
+        <token>ドライバー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>ドライバ</suggestion>を使います</message>
+      <example correction="ドライバ">カタカナ用語には<marker>ドライバー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30c830e930f330b730fc30d0" name="トランシーバー (長音)">
+      <pattern>
+        <token>トランシーバ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>トランシーバー</suggestion>を使います</message>
+      <example correction="トランシーバー">カタカナ用語には<marker>トランシーバ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30c830e930f330b730fc30d0_" name="トランシーバ" default="off">
+      <pattern>
+        <token>トランシーバー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>トランシーバ</suggestion>を使います</message>
+      <example correction="トランシーバ">カタカナ用語には<marker>トランシーバー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30c830e930f330b930df30c330bf" name="トランスミッター (長音)">
+      <pattern>
+        <token>トランスミッタ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>トランスミッター</suggestion>を使います</message>
+      <example correction="トランスミッター">カタカナ用語には<marker>トランスミッタ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30c830e930f330b930df30c330bf_" name="トランスミッタ" default="off">
+      <pattern>
+        <token>トランスミッター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>トランスミッタ</suggestion>を使います</message>
+      <example correction="トランスミッタ">カタカナ用語には<marker>トランスミッター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30c830ec30fc30ca" name="トレーナー (長音)">
+      <pattern>
+        <!-- トレー[トレー/名詞-一般*] ナ[ナ/助詞-終助詞*] -->
+        <token>トレー</token>
+        <token>ナ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>トレーナー</suggestion>を使います</message>
+      <example correction="トレーナー">カタカナ用語には<marker>トレーナ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30c830ec30fc30ca_" name="トレーナ" default="off">
+      <pattern>
+        <token>トレーナー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>トレーナ</suggestion>を使います</message>
+      <example correction="トレーナ">カタカナ用語には<marker>トレーナー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d130fc30c630a3" name="パーティー (長音)">
+      <pattern>
+        <token>パーティ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>パーティー</suggestion>を使います</message>
+      <example correction="パーティー">カタカナ用語には<marker>パーティ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d130fc30c630a3_" name="パーティ" default="off">
+      <pattern>
+        <token>パーティー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>パーティ</suggestion>を使います</message>
+      <example correction="パーティ">カタカナ用語には<marker>パーティー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d030a430ca30ea" name="バイナリー (長音)">
+      <pattern>
+        <token>バイナリ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>バイナリー</suggestion>を使います</message>
+      <example correction="バイナリー">カタカナ用語には<marker>バイナリ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d030a430ca30ea_" name="バイナリ" default="off">
+      <pattern>
+        <!-- バイ[バイ/名詞-一般*] ナ[ナ/助詞-終助詞*] リー[リー/名詞-固有名詞-人名-姓*] -->
+        <token>バイ</token>
+        <token>ナ</token>
+        <token>リー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>バイナリ</suggestion>を使います</message>
+      <example correction="バイナリ">カタカナ用語には<marker>バイナリー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d030a430f330c0" name="バインダー (長音)">
+      <pattern>
+        <token>バインダ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>バインダー</suggestion>を使います</message>
+      <example correction="バインダー">カタカナ用語には<marker>バインダ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d030a430f330c0_" name="バインダ" default="off">
+      <pattern>
+        <token>バインダー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>バインダ</suggestion>を使います</message>
+      <example correction="バインダ">カタカナ用語には<marker>バインダー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d030a430f330c030ea" name="バインダリー (長音)">
+      <pattern>
+        <!-- バイ[バイ/名詞-一般*] ン[ン/名詞-非自立-一般*] ダリ[ダリ/名詞-固有名詞-人名-姓*] -->
+        <token>バイ</token>
+        <token>ン</token>
+        <token>ダリ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>バインダリー</suggestion>を使います</message>
+      <example correction="バインダリー">カタカナ用語には<marker>バインダリ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d030a430f330c030ea_" name="バインダリ" default="off">
+      <pattern>
+        <token>バインダリー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>バインダリ</suggestion>を使います</message>
+      <example correction="バインダリ">カタカナ用語には<marker>バインダリー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d030c330c630ea" name="バッテリー (長音)">
+      <pattern>
+        <token>バッテリ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>バッテリー</suggestion>を使います</message>
+      <example correction="バッテリー">カタカナ用語には<marker>バッテリ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d030c330c630ea_" name="バッテリ" default="off">
+      <pattern>
+        <token>バッテリー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>バッテリ</suggestion>を使います</message>
+      <example correction="バッテリ">カタカナ用語には<marker>バッテリー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d030c330d530a1" name="バッファー (長音)">
+      <pattern>
+        <token>バッファ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>バッファー</suggestion>を使います</message>
+      <example correction="バッファー">カタカナ用語には<marker>バッファ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d030c330d530a1_" name="バッファ" default="off">
+      <pattern>
+        <token>バッファー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>バッファ</suggestion>を使います</message>
+      <example correction="バッファ">カタカナ用語には<marker>バッファー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d030ca" name="バナー (長音)">
+      <pattern>
+        <token>バナ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>バナー</suggestion>を使います</message>
+      <example correction="バナー">カタカナ用語には<marker>バナ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d030ca_" name="バナ" default="off">
+      <pattern>
+        <token>バナー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>バナ</suggestion>を使います</message>
+      <example correction="バナ">カタカナ用語には<marker>バナー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d030e930a830c630a3" name="バラエティー (長音)">
+      <pattern>
+        <token>バラエティ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>バラエティー</suggestion>を使います</message>
+      <example correction="バラエティー">カタカナ用語には<marker>バラエティ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d030e930a830c630a3_" name="バラエティ" default="off">
+      <pattern>
+        <token>バラエティー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>バラエティ</suggestion>を使います</message>
+      <example correction="バラエティ">カタカナ用語には<marker>バラエティー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d130e930e130fc30bf" name="パラメーター (長音)">
+      <pattern>
+        <token>パラメータ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>パラメーター</suggestion>を使います</message>
+      <example correction="パラメーター">カタカナ用語には<marker>パラメータ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d130e930e130fc30bf_" name="パラメータ" default="off">
+      <pattern>
+        <token>パラメーター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>パラメータ</suggestion>を使います</message>
+      <example correction="パラメータ">カタカナ用語には<marker>パラメーター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30cf30f330c730a3" name="ハンディー (長音)">
+      <pattern>
+        <token>ハンディ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>ハンディー</suggestion>を使います</message>
+      <example correction="ハンディー">カタカナ用語には<marker>ハンディ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30cf30f330c730a3_" name="ハンディ" default="off">
+      <pattern>
+        <token>ハンディー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>ハンディ</suggestion>を使います</message>
+      <example correction="ハンディ">カタカナ用語には<marker>ハンディー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30cf30f330c930e9" name="ハンドラー (長音)">
+      <pattern>
+        <token>ハンドラ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>ハンドラー</suggestion>を使います</message>
+      <example correction="ハンドラー">カタカナ用語には<marker>ハンドラ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30cf30f330c930e9_" name="ハンドラ" default="off">
+      <pattern>
+        <token>ハンドラー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>ハンドラ</suggestion>を使います</message>
+      <example correction="ハンドラ">カタカナ用語には<marker>ハンドラー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d330e530fc30a2" name="ビューアー (長音)">
+      <pattern>
+        <token>ビューア</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>ビューアー</suggestion>を使います</message>
+      <example correction="ビューアー">カタカナ用語には<marker>ビューア</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d330e530fc30a2_" name="ビューア" default="off">
+      <pattern>
+        <token>ビューアー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>ビューア</suggestion>を使います</message>
+      <example correction="ビューア">カタカナ用語には<marker>ビューアー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d530a130a430f330c0" name="ファインダー (長音)">
+      <pattern>
+        <token>ファインダ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>ファインダー</suggestion>を使います</message>
+      <example correction="ファインダー">カタカナ用語には<marker>ファインダ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d530a130a430f330c0_" name="ファインダ" default="off">
+      <pattern>
+        <token>ファインダー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>ファインダ</suggestion>を使います</message>
+      <example correction="ファインダ">カタカナ用語には<marker>ファインダー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d530a130df30ea" name="ファミリー (長音)">
+      <pattern>
+        <token>ファミリ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>ファミリー</suggestion>を使います</message>
+      <example correction="ファミリー">カタカナ用語には<marker>ファミリ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d530a130df30ea_" name="ファミリ" default="off">
+      <pattern>
+        <token>ファミリー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>ファミリ</suggestion>を使います</message>
+      <example correction="ファミリ">カタカナ用語には<marker>ファミリー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d530a330fc30c0" name="フィーダー (長音)">
+      <pattern>
+        <token>フィーダ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>フィーダー</suggestion>を使います</message>
+      <example correction="フィーダー">カタカナ用語には<marker>フィーダ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d530a330fc30c0_" name="フィーダ" default="off">
+      <pattern>
+        <token>フィーダー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>フィーダ</suggestion>を使います</message>
+      <example correction="フィーダ">カタカナ用語には<marker>フィーダー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d530a330eb30bf" name="フィルター (長音)">
+      <pattern>
+        <token>フィルタ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>フィルター</suggestion>を使います</message>
+      <example correction="フィルター">カタカナ用語には<marker>フィルタ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d530a330eb30bf_" name="フィルタ" default="off">
+      <pattern>
+        <token>フィルター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>フィルタ</suggestion>を使います</message>
+      <example correction="フィルタ">カタカナ用語には<marker>フィルター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d530a930eb30c0" name="フォルダー (長音)">
+      <pattern>
+        <token>フォルダ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>フォルダー</suggestion>を使います</message>
+      <example correction="フォルダー">カタカナ用語には<marker>フォルダ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d530a930eb30c0_" name="フォルダ" default="off">
+      <pattern>
+        <token>フォルダー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>フォルダ</suggestion>を使います</message>
+      <example correction="フォルダ">カタカナ用語には<marker>フォルダー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d530c330bf" name="フッター (長音)">
+      <pattern>
+        <token>フッタ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>フッター</suggestion>を使います</message>
+      <example correction="フッター">カタカナ用語には<marker>フッタ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d530c330bf_" name="フッタ" default="off">
+      <pattern>
+        <token>フッター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>フッタ</suggestion>を使います</message>
+      <example correction="フッタ">カタカナ用語には<marker>フッター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d530e530fc30b6" name="フューザー (長音)">
+      <pattern>
+        <token>フューザ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>フューザー</suggestion>を使います</message>
+      <example correction="フューザー">カタカナ用語には<marker>フューザ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d530e530fc30b6_" name="フューザ" default="off">
+      <pattern>
+        <token>フューザー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>フューザ</suggestion>を使います</message>
+      <example correction="フューザ">カタカナ用語には<marker>フューザー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d730e930a430de30ea" name="プライマリー (長音)">
+      <pattern>
+        <token>プライマリ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>プライマリー</suggestion>を使います</message>
+      <example correction="プライマリー">カタカナ用語には<marker>プライマリ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d730e930a430de30ea_" name="プライマリ" default="off">
+      <pattern>
+        <token>プライマリー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>プライマリ</suggestion>を使います</message>
+      <example correction="プライマリ">カタカナ用語には<marker>プライマリー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d630e930a630b6" name="ブラウザー (長音)">
+      <pattern>
+        <token>ブラウザ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>ブラウザー</suggestion>を使います</message>
+      <example correction="ブラウザー">カタカナ用語には<marker>ブラウザ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d630e930a630b6_" name="ブラウザ" default="off">
+      <pattern>
+        <token>ブラウザー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>ブラウザ</suggestion>を使います</message>
+      <example correction="ブラウザ">カタカナ用語には<marker>ブラウザー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d730ea30f330bf" name="プリンター (長音)">
+      <pattern>
+        <token>プリンタ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>プリンター</suggestion>を使います</message>
+      <example correction="プリンター">カタカナ用語には<marker>プリンタ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d730ea30f330bf_" name="プリンタ" default="off">
+      <pattern>
+        <token>プリンター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>プリンタ</suggestion>を使います</message>
+      <example correction="プリンタ">カタカナ用語には<marker>プリンター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d730ec30fc30e4" name="プレーヤー (長音)">
+      <pattern>
+        <token>プレーヤ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>プレーヤー</suggestion>を使います</message>
+      <example correction="プレーヤー">カタカナ用語には<marker>プレーヤ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d730ec30fc30e4_" name="プレーヤ" default="off">
+      <pattern>
+        <token>プレーヤー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>プレーヤ</suggestion>を使います</message>
+      <example correction="プレーヤ">カタカナ用語には<marker>プレーヤー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d730ed30b830a730af30bf" name="プロジェクター (長音)">
+      <pattern>
+        <token>プロジェクタ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>プロジェクター</suggestion>を使います</message>
+      <example correction="プロジェクター">カタカナ用語には<marker>プロジェクタ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d730ed30b830a730af30bf_" name="プロジェクタ" default="off">
+      <pattern>
+        <token>プロジェクター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>プロジェクタ</suggestion>を使います</message>
+      <example correction="プロジェクタ">カタカナ用語には<marker>プロジェクター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d730ed30bb30c330b5" name="プロセッサー (長音)">
+      <pattern>
+        <token>プロセッサ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>プロセッサー</suggestion>を使います</message>
+      <example correction="プロセッサー">カタカナ用語には<marker>プロセッサ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d730ed30bb30c330b5_" name="プロセッサ" default="off">
+      <pattern>
+        <token>プロセッサー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>プロセッサ</suggestion>を使います</message>
+      <example correction="プロセッサ">カタカナ用語には<marker>プロセッサー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d730ed30c330bf" name="プロッター (長音)">
+      <pattern>
+        <token>プロッタ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>プロッター</suggestion>を使います</message>
+      <example correction="プロッター">カタカナ用語には<marker>プロッタ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d730ed30c330bf_" name="プロッタ" default="off">
+      <pattern>
+        <token>プロッター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>プロッタ</suggestion>を使います</message>
+      <example correction="プロッタ">カタカナ用語には<marker>プロッター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d530ed30c330d4" name="フロッピー (長音)">
+      <pattern>
+        <token>フロッピ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>フロッピー</suggestion>を使います</message>
+      <example correction="フロッピー">カタカナ用語には<marker>フロッピ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d530ed30c330d4_" name="フロッピ" default="off">
+      <pattern>
+        <token>フロッピー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>フロッピ</suggestion>を使います</message>
+      <example correction="フロッピ">カタカナ用語には<marker>フロッピー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d730ed30d030a430c0" name="プロバイダー (長音)">
+      <pattern>
+        <token>プロバイダ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>プロバイダー</suggestion>を使います</message>
+      <example correction="プロバイダー">カタカナ用語には<marker>プロバイダ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d730ed30d030a430c0_" name="プロバイダ" default="off">
+      <pattern>
+        <token>プロバイダー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>プロバイダ</suggestion>を使います</message>
+      <example correction="プロバイダ">カタカナ用語には<marker>プロバイダー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d830c330c0" name="ヘッダー (長音)">
+      <pattern>
+        <token>ヘッダ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>ヘッダー</suggestion>を使います</message>
+      <example correction="ヘッダー">カタカナ用語には<marker>ヘッダ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30d830c330c0_" name="ヘッダ" default="off">
+      <pattern>
+        <token>ヘッダー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>ヘッダ</suggestion>を使います</message>
+      <example correction="ヘッダ">カタカナ用語には<marker>ヘッダー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30dd30a430f330bf" name="ポインター (長音)">
+      <pattern>
+        <token>ポインタ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>ポインター</suggestion>を使います</message>
+      <example correction="ポインター">カタカナ用語には<marker>ポインタ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30dd30a430f330bf_" name="ポインタ" default="off">
+      <pattern>
+        <token>ポインター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>ポインタ</suggestion>を使います</message>
+      <example correction="ポインタ">カタカナ用語には<marker>ポインター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30dc30c730a3" name="ボディー (長音)">
+      <pattern>
+        <token>ボディ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>ボディー</suggestion>を使います</message>
+      <example correction="ボディー">カタカナ用語には<marker>ボディ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30dc30c730a3_" name="ボディ" default="off">
+      <pattern>
+        <token>ボディー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>ボディ</suggestion>を使います</message>
+      <example correction="ボディ">カタカナ用語には<marker>ボディー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30dd30ea30b7" name="ポリシー (長音)">
+      <pattern>
+        <!-- ポリ[ポリ/名詞-一般*] シ[シ/名詞-一般*] -->
+        <token>ポリ</token>
+        <token>シ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>ポリシー</suggestion>を使います</message>
+      <example correction="ポリシー">カタカナ用語には<marker>ポリシ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30dd30ea30b7_" name="ポリシ" default="off">
+      <pattern>
+        <token>ポリシー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>ポリシ</suggestion>を使います</message>
+      <example correction="ポリシ">カタカナ用語には<marker>ポリシー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30de30fc30ab" name="マーカー (長音)">
+      <pattern>
+        <token>マーカ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>マーカー</suggestion>を使います</message>
+      <example correction="マーカー">カタカナ用語には<marker>マーカ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30de30fc30ab_" name="マーカ" default="off">
+      <pattern>
+        <token>マーカー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>マーカ</suggestion>を使います</message>
+      <example correction="マーカ">カタカナ用語には<marker>マーカー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30de30b930bf" name="マスター (長音)">
+      <pattern>
+        <token>マスタ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>マスター</suggestion>を使います</message>
+      <example correction="マスター">カタカナ用語には<marker>マスタ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30de30b930bf_" name="マスタ" default="off">
+      <pattern>
+        <token>マスター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>マスタ</suggestion>を使います</message>
+      <example correction="マスタ">カタカナ用語には<marker>マスター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30de30cd30fc30b830e3" name="マネージャー (長音)">
+      <pattern>
+        <token>マネージャ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>マネージャー</suggestion>を使います</message>
+      <example correction="マネージャー">カタカナ用語には<marker>マネージャ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30de30cd30fc30b830e3_" name="マネージャ" default="off">
+      <pattern>
+        <token>マネージャー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>マネージャ</suggestion>を使います</message>
+      <example correction="マネージャ">カタカナ用語には<marker>マネージャー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30e130fc30ab" name="メーカー (長音)">
+      <pattern>
+        <token>メーカ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>メーカー</suggestion>を使います</message>
+      <example correction="メーカー">カタカナ用語には<marker>メーカ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30e130fc30ab_" name="メーカ" default="off">
+      <pattern>
+        <token>メーカー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>メーカ</suggestion>を使います</message>
+      <example correction="メーカ">カタカナ用語には<marker>メーカー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30e130fc30bf" name="メーター (長音)">
+      <pattern>
+        <token>メータ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>メーター</suggestion>を使います</message>
+      <example correction="メーター">カタカナ用語には<marker>メータ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30e130fc30bf_" name="メータ" default="off">
+      <pattern>
+        <token>メーター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>メータ</suggestion>を使います</message>
+      <example correction="メータ">カタカナ用語には<marker>メーター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30e130e230ea" name="メモリー (長音)">
+      <pattern>
+        <token>メモリ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>メモリー</suggestion>を使います</message>
+      <example correction="メモリー">カタカナ用語には<marker>メモリ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30e130e230ea_" name="メモリ" default="off">
+      <pattern>
+        <token>メモリー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>メモリ</suggestion>を使います</message>
+      <example correction="メモリ">カタカナ用語には<marker>メモリー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30e130ed30c730a3" name="メロディー (長音)">
+      <pattern>
+        <token>メロディ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>メロディー</suggestion>を使います</message>
+      <example correction="メロディー">カタカナ用語には<marker>メロディ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30e130ed30c730a3_" name="メロディ" default="off">
+      <pattern>
+        <token>メロディー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>メロディ</suggestion>を使います</message>
+      <example correction="メロディ">カタカナ用語には<marker>メロディー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30e130f330d0" name="メンバー (長音)">
+      <pattern>
+        <token>メンバ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>メンバー</suggestion>を使います</message>
+      <example correction="メンバー">カタカナ用語には<marker>メンバ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30e130f330d0_" name="メンバ" default="off">
+      <pattern>
+        <token>メンバー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>メンバ</suggestion>を使います</message>
+      <example correction="メンバ">カタカナ用語には<marker>メンバー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30e230fc30bf" name="モーター (長音)">
+      <pattern>
+        <token>モータ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>モーター</suggestion>を使います</message>
+      <example correction="モーター">カタカナ用語には<marker>モータ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30e230fc30bf_" name="モータ" default="off">
+      <pattern>
+        <token>モーター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>モータ</suggestion>を使います</message>
+      <example correction="モータ">カタカナ用語には<marker>モーター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30e230b830e530e9" name="モジュラー (長音)">
+      <pattern>
+        <token>モジュラ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>モジュラー</suggestion>を使います</message>
+      <example correction="モジュラー">カタカナ用語には<marker>モジュラ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30e230b830e530e9_" name="モジュラ" default="off">
+      <pattern>
+        <token>モジュラー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>モジュラ</suggestion>を使います</message>
+      <example correction="モジュラ">カタカナ用語には<marker>モジュラー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30e230cb30bf" name="モニター (長音)">
+      <pattern>
+        <token>モニタ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>モニター</suggestion>を使います</message>
+      <example correction="モニター">カタカナ用語には<marker>モニタ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30e230cb30bf_" name="モニタ" default="off">
+      <pattern>
+        <token>モニター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>モニタ</suggestion>を使います</message>
+      <example correction="モニタ">カタカナ用語には<marker>モニター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30e630fc30b6" name="ユーザー (長音)">
+      <pattern>
+        <token>ユーザ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>ユーザー</suggestion>を使います</message>
+      <example correction="ユーザー">カタカナ用語には<marker>ユーザ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30e630fc30b6_" name="ユーザ" default="off">
+      <pattern>
+        <token>ユーザー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>ユーザ</suggestion>を使います</message>
+      <example correction="ユーザ">カタカナ用語には<marker>ユーザー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30e630fc30c630a330ea30c630a3" name="ユーティリティー (長音)">
+      <pattern>
+        <token>ユーティリティ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>ユーティリティー</suggestion>を使います</message>
+      <example correction="ユーティリティー">カタカナ用語には<marker>ユーティリティ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30e630fc30c630a330ea30c630a3_" name="ユーティリティ" default="off">
+      <pattern>
+        <token>ユーティリティー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>ユーティリティ</suggestion>を使います</message>
+      <example correction="ユーティリティ">カタカナ用語には<marker>ユーティリティー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30e930a430bf" name="ライター (長音)">
+      <pattern>
+        <token>ライタ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>ライター</suggestion>を使います</message>
+      <example correction="ライター">カタカナ用語には<marker>ライタ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30e930a430bf_" name="ライタ" default="off">
+      <pattern>
+        <token>ライター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>ライタ</suggestion>を使います</message>
+      <example correction="ライタ">カタカナ用語には<marker>ライター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30e930a430d630e930ea" name="ライブラリー (長音)">
+      <pattern>
+        <token>ライブラリ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>ライブラリー</suggestion>を使います</message>
+      <example correction="ライブラリー">カタカナ用語には<marker>ライブラリ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30e930a430d630e930ea_" name="ライブラリ" default="off">
+      <pattern>
+        <token>ライブラリー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>ライブラリ</suggestion>を使います</message>
+      <example correction="ライブラリ">カタカナ用語には<marker>ライブラリー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30ea30fc30c0" name="リーダー (長音)">
+      <pattern>
+        <token>リーダ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>リーダー</suggestion>を使います</message>
+      <example correction="リーダー">カタカナ用語には<marker>リーダ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30ea30fc30c0_" name="リーダ" default="off">
+      <pattern>
+        <token>リーダー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>リーダ</suggestion>を使います</message>
+      <example correction="リーダ">カタカナ用語には<marker>リーダー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30eb30fc30e9" name="ルーラー (長音)">
+      <pattern>
+        <!-- ルー[ルー/名詞-固有名詞-人名-姓*] ラ[ラ/名詞-一般*] -->
+        <token>ルー</token>
+        <token>ラ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>ルーラー</suggestion>を使います</message>
+      <example correction="ルーラー">カタカナ用語には<marker>ルーラ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30eb30fc30e9_" name="ルーラ" default="off">
+      <pattern>
+        <token>ルーラー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>ルーラ</suggestion>を使います</message>
+      <example correction="ルーラ">カタカナ用語には<marker>ルーラー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30ec30fc30c0" name="レーダー (長音)">
+      <pattern>
+        <token>レーダ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>レーダー</suggestion>を使います</message>
+      <example correction="レーダー">カタカナ用語には<marker>レーダ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30ec30fc30c0_" name="レーダ" default="off">
+      <pattern>
+        <token>レーダー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>レーダ</suggestion>を使います</message>
+      <example correction="レーダ">カタカナ用語には<marker>レーダー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30ec30b330fc30c0" name="レコーダー (長音)">
+      <pattern>
+        <!-- レ[レ/名詞-一般*] コーダ[コーダ/名詞-一般*] -->
+        <token>レ</token>
+        <token>コーダ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>レコーダー</suggestion>を使います</message>
+      <example correction="レコーダー">カタカナ用語には<marker>レコーダ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30ec30b330fc30c0_" name="レコーダ" default="off">
+      <pattern>
+        <token>レコーダー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>レコーダ</suggestion>を使います</message>
+      <example correction="レコーダ">カタカナ用語には<marker>レコーダー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30ec30b730fc30d0" name="レシーバー (長音)">
+      <pattern>
+        <token>レシーバ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>レシーバー</suggestion>を使います</message>
+      <example correction="レシーバー">カタカナ用語には<marker>レシーバ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30ec30b730fc30d0_" name="レシーバ" default="off">
+      <pattern>
+        <token>レシーバー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>レシーバ</suggestion>を使います</message>
+      <example correction="レシーバ">カタカナ用語には<marker>レシーバー</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30ec30b830b930bf" name="レジスター (長音)">
+      <pattern>
+        <token>レジスタ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>レジスター</suggestion>を使います</message>
+      <example correction="レジスター">カタカナ用語には<marker>レジスタ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30ec30b830b930bf_" name="レジスタ" default="off">
+      <pattern>
+        <token>レジスター</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>レジスタ</suggestion>を使います</message>
+      <example correction="レジスタ">カタカナ用語には<marker>レジスター</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30ed30fc30e9" name="ローラー (長音)">
+      <pattern>
+        <token>ローラ</token>
+      </pattern>
+      <message>長音を省略しません。<suggestion>ローラー</suggestion>を使います</message>
+      <example correction="ローラー">カタカナ用語には<marker>ローラ</marker>があります。</example>
+    </rule>
+    <rule id="JTF-2_1_6-30ed30fc30e9_" name="ローラ" default="off">
+      <pattern>
+        <token>ローラー</token>
+      </pattern>
+      <message>長音を省略します。<suggestion>ローラ</suggestion>を使います</message>
+      <example correction="ローラ">カタカナ用語には<marker>ローラー</marker>があります。</example>
+    </rule>
+  </category>
+  <category id="JTF-2_1_8" name="">
+    <!-- 2.1.6 カタカナ語の長音  -->
+    <rule id="JTF-2_1_8-kansuuji-nikohbunpu" name="二項分布">
+      <pattern>
+        <!-- 2[2/未知語*] 項[項/名詞-一般*] 分布[分布/名詞-サ変接続*] は[は/助詞-係助詞*] 難しい[難しい/形容詞-自立*] です[です/助動詞*] 。[。/記号-句点*,。/SENT_END*] -->
+        <token>2</token>
+        <token>項</token>
+        <token>分布</token>
+      </pattern>
+      <message>漢数字を使います。「<suggestion>二項分布</suggestion>」を使います。</message>
+      <example correction="二項分布"><marker>2項分布</marker>は難しいです。</example>
+    </rule>
+    <rule id="JTF-2_1_8-kansuuji-saishounijouhou" name="最小二乗法">
+      <pattern>
+        <!-- 最小[最小/名詞-一般*] 2[2/未知語*] 乗法[乗法/名詞-一般*] は[は/助詞-係助詞*] 難しい[難しい/形容詞-自立*] です[です/助動詞*] 。[。/記号-句点*,。/SENT_END*] -->
+        <token>最小</token>
+        <token>2</token>
+        <token>乗法</token>
+      </pattern>
+      <message>漢数字を使います。「<suggestion>最小二乗法</suggestion>」を使います。</message>
+      <example correction="最小二乗法"><marker>最小2乗法</marker>は難しいです。</example>
+    </rule>
+    <rule id="JTF-2_1_8-kansuuji-shinhou-2" name="2進法">
+      <pattern>
+        <!-- [/SENT_START*] 二進法[二進法/名詞-一般*,二進法/SENT_END*] -->
+        <token>二進法</token>
+      </pattern>
+      <message>半角数字を使います。「<suggestion>2進法</suggestion>」を使います。</message>
+      <example correction="2進法"><marker>二進法</marker>で計算する</example>
+    </rule>
+    <rule id="JTF-2_1_8-kansuuji-shinhou-8" name="8進法">
+      <pattern>
+        <!-- 八[八/名詞-数*] 進[進/名詞-接尾-助数詞*] 法[法/名詞-接尾-一般*] で[で/助詞-格助詞-一般*] 計算[計算/名詞-サ変接続*] する[する/動詞-自立*,する/SENT_END*] -->
+        <token>八</token>
+        <token>進</token>
+        <token>法</token>
+      </pattern>
+      <message>半角数字を使います。「<suggestion>8進法</suggestion>」を使います。</message>
+      <example correction="8進法"><marker>八進法</marker>で計算する</example>
+    </rule>
+    <rule id="JTF-2_1_8-kansuuji-shinhou-16" name="16進法">
+      <pattern>
+        <!-- 十[十/名詞-数*] 六[六/名詞-数*] 進[進/名詞-接尾-助数詞*] 法[法/名詞-接尾-一般*,法/SENT_END*] -->
+        <token>十</token>
+        <token>六</token>
+        <token>進</token>
+        <token>法</token>
+      </pattern>
+      <message>半角数字を使います。「<suggestion>16進法</suggestion>」を使います。</message>
+      <example correction="16進法"><marker>十六進法</marker>で指定します</example>
+    </rule>
+    <rule id="JTF-2_1_8-kansuuji-hyakubunnisuu" name="百分位数">
+      <pattern>
+        <!-- 100[100/未知語*] 分[分/名詞-接尾-一般*] 位[位/名詞-一般*] 数[数/名詞-接尾-一般*] -->
+        <token>100</token>
+        <token>分</token>
+        <token>位</token>
+        <token>数</token>
+      </pattern>
+      <message>漢数字を使います。「<suggestion>百分位数</suggestion>」を使います。</message>
+      <example correction="百分位数"><marker>100分位数</marker>で考える</example>
+    </rule>
+    <rule id="JTF-2_1_8-kansuuji-hyakubunritu" name="百分率">
+      <pattern>
+        <token>100</token>
+        <token>分</token>
+        <token>率</token>
+      </pattern>
+      <message>漢数字を使います。「<suggestion>百分率</suggestion>」を使います</message>
+      <example correction="百分率"><marker>100分率</marker>で言いますと</example>
+    </rule>
+    <rule id="JTF-2_1_8-kansuuji-sishagonyuu" name="四捨五入">
+      <pattern>
+        <token>4</token>
+        <token>捨</token>
+        <token>5</token>
+        <token>入</token>
+      </pattern>
+      <message>漢数字を使います。「<suggestion>四捨五入</suggestion>」を使います。</message>
+      <example correction="四捨五入"><marker>4捨5入</marker>すると</example>
+    </rule>
+    <rule id="JTF-2_1_8-kansuuji-sekaiiti" name="世界一">
+      <pattern>
+        <token>世界</token>
+        <token>1</token>
+      </pattern>
+      <message>漢数字を使います。「<suggestion>世界一</suggestion>」を使います。</message>
+      <example correction="世界一"><marker>世界1</marker>美しい</example>
+    </rule>
+    <rule id="JTF-2_1_8-kansuuji-itijiteki" name="一時的">
+      <pattern>
+        <token>1</token>
+        <token>時</token>
+        <token>的</token>
+      </pattern>
+      <message>漢数字を使います。「<suggestion>一時的</suggestion>」を使います。</message>
+      <example correction="一時的">雨は<marker>1時的</marker>だったようだ</example>
+    </rule>
+  </category>
+  <category id="JTF-3_3_1" name="">
+    <!-- 3.3.1 丸かっこ（）-->
+    <rulegroup id="JTF-3_3_1-MARUKAKKO" name="丸かっこ">
+      <rule>
+        <pattern>
+          <token>(</token>
+        </pattern>
+        <message>丸かっこは全角を使います。"<suggestion>（</suggestion>"</message>
+        <example correction="（">括弧<marker>(</marker>かっこ）</example>
+      </rule>
+      <rule>
+        <pattern>
+          <token>)</token>
+        </pattern>
+        <message>丸かっこは全角を使います。"<suggestion>）</suggestion>"</message>
+        <example correction="）">括弧（かっこ<marker>)</marker></example>
+      </rule>
+    </rulegroup>
+    <!-- 3.3.2 大かっこ［］-->
+    <rulegroup id="JTF-3_3_2-DAIKAKKO" name="大かっこ">
+      <rule>
+        <pattern>
+          <token>[</token>
+        </pattern>
+        <message>大かっこは全角を使います。"<suggestion>［</suggestion></message>
+        <example correction="［"><marker>[</marker>括弧かっこ］</example>
+      </rule>
+      <rule>
+        <pattern>
+          <token>]</token>
+        </pattern>
+        <message>大かっこは全角を使います。"<suggestion>］</suggestion>"</message>
+        <example correction="］">［括弧かっこ<marker>]</marker></example>
+      </rule>
+    </rulegroup>
+    <!-- 3.3.3 かぎかっこ「」-->
+    <!-- 3.3.4 二重かぎかっこ『』-->
+    <!-- 3.3.5 二重引用符" " -->
+    <rulegroup id="JTF-3_3_5-NIJUINYOUHU" name="二重引用符">
+      <rule>
+        <!-- Right double quotation mark -->
+        <pattern>
+          <token>”</token>
+        </pattern>
+        <message>二重引用符は半角の「<suggestion>"</suggestion>」を使います。</message>
+        <example correction="&quot;">二重引用符は"半角<marker>”</marker></example>
+      </rule>
+      <rule>
+        <!-- Left double quotation mark -->
+        <pattern>
+          <token>“</token>
+        </pattern>
+        <message>二重引用符は半角の「<suggestion>"</suggestion>」を使います。</message>
+        <example correction="&quot;">二重引用符は<marker>“</marker>半角"</example>
+      </rule>
+    </rulegroup>
+  </category>
+  <category id="JTF-4_3_2" name="長さ">
+    <!-- 4.3.2 長さ -->
+    <rule id="JTF-4_3_2-km" name="km">
+      <pattern>
+        <!-- 数字 -->
+        <token postag="未知語"/>
+        <marker>
+          <token>㎞</token>
+        </marker>
+      </pattern>
+      <message>カタカナもしくはアルファベットを使います。</message>
+      <suggestion>km</suggestion>
+      <suggestion>キロメートル</suggestion>
+      <example correction="km|キロメートル">東京まで100<marker>㎞</marker>です</example>
+    </rule>
+    <rule id="JTF-4_3_2-m" name="m">
+      <pattern>
+        <!-- 数字 -->
+        <token postag="未知語"/>
+        <marker>
+          <token>㍍</token>
+        </marker>
+      </pattern>
+      <message>カタカナもしくはアルファベットを使います。</message>
+      <suggestion>m</suggestion>
+      <suggestion>メートル</suggestion>
+      <example correction="m|メートル">長さは1<marker>㍍</marker>です</example>
+    </rule>
+  </category>
+</rules>

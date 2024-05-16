@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../print.xsl" title="Pretty print" ?>
+<?xml-stylesheet type="text/css" href="../rules.css" title="Easy editing stylesheet" ?>
+<rules xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" lang="ja" xsi:noNamespaceSchemaLocation="../rules.xsd">
+  <category id="JTF-1_2_1" name="句読点の使用">
+    <!-- 1.2.1 句点（。）と読点（、） -->
+    <rulegroup id="JTF-1_2_1" name="ITF 句点（。）と読点（、）">
+      <rule>
+        <pattern>
+          <and>
+            <token>．</token>
+            <token postag="記号-句点"/>
+          </and>
+        </pattern>
+        <message>全角のピリオドは句読点に使いません。句読点には全角の「、」と全角の「<suggestion>。</suggestion>」を使います。</message>
+        <example correction="。">これは、見本となる例です<marker>．</marker>正しくは句点を使います。</example>
+      </rule>
+      <rule>
+        <pattern>
+          <or>
+            <!-- there could be more postags here -->
+            <token postag="動詞.*" postag_regexp="yes"/>
+            <token postag="助動詞"/>
+            <token postag="助詞-終助詞"/>
+            <token postag="助詞-副助詞／並立助詞／終助詞"/>
+            <token postag="感動詞"/>
+          </or>
+          <marker>
+            <and>
+              <token>.</token>
+              <!-- the analyzer cannot recognize the period as "句点". -->
+              <token postag="未知語"/>
+            </and>
+          </marker>
+        </pattern>
+        <message>半角のピリオドは句読点に使いません。句読点には全角の「、」と全角の「<suggestion>。</suggestion>」を使います。</message>
+        <!--
+                [/SENT_START*] これ[これ/名詞-代名詞-一般*] は[は/助詞-係助詞*] 、[、/記号-読点*] 見本[見本/名詞-一般*] と[と/助詞-格助詞-一般*] なる[なる/動詞-自立*] 例[例/名詞-一般*] です[です/助動詞*] .[./未知語*] 正しく[正しい/形容詞-自立*] は[は/助詞-係助詞*] 句点[句点/名詞-一般*] を[を/助詞-格助詞-一般*] 使い[使う/動詞-自立*] ます[ます/助動詞*] 。[。/記号-句点*,。/SENT_END*]
+                -->
+        <example correction="。">これは、見本となる例です<marker>.</marker>正しくは句点を使います。</example>
+        <example correction="。">サポートされているバージョンは1.1以降です<marker>.</marker>あしからずご了承ください。</example>
+        <example correction="。">全角の句点を使いましょうね<marker>.</marker></example>
+        <example correction="。">全角の句点を使わないのですか<marker>.</marker></example>
+      </rule>
+    </rulegroup>
+  </category>
+</rules>
