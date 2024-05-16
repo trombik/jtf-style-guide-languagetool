@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. env.sh
+. ./env.sh
 
 RULE_FILE=`realpath "$1"`
 TEST_DIR_BAD=`dirname "${RULE_FILE}"`/tests/bad
@@ -11,7 +11,13 @@ GRAMMAR_CUSTOM_FILE="${LANGUAGETOOL_DIR}/${LANGUAGETOOL_DIR_RULES}/grammar_custo
 EXIT_STATUS=1
 
 MY_NAME=`basename "$0"`
-TMPFILE=`mktemp -t "${MY_NAME}"` || exit 1
+MY_OS=`uname -s`
+
+if [ "${MY_OS}" = "FreeBSD" ]; then
+    TMPFILE=`mktemp -t "${MY_NAME}"` || exit 1
+else
+    TMPFILE=`mktemp "${MY_NAME}.XXXXXXXXXX"` || exit 1
+fi
 
 get_number_of_line() {
     local FILE=$1; shift
