@@ -7,6 +7,8 @@ The grammar file is distributed under [CC BY 4.0 Deed Attribution 4.0 Internatio
 * (c) 2019/08/20 Japan Translation Federation
 * (c) 2024/05/12 Tomoyuki Sakurai (@trombik)
 
+Other files are under [ISC license](ISC).
+
 ## References
 
 * [The overview of the rules](https://dev.languagetool.org/development-overview) (please read this first)
