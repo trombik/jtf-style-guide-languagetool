@@ -1,0 +1,27 @@
+---
+
+name: Build grammar file
+on:
+  - pull_request
+  - push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install requirements
+        run: |
+          sudo apt-get install libxml2-utils
+
+      - name: Install ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+          bundler-cache: true
+
+      - name: Build the grammar file
+        run: |
+          bundle exec rake build | xmllint --format - > grammar_custom.xml
