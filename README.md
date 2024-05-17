@@ -62,7 +62,7 @@ the dependencies.
 Run:
 
 ```sh
-bundle exec ruby build.rb | xmllint --format - > new.xml
+bundle exec rake build | xmllint --format - > grammar_custom.xml
 ```
 
 ## Install the grammar file
