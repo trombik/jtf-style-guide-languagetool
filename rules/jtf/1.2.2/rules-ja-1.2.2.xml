@@ -3,6 +3,44 @@
 <?xml-stylesheet type="text/css" href="../rules.css" title="Easy editing stylesheet" ?>
 <rules lang="ja" xsi:noNamespaceSchemaLocation="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/rules.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <category id="JTF-1_2_2" name="ピリオド（.）とカンマ（,）">
-  <!-- 1.2.2 ピリオド（.）とカンマ（,）-->
+    <!-- 1.2.2 ピリオド（.）とカンマ（,）-->
+    <rulegroup id="JTF-1_2_2" name="ITF 句点（。）と読点（、）">
+      <rule>
+        <!-- 英語に挟まれた全角読点と全角コンマ -->
+        <pattern>
+          <token regexp="yes">\w+</token>
+          <marker>
+            <!-- 読点と全角コンマ -->
+            <token regexp="yes">\u3001|\uff0c</token>
+          </marker>
+          <token regexp="yes">\w+</token>
+        </pattern>
+        <message>欧文で表記する組織名などの固有名詞や数字にピリオド（.）やカンマ（,）が含まれる場合は、和文中でもピリオド（.）とカンマ（<suggestion>, </suggestion>）を使用します。いずれの場合も半角で表記します。</message>
+        <example correction=", ">ABC<marker>、</marker>XYZ</example>
+        <example correction=", ">ABC<marker>，</marker>XYZ</example>
+      </rule>
+      <rule>
+        <!-- 整数値に含まれる全角読点と全角コンマ -->
+        <pattern>
+          <or>
+            <token regexp="yes">[\-+]</token>
+            <token regexp="yes">[^\-+]</token>
+            <token postag="SENT_START" />
+          </or>
+          <token regexp="yes">\d+</token>
+          <marker>
+            <token regexp="yes">\u3001|\uff0c</token>
+          </marker>
+          <token regexp="yes">\d{3}</token>
+          <token regexp="yes">[^0-9]</token>
+        </pattern>
+        <message>欧文で表記する組織名などの固有名詞や数字にピリオド（.）やカンマ（,）が含まれる場合は、和文中でもピリオド（.）とカンマ（<suggestion>,</suggestion>）を使用します。いずれの場合も半角で表記します。</message>
+        <example correction=",">785<marker>、</marker>105円</example>
+        <example correction=",">なお、785<marker>、</marker>105円</example>
+        <example correction=",">785<marker>，</marker>105円</example>
+        <example correction=",">-785<marker>，</marker>105円</example>
+        <example correction=",">+785<marker>，</marker>105円</example>
+      </rule>
+    </rulegroup>
   </category>
 </rules>
