@@ -53,7 +53,7 @@ def template
      * (c) 2024-05-12 Tomoyuki Sakurai (@trombik)
      -->
      #{dtd}
-    <rules xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" lang="ja" xsi:noNamespaceSchemaLocation="../rules.xsd">
+    <rules lang="en" xsi:noNamespaceSchemaLocation="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/rules.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     </rules>
   TEMPLATE
 end
