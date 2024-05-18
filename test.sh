@@ -21,6 +21,8 @@
 RULE_FILE=`realpath "$1"`
 TEST_DIR_BAD=`dirname "${RULE_FILE}"`/tests/bad
 TEST_DIR_BAD=`realpath "${TEST_DIR_BAD}"`
+TEST_DIR_GOOD=`dirname "${RULE_FILE}"`/tests/good
+TEST_DIR_GOOD=`realpath "${TEST_DIR_GOOD}"`
 SECTION=`basename "${RULE_FILE}" | cut -d'-' -f 3 | sed -e "s/\\.xml//"`
 CATEGORY=`echo "JTF-${SECTION}" | sed -e "s/\\./_/g"`
 GRAMMAR_CUSTOM_FILE="${LANGUAGETOOL_DIR}/${LANGUAGETOOL_DIR_RULES}/grammar_custom.xml"
@@ -59,7 +61,7 @@ rm -f "${GRAMMAR_CUSTOM_FILE}"
 ln -s "${RULE_FILE}" "${GRAMMAR_CUSTOM_FILE}"
 
 (cd LanguageTool-6.4 && sh testrules.sh ja 2>&1 ) | tee "${TMPFILE}"
-if [ $? != 0 ]; then
+if [ $? -ne 0 ]; then
     echo "invoking testrules.sh failed"
     cleanup_and_fail
 fi
@@ -78,17 +80,20 @@ echo "Starting format test..."
 
 xmllint --format "${RULE_FILE}" > "${TMPFILE}"
 EXIT_STATUS=$?
-if [ ${EXIT_STATUS} != 0 ]; then
+if [ ${EXIT_STATUS} -ne 0 ]; then
     echo "xmllint failed exit status: ${EXIT_STATUS}"
     cleanup_and_fail
 fi
 
-echo "Starting local tests..."
+echo "Starting local tests (bad)..."
 for F in `ls -1 ${TEST_DIR_BAD}/*.txt`; do
+
+    echo "Testing ${F} ..."
     N_LINES=`get_number_of_line ${F}`
 
     # skip if the test is empty
-    if [ ${N_LINES} = 0 ]; then
+    if [ ${N_LINES} -ne 0 ]; then
+        echo "${F} is empty, skipping"
         continue
     fi
     N_MATCHES=`(cd ${LANGUAGETOOL_DIR} && \
@@ -98,8 +103,33 @@ for F in `ls -1 ${TEST_DIR_BAD}/*.txt`; do
              --enablecategories "${CATEGORY}" \
              -eo \
              --json ${F}) | jq '[ .matches[] ]| length'`
-    if [ ${N_LINES} != ${N_MATCHES} ]; then
+    if [ ${N_LINES} -ne ${N_MATCHES} ]; then
         echo "Expected match: ${N_LINES}"
+        echo "Actual match: ${N_MATCHES}"
+        echo "Test failed on test file: ${F}"
+        cleanup_and_fail
+    fi
+done
+
+echo "Starting local tests (good)..."
+for F in `ls -1 ${TEST_DIR_GOOD}/*.txt`; do
+
+    echo "Testing ${F} ..."
+    N_LINES=`get_number_of_line ${F}`
+
+    # skip if the test is empty
+    if [ ${N_LINES} -eq 0 ]; then
+        echo "${F} is empty, skipping"
+        continue
+    fi
+    N_MATCHES=`(cd ${LANGUAGETOOL_DIR} && \
+        java -jar languagetool-commandline.jar \
+             --language ja-JP \
+             --rulefile "${RULE_FILE}" \
+             --enablecategories "${CATEGORY}" \
+             -eo \
+             --json ${F}) | jq '[ .matches[] ]| length'`
+    if [ ${N_MATCHES} -ne 0 ]; then
         echo "Actual match: ${N_MATCHES}"
         echo "Test failed on test file: ${F}"
         cleanup_and_fail
