@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../print.xsl" title="Pretty print" ?>
 <?xml-stylesheet type="text/css" href="../rules.css" title="Easy editing stylesheet" ?>
+<!DOCTYPE rules [
+<!ENTITY re_japanese "(?:[々〇〻\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ])">
+]>
+
 <rules lang="ja" xsi:noNamespaceSchemaLocation="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/rules.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <category id="JTF-1_2_1" name="句読点の使用">
     <!-- 1.2.1 句点（。）と読点（、） -->
     <rulegroup id="JTF-1_2_1" name="ITF 句点（。）と読点（、）">
       <rule>
         <pattern>
-          <and>
-            <token>．</token>
-            <token postag="記号-句点"/>
-          </and>
+          <token regexp="yes">&re_japanese;+</token>
+          <marker>
+            <and>
+              <token>．</token>
+              <token postag="記号-句点"/>
+            </and>
+          </marker>
         </pattern>
         <message>全角のピリオドは句読点に使いません。句読点には全角の「、」と全角の「<suggestion>。</suggestion>」を使います。</message>
         <example correction="。">これは、見本となる例です<marker>．</marker>正しくは句点を使います。</example>
       </rule>
       <rule>
         <pattern>
-          <or>
-            <!-- there could be more postags here -->
-            <token postag="動詞.*" postag_regexp="yes"/>
-            <token postag="助動詞"/>
-            <token postag="助詞-終助詞"/>
-            <token postag="助詞-副助詞／並立助詞／終助詞"/>
-            <token postag="感動詞"/>
-          </or>
+          <token regexp="yes">&re_japanese;+</token>
           <marker>
             <and>
               <token>.</token>
