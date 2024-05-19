@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../print.xsl" title="Pretty print" ?>
+<?xml-stylesheet type="text/css" href="../rules.css" title="Easy editing stylesheet" ?>
+<rules xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lang="ja" xsi:noNamespaceSchemaLocation="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/rules.xsd">
+  <category id="JTF-2_2_2" name="算用数字と漢数字の使い分け">
+    <rulegroup id="JTF-2_2_2-SANYOU_KANYOU_SUUJI" name="算用数字と漢数字の使い分け">
+      <rule>
+        <pattern>
+          <token>世界</token>
+          <token>1</token>
+        </pattern>
+        <message>慣用的表現、熟語、概数、固有名詞、副詞など、漢数字を使用することが一般的な語句では漢数字を使います。「<suggestion>世界一</suggestion>」を使います</message>
+        <example correction="世界一"><marker>世界1</marker>美しい</example>
+      </rule>
+      <rule>
+        <pattern>
+          <token>1</token>
+          <token>時</token>
+          <token>的</token>
+        </pattern>
+        <message>慣用的表現、熟語、概数、固有名詞、副詞など、漢数字を使用することが一般的な語句では漢数字を使います。「<suggestion>一時的</suggestion>」を使います</message>
+        <example correction="一時的"><marker>1時的</marker>にお借りします</example>
+      </rule>
+      <rule>
+        <pattern>
+          <token>1</token>
+          <token>部分</token>
+        </pattern>
+        <message>慣用的表現、熟語、概数、固有名詞、副詞など、漢数字を使用することが一般的な語句では漢数字を使います。「<suggestion>一部分</suggestion>」を使います</message>
+        <example correction="一部分">問題の<marker>1部分</marker>に過ぎない</example>
+      </rule>
+      <rule>
+        <pattern>
+          <token>第</token>
+          <token>3</token>
+          <token>者</token>
+        </pattern>
+        <message>慣用的表現、熟語、概数、固有名詞、副詞など、漢数字を使用することが一般的な語句では漢数字を使います。「<suggestion>第三者</suggestion>」を使います</message>
+        <example correction="第三者"><marker>第3者</marker>機関が調査する</example>
+        <example correction="第三者"><marker>第3者</marker>委員会が調査する</example>
+      </rule>
+      <rule>
+        <pattern>
+          <marker>
+            <token>1</token>
+            <token>種</token>
+          </marker>
+          <token>の</token>
+        </pattern>
+        <message>慣用的表現、熟語、概数、固有名詞、副詞など、漢数字を使用することが一般的な語句では漢数字を使います。「<suggestion>一種</suggestion>」を使います</message>
+        <example correction="一種">それは<marker>1種</marker>の問題と言えます</example>
+      </rule>
+      <rule>
+        <pattern>
+          <or>
+            <token postag="SENT_START"/>
+            <token regexp="yes">[^第]</token>
+          </or>
+          <marker>
+            <token>1</token>
+            <token>部</token>
+          </marker>
+          <token postag="助詞.*" postag_regexp="yes"/>
+        </pattern>
+        <message>慣用的表現、熟語、概数、固有名詞、副詞など、漢数字を使用することが一般的な語句では漢数字を使います。「<suggestion>一部</suggestion>」を使います</message>
+        <example correction="一部">それは<marker>1部</marker>の問題です</example>
+        <example correction="一部">対策法の<marker>1部</marker>を改正する</example>
+        <example correction="一部"><marker>1部</marker>では、懸念の声も上がっている</example>
+        <example correction="一部">ただし、<marker>1部</marker>では、懸念の声も上がっている</example>
+      </rule>
+      <rule>
+        <pattern>
+          <marker>
+            <token>1</token>
+            <token>部分</token>
+          </marker>
+        </pattern>
+        <message>慣用的表現、熟語、概数、固有名詞、副詞など、漢数字を使用することが一般的な語句では漢数字を使います。「<suggestion>一部分</suggestion>」を使います</message>
+        <example correction="一部分">それは問題の<marker>1部分</marker>です</example>
+      </rule>
+      <rule>
+        <pattern>
+          <or>
+            <token postag="SENT_START"/>
+            <token regexp="yes">[^第]</token>
+          </or>
+          <marker>
+            <token>1</token>
+            <token>番</token>
+          </marker>
+        </pattern>
+        <message>慣用的表現、熟語、概数、固有名詞、副詞など、漢数字を使用することが一般的な語句では漢数字を使います。「<suggestion>一番</suggestion>」を使います</message>
+        <example correction="一番">あなたが<marker>1番</marker>に上手だ</example>
+        <example correction="一番">健康が<marker>1番</marker>だ</example>
+        <example correction="一番">結びの<marker>1番</marker>です</example>
+      </rule>
+      <rule>
+        <regexp>数(10|100|(1|10|100|)(,?(000)){1,3})倍</regexp>
+        <message>慣用的表現、熟語、概数、固有名詞、副詞など、漢数字を使用することが一般的な語句では漢数字を使います。</message>
+        <suggestion>数十倍</suggestion>
+        <suggestion>数百倍</suggestion>
+        <example correction="数十倍|数百倍">売上が<marker>数10倍</marker>に伸びた</example>
+        <example correction="数十倍|数百倍">売上が<marker>数1,000倍</marker>に伸びた</example>
+        <example correction="数十倍|数百倍">売上が<marker>数1000倍</marker>に伸びた</example>
+        <example correction="数十倍|数百倍">売上が<marker>数1,000,000倍</marker>に伸びた</example>
+      </rule>
+      <rule>
+        <pattern>
+          <and>
+            <token regexp="yes">[0-9]{1,3}</token>
+            <token postag="未知語"/>
+          </and>
+          <token>次</token>
+          <token>関数</token>
+        </pattern>
+        <message>慣用的表現、熟語、概数、固有名詞、副詞など、漢数字を使用することが一般的な語句では漢数字を使います。</message>
+        <suggestion>一次関数</suggestion>
+        <suggestion>二次関数</suggestion>
+        <example correction="一次関数|二次関数">これを<marker>2次関数</marker>で表すと</example>
+      </rule>
+      <rule>
+        <pattern>
+          <token>4</token>
+          <token>捨</token>
+          <token>5</token>
+          <token>入</token>
+        </pattern>
+        <message>慣用的表現、熟語、概数、固有名詞、副詞など、漢数字を使用することが一般的な語句では漢数字を使います。「<suggestion>四捨五入</suggestion>」を使います</message>
+        <example correction="四捨五入">これを<marker>4捨5入</marker>すると</example>
+      </rule>
+      <rule>
+        <pattern>
+          <token>4</token>
+          <token>角</token>
+          <token>い</token>
+        </pattern>
+        <message>慣用的表現、熟語、概数、固有名詞、副詞など、漢数字を使用することが一般的な語句では漢数字を使います。「<suggestion>四角い</suggestion>」を使います</message>
+        <example correction="四角い"><marker>4角い</marker>仁鶴が丸くおさめる</example>
+      </rule>
+      <rule>
+        <pattern>
+          <token>3</token>
+          <token>大陸</token>
+        </pattern>
+        <message>慣用的表現、熟語、概数、固有名詞、副詞など、漢数字を使用することが一般的な語句では漢数字を使います。「<suggestion>三大陸</suggestion>」を使います</message>
+        <example correction="三大陸"><marker>3大陸</marker>周遊チケット</example>
+      </rule>
+      <rule>
+        <pattern>
+          <token>4</token>
+          <token>大陸</token>
+        </pattern>
+        <message>慣用的表現、熟語、概数、固有名詞、副詞など、漢数字を使用することが一般的な語句では漢数字を使います。「<suggestion>四大陸</suggestion>」を使います</message>
+        <example correction="四大陸"><marker>4大陸</marker>周遊チケット</example>
+      </rule>
+      <rule>
+        <pattern>
+          <token>5</token>
+          <token>大陸</token>
+        </pattern>
+        <message>慣用的表現、熟語、概数、固有名詞、副詞など、漢数字を使用することが一般的な語句では漢数字を使います。「<suggestion>五大陸</suggestion>」を使います</message>
+        <example correction="五大陸"><marker>5大陸</marker>周遊チケット</example>
+      </rule>
+    </rulegroup>
+  </category>
+</rules>
