@@ -4,8 +4,8 @@
 
 The grammar file is distributed under [CC BY 4.0 Deed Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/)
 
-* (c) 2019/08/20 Japan Translation Federation
-* (c) 2024/05/12 Tomoyuki Sakurai (@trombik)
+* &copy; 2019/08/20 Japan Translation Federation
+* &copy; 2024/05/12 Tomoyuki Sakurai (@trombik)
 
 Other files are under [ISC license](ISC).
 
