@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../print.xsl" title="Pretty print" ?>
 <?xml-stylesheet type="text/css" href="../rules.css" title="Easy editing stylesheet" ?>
-<rules lang="ja" xsi:noNamespaceSchemaLocation="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/rules.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<rules xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lang="ja" xsi:noNamespaceSchemaLocation="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/rules.xsd">
   <category id="JTF-2_2_1" name="ひらがなと漢字の使い分け">
     <!-- 2.2.1 ひらがなと漢字の使い分け -->
     <rule id="JTF-2_2_1-ARAKAJIME" name="あらかじめ">
@@ -335,7 +335,7 @@
         </and>
       </pattern>
       <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion>さきほど</suggestion>」を使います。</message>
-      <example correction="さきほど"><marker>先程</marker>>はありがとうございました</example>
+      <example correction="さきほど"><marker>先程</marker>はありがとうございました</example>
     </rule>
     <rule id="JTF-2_2_1-HODO" name="程(助詞)">
       <pattern>
@@ -469,5 +469,669 @@
       <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion>よほど</suggestion>」を使います。</message>
       <example correction="よほど"><marker>余程</marker>のことだ</example>
     </rule>
+    <rule id="JTF-2_2_1-ISSAI" name="一切">
+      <pattern>
+        <marker>
+          <and>
+            <token>いっさい</token>
+            <token postag="名詞-副詞可能"/>
+          </and>
+        </marker>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion>一切</suggestion>」を使います。</message>
+      <example correction="一切">それは<marker>いっさい</marker>使いません</example>
+      <example correction="一切">会の<marker>いっさい</marker>をとり仕切る</example>
+      <example correction="一切">謝礼は<marker>いっさい</marker>受け取らない</example>
+    </rule>
+    <rule id="JTF-2_2_1-KANARAZU" name="必ず">
+      <pattern>
+        <marker>
+          <or>
+            <token>かならず</token>
+            <token>かならずしも</token>
+          </or>
+        </marker>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion><match no="1" regexp_match="かならず" regexp_replace="必ず"/></suggestion>」を使います。</message>
+      <example correction="必ず"><marker>かならず</marker>必要になります</example>
+      <example correction="必ずしも"><marker>かならずしも</marker>必要ではない</example>
+    </rule>
+    <rule id="JTF-2_2_1-OOINI" name="大いに">
+      <pattern>
+        <marker>
+          <and>
+            <token>おおいに</token>
+            <token postag="副詞-一般"/>
+          </and>
+        </marker>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion>大いに</suggestion>」を使います。</message>
+      <example correction="大いに">その可能性は<marker>おおいに</marker>ある</example>
+    </rule>
+    <rule id="JTF-2_2_1-SHIITE" name="強いて">
+      <pattern>
+        <marker>
+          <and>
+            <token>しいて</token>
+            <token postag="副詞-一般"/>
+          </and>
+        </marker>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion>強いて</suggestion>」を使います。</message>
+      <example correction="強いて"><marker>しいて</marker>言うなら</example>
+    </rule>
+    <rule id="JTF-2_2_1-JUU" name="〜中">
+      <pattern>
+        <token postag="名詞.*" postag_regexp="yes"/>
+        <marker>
+          <and>
+            <token>じゅう</token>
+            <token postag="名詞-接尾-一般"/>
+          </and>
+        </marker>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion><match no="2" regexp_match="じゅう" regexp_replace="中"/></suggestion>」を使います。</message>
+      <example correction="中">日本<marker>じゅう</marker>で大人気です</example>
+      <example correction="中">家<marker>じゅう</marker>で大人気です</example>
+      <example correction="中">そこら<marker>じゅう</marker>で大人気です</example>
+    </rule>
+    <rule id="JTF-2_2_1-SEKAIJUU" name="世界中">
+      <pattern>
+        <and>
+          <token>世界じゅう</token>
+          <token postag="名詞-一般"/>
+        </and>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion>世界中</suggestion>」を使います。</message>
+      <example correction="世界中"><marker>世界じゅう</marker>で大人気です</example>
+    </rule>
+    <rule id="JTF-2_2_1-NANISHIRO" name="何しろ">
+      <pattern>
+        <and>
+          <token>なにしろ</token>
+          <token postag="副詞-一般"/>
+        </and>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion>何しろ</suggestion>」を使います。</message>
+      <example correction="何しろ"><marker>なにしろ</marker>この大雪では出かけられない</example>
+      <example correction="何しろ"><marker>なにしろ</marker>困っている</example>
+    </rule>
+    <rule id="JTF-2_2_1-NANIMO" name="何も">
+      <pattern>
+        <and>
+          <token>なに</token>
+          <token postag="名詞-代名詞-一般"/>
+        </and>
+        <and>
+          <token>も</token>
+          <token postag="助詞-係助詞"/>
+        </and>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion>何も</suggestion>」を使います。</message>
+      <example correction="何も"><marker>なにも</marker>知らない</example>
+    </rule>
+    <rule id="JTF-2_2_1-NANNRAKANO" name="何らかの">
+      <pattern>
+        <and>
+          <token>なんらかの</token>
+          <token postag="連体詞"/>
+        </and>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion>何らかの</suggestion>」を使います。</message>
+      <example correction="何らかの"><marker>なんらかの</marker>策を施す</example>
+    </rule>
+    <rule id="JTF-2_2_1-NANNTOMO" name="何とも">
+      <pattern>
+        <and>
+          <token>なんとも</token>
+          <token postag="副詞-一般"/>
+        </and>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion>何とも</suggestion>」を使います。</message>
+      <example correction="何とも"><marker>なんとも</marker>言えない</example>
+    </rule>
+    <rule id="JTF-2_2_1-KASHO" name="個所">
+      <pattern>
+        <and>
+          <token>個所</token>
+          <token postag="名詞-一般"/>
+        </and>
+      </pattern>
+      <message>不適切な漢字の使い分けがあります。「<suggestion>箇所</suggestion>」を使います。</message>
+      <example correction="箇所">1<marker>個所</marker>だけです</example>
+      <example correction="箇所">全<marker>個所</marker>です</example>
+    </rule>
+    <rule id="JTF-2_2_1-KAJOUGAKI" name="個条書き">
+      <pattern>
+        <and>
+          <token>個条書き</token>
+          <token postag="名詞-一般"/>
+        </and>
+      </pattern>
+      <message>不適切な漢字の使い分けがあります。「<suggestion>箇条書き</suggestion>」を使います。</message>
+      <example correction="箇条書き"><marker>個条書き</marker>にしてください</example>
+    </rule>
+    <rule id="JTF-2_2_1-HUZOKUSURU" name="附属する">
+      <pattern>
+        <and>
+          <token>附属</token>
+          <token postag="名詞-サ変接続"/>
+        </and>
+        <and>
+          <token inflected="yes">する</token>
+          <token postag="動詞-自立"/>
+        </and>
+      </pattern>
+      <message>不適切な漢字の使い分けがあります。「<suggestion><match no="1" regexp_match="附" regexp_replace="付"/><match no="2"/></suggestion>」を使います。</message>
+      <example correction="付属し"><marker>附属し</marker>ます</example>
+    </rule>
+    <rule id="JTF-2_2_1-MAMOU" name="摩耗と磨耗">
+      <pattern>
+        <and>
+          <token>磨耗</token>
+          <token postag="名詞-サ変接続"/>
+        </and>
+        <and>
+          <token inflected="yes">する</token>
+          <token postag="動詞-自立"/>
+        </and>
+      </pattern>
+      <message>不適切な漢字の使い分けがあります。「<suggestion><match no="1" regexp_match="磨耗" regexp_replace="摩耗"/><match no="2"/></suggestion>」を使います。</message>
+      <example correction="摩耗し"><marker>磨耗し</marker>ます</example>
+    </rule>
+    <rule id="JTF-2_2_1-MAMETU" name="摩滅と磨滅">
+      <pattern>
+        <and>
+          <token>磨滅</token>
+          <token postag="名詞-サ変接続"/>
+        </and>
+        <and>
+          <token inflected="yes">する</token>
+          <token postag="動詞-自立"/>
+        </and>
+      </pattern>
+      <message>不適切な漢字の使い分けがあります。「<suggestion><match no="1" regexp_match="磨滅" regexp_replace="摩滅"/><match no="2"/></suggestion>」を使います。</message>
+      <example correction="摩滅し"><marker>磨滅し</marker>ます</example>
+    </rule>
+    <rule id="JTF-2_2_1-OYOBI" name="および">
+      <pattern>
+        <and>
+          <token>及び</token>
+          <token postag="接続詞"/>
+        </and>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion>および</suggestion>」を使います。</message>
+      <example correction="および">A<marker>及び</marker>Bがあります</example>
+    </rule>
+    <rule id="JTF-2_2_1-OYOBU" name="及ぶ">
+      <pattern>
+        <and>
+          <token inflected="yes">およぶ</token>
+          <token postag="動詞-自立"/>
+        </and>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion><match no="1" regexp_match="およ" regexp_replace="及"/></suggestion>」を使います。</message>
+      <example correction="及ん">影響が<marker>およん</marker>でいる</example>
+    </rule>
+    <rule id="JTF-2_2_1-ITASHIMASU" name="いたします">
+      <pattern>
+        <and>
+          <token inflected="yes">致す</token>
+          <token postag="動詞-非自立"/>
+        </and>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion><match no="1" regexp_match="致" regexp_replace="いた"/></suggestion>」を使います。</message>
+      <example correction="いたし">お願い<marker>致し</marker>ます</example>
+    </rule>
+    <rule id="JTF-2_2_1-ITASU" name="致す">
+      <pattern>
+        <and>
+          <token inflected="yes">いたす</token>
+          <token postag="動詞-自立"/>
+        </and>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion><match no="1" regexp_match="いた" regexp_replace="致"/></suggestion>」を使います。</message>
+      <example correction="致す">思いを<marker>いたす</marker></example>
+    </rule>
+    <rule id="JTF-2_2_1-SHITAGATTE" name="したがって">
+      <pattern>
+        <and>
+          <token>従って</token>
+          <token postag="接続詞"/>
+        </and>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion><match no="1" regexp_match="従" regexp_replace="したが"/></suggestion>」を使います。</message>
+      <example correction="したがって"><marker>従って</marker>、このようになります</example>
+    </rule>
+    <rule id="JTF-2_2_1-SHITAGAU" name="従う">
+      <pattern>
+        <and>
+          <token inflected="yes">したがう</token>
+          <token postag="動詞-自立"/>
+        </and>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion><match no="1" regexp_match="したが" regexp_replace="従"/></suggestion>」を使います。</message>
+      <example correction="従い">あなたに<marker>したがい</marker>ます。</example>
+    </rule>
+    <rule id="JTF-2_2_1-DASU_1" name="しだす">
+      <pattern>
+        <and>
+          <token inflected="yes" regexp="yes">.*出す</token>
+          <token postag="動詞-自立"/>
+        </and>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion><match no="1" regexp_match="出" regexp_replace="だ"/></suggestion>」を使います。</message>
+      <example correction="走りだし">犬が<marker>走り出し</marker>た</example>
+      <example correction="動きだし">体が<marker>動き出し</marker>た</example>
+    </rule>
+    <rule id="JTF-2_2_1-DASU_2" name="しだす">
+      <pattern>
+        <and>
+          <token/>
+          <token postag="動詞-自立"/>
+        </and>
+        <marker>
+          <and>
+            <token inflected="yes">出す</token>
+            <token postag="動詞-非自立"/>
+          </and>
+        </marker>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion><match no="2" regexp_match="出" regexp_replace="だ"/></suggestion>」を使います。</message>
+      <example correction="だし">犬が笑い<marker>出し</marker>た</example>
+    </rule>
+    <rule id="JTF-2_2_1-DUKU_1" name="付く">
+      <pattern>
+        <!-- 利子[利子/名詞-一般*] が[が/助詞-格助詞-一般*] つい[つく/動詞-自立*] た[た/助動詞*,た -->
+        <and>
+          <token/>
+          <token postag="名詞.*" postag_regexp="yes"/>
+        </and>
+        <and>
+          <token>が</token>
+          <token postag="助詞-格助詞-.*" postag_regexp="yes"/>
+        </and>
+        <marker>
+          <and>
+            <token inflected="yes">つく</token>
+            <token postag="動詞-自立"/>
+          </and>
+        </marker>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion><match no="3" regexp_match="つ" regexp_replace="付"/></suggestion>」を使います。</message>
+      <example correction="付い">利子が<marker>つい</marker>た</example>
+    </rule>
+    <rule id="JTF-2_2_1-DUKU_2" name="気が付く">
+      <pattern>
+        <!-- 気がつい[気がつく/動詞-自立*] た[た/助動詞 -->
+        <or>
+          <token inflected="yes">気がつく</token>
+          <token inflected="yes">気づく</token>
+        </or>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion><match no="1" regexp_match="つ|づ" regexp_replace="付"/></suggestion>」を使います。</message>
+      <example correction="気が付い"><marker>気がつい</marker>た</example>
+      <example correction="気付い"><marker>気づい</marker>た</example>
+    </rule>
+    <rule id="JTF-2_2_1-DUKU_3" name="凍りつく">
+      <!-- TODO 活気[活気/名詞-一般*] 付い[付く/動詞-自立*] て[て/助詞-接続助詞*] いる[いる/動詞-非自立 -->
+      <pattern>
+        <and>
+          <token inflected="yes">凍り付く</token>
+          <token postag="動詞-自立"/>
+        </and>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion><match no="1" regexp_match="付" regexp_replace="つ"/></suggestion>」を使います。</message>
+      <example correction="凍りつい"><marker>凍り付い</marker>た</example>
+    </rule>
+    <rule id="JTF-2_2_1-DUKU_4" name="目つき">
+      <pattern>
+        <and>
+          <token regexp="yes">(?:目|手)付き</token>
+          <token postag="名詞.*" postag_regexp="yes"/>
+        </and>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion><match no="1" regexp_match="付" regexp_replace="つ"/></suggestion>」を使います。</message>
+      <example correction="目つき"><marker>目付き</marker>がよくない</example>
+      <example correction="手つき"><marker>手付き</marker>がよくない</example>
+    </rule>
+    <rule id="JTF-2_2_1-TOORI" name="〜とおり">
+      <pattern>
+        <and>
+          <token>通り</token>
+          <token postag="名詞-非自立-副詞可能"/>
+        </and>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion><match no="1" regexp_match="通り" regexp_replace="とおり"/></suggestion>」を使います。</message>
+      <example correction="とおり">思った<marker>通り</marker>だ</example>
+      <example correction="とおり">その<marker>通り</marker>だ</example>
+      <example correction="とおり">以下の<marker>通り</marker>だ</example>
+    </rule>
+    <rule id="JTF-2_2_1-TOORI" name="通り">
+      <pattern>
+        <token regexp="yes">[0-9,]+</token>
+        <marker>
+          <and>
+            <token>とおり</token>
+            <token postag="名詞-非自立-副詞可能"/>
+          </and>
+        </marker>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion><match no="2" regexp_match="とおり" regexp_replace="通り"/></suggestion>」を使います。</message>
+      <example correction="通り">12<marker>とおり</marker>の方法がある</example>
+      <example correction="通り">12,000<marker>とおり</marker>の方法がある</example>
+    </rule>
+    <rule id="JTF-2_2_1-TOKI_1" name="～とき">
+      <pattern>
+        <or>
+          <token postag="動詞.*" postag_regexp="yes"/>
+          <token postag="助動詞"/>
+        </or>
+        <marker>
+          <and>
+            <token>時</token>
+            <token postag="名詞-非自立-副詞可能"/>
+          </and>
+        </marker>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion><match no="2" regexp_match="時" regexp_replace="とき"/></suggestion>」を使います。</message>
+      <example correction="とき">ファイルを開く<marker>時</marker>は</example>
+      <example correction="とき">ファイルを開いた<marker>時</marker>は</example>
+      <example correction="とき">ファイルを開こうとした<marker>時</marker>は</example>
+    </rule>
+    <rule id="JTF-2_2_1-TOKI_2" name="時">
+      <pattern>
+        <marker>
+          <token>とき</token>
+        </marker>
+        <token>と</token>
+        <token>場合</token>
+        <token>に</token>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion><match no="1" regexp_match="とき" regexp_replace="時"/></suggestion>」を使います。</message>
+      <example correction="時">それは<marker>とき</marker>と場合による</example>
+    </rule>
+    <rule id="JTF-2_2_1-TOKI_3" name="時">
+      <pattern>
+        <marker>
+          <token>とき</token>
+        </marker>
+        <or>
+          <token>は</token>
+          <token>が</token>
+        </or>
+        <token postag="動詞.*" postag_regexp="yes"/>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion><match no="1" regexp_match="とき" regexp_replace="時"/></suggestion>」を使います。</message>
+      <example correction="時"><marker>とき</marker>は来た</example>
+      <example correction="時"><marker>とき</marker>が来た</example>
+      <example correction="時"><marker>とき</marker>は来ていない</example>
+    </rule>
+    <rule id="JTF-2_2_1-HOSHII_1" name="ほしい">
+      <pattern>
+        <and>
+          <token>て</token>
+          <token postag="助詞-接続助詞"/>
+        </and>
+        <marker>
+          <and>
+            <token>欲しい</token>
+            <token postag="形容詞-非自立"/>
+          </and>
+        </marker>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion><match no="2" regexp_match="欲しい" regexp_replace="ほしい"/></suggestion>」を使います。</message>
+      <example correction="ほしい">もう少し考えて<marker>欲しい</marker>です</example>
+      <example correction="ほしい">やってみて<marker>欲しい</marker></example>
+      <example correction="ほしい">やって<marker>欲しい</marker>ことがある</example>
+    </rule>
+    <rule id="JTF-2_2_1-HOSHII_2" name="欲しい">
+      <pattern>
+        <!-- が[が/助詞-格助詞-一般*] ほしい[ほしい/形容詞-自立 -->
+        <and>
+          <token>が</token>
+          <token postag="助詞.*" postag_regexp="yes"/>
+        </and>
+        <marker>
+          <token>ほしい</token>
+        </marker>
+      </pattern>
+      <message>不適切な漢字とひらがなの使い分けがあります。「<suggestion><match no="2" regexp_match="ほしい" regexp_replace="欲しい"/></suggestion>」を使います。</message>
+      <example correction="欲しい">この本が<marker>ほしい</marker></example>
+    </rule>
+    <rulegroup id="JTF-2_2_1-HUKUSUU_HYOUKI_HINSHUTU" name="ひらがなと漢字の両方の表記が一般的">
+      <!-- TODO 一度 ひとたび -->
+      <!-- TODO 他、外 他を探す。この他に必要なもの。思いの外。 -->
+      <rule>
+        <pattern>
+          <and>
+            <token>余りに</token>
+            <token postag="副詞-助詞類接続"/>
+          </and>
+        </pattern>
+        <message>漢字かひらがなかで表記に迷う場合は、ひらがな書きを活用します。「<suggestion>あまりに</suggestion>」を使います</message>
+        <example correction="あまりに"><marker>余りに</marker>ひどい</example>
+      </rule>
+      <rule>
+        <pattern>
+          <token postag="動詞.*" postag_regexp="yes"/>
+          <marker>
+            <and>
+              <token>上</token>
+              <token postag="名詞-非自立-副詞可能"/>
+            </and>
+            <and>
+              <token regexp="yes">で|において</token>
+              <token postag="助詞.*" postag_regexp="yes"/>
+            </and>
+          </marker>
+        </pattern>
+        <message>漢字かひらがなかで表記に迷う場合は、ひらがな書きを活用します。「<suggestion>うえで</suggestion>」を使います</message>
+        <example correction="うえで">学習する<marker>上で</marker>重要な項目</example>
+        <example correction="うえで">学習する<marker>上において</marker>重要な項目</example>
+      </rule>
+      <rule>
+        <pattern>
+          <and>
+            <token>極めて</token>
+            <token postag="副詞-一般"/>
+          </and>
+        </pattern>
+        <message>漢字かひらがなかで表記に迷う場合は、ひらがな書きを活用します。「<suggestion>きわめて</suggestion>」を使います</message>
+        <example correction="きわめて">これは<marker>極めて</marker>重要だ</example>
+      </rule>
+      <rule>
+        <pattern>
+          <and>
+            <token>様々</token>
+            <token postag="名詞-形容動詞語幹"/>
+          </and>
+        </pattern>
+        <message>漢字かひらがなかで表記に迷う場合は、ひらがな書きを活用します。「<suggestion>さまざま</suggestion>」を使います</message>
+        <example correction="さまざま"><marker>様々</marker>な問題がある</example>
+        <example correction="さまざま">問題は<marker>様々</marker>です</example>
+      </rule>
+      <rule>
+        <pattern>
+          <and>
+            <token>既に</token>
+            <token postag="副詞-一般"/>
+          </and>
+        </pattern>
+        <message>漢字かひらがなかで表記に迷う場合は、ひらがな書きを活用します。「<suggestion>すでに</suggestion>」を使います</message>
+        <example correction="すでに"><marker>既に</marker>問題になっている</example>
+      </rule>
+      <rule>
+        <pattern>
+          <and>
+            <token regexp="yes">全て|総て</token>
+            <token postag="名詞-副詞可能"/>
+          </and>
+        </pattern>
+        <message>漢字かひらがなかで表記に迷う場合は、ひらがな書きを活用します。「<suggestion>すべて</suggestion>」を使います</message>
+        <example correction="すべて">問題は<marker>全て</marker>解決した</example>
+        <example correction="すべて">問題は<marker>総て</marker>解決した</example>
+      </rule>
+      <rule>
+        <pattern>
+          <and>
+            <token>共に</token>
+            <token postag="副詞-一般"/>
+          </and>
+        </pattern>
+        <message>漢字かひらがなかで表記に迷う場合は、ひらがな書きを活用します。「<suggestion>ともに</suggestion>」を使います</message>
+        <example correction="ともに">問題を<marker>共に</marker>解決しよう</example>
+      </rule>
+      <rule>
+        <pattern>
+          <and>
+            <token>例えば</token>
+            <token postag="接続詞"/>
+          </and>
+        </pattern>
+        <message>漢字かひらがなかで表記に迷う場合は、ひらがな書きを活用します。「<suggestion>たとえば</suggestion>」を使います</message>
+        <example correction="たとえば"><marker>例えば</marker>の話ですけれど</example>
+      </rule>
+      <rule>
+        <pattern>
+          <and>
+            <token>直ちに</token>
+            <token postag="副詞-一般"/>
+          </and>
+        </pattern>
+        <message>漢字かひらがなかで表記に迷う場合は、ひらがな書きを活用します。「<suggestion>ただちに</suggestion>」を使います</message>
+        <example correction="ただちに"><marker>直ちに</marker>出発します</example>
+      </rule>
+      <rule>
+        <pattern>
+          <and>
+            <token>到底</token>
+            <token postag="副詞-一般"/>
+          </and>
+        </pattern>
+        <message>漢字かひらがなかで表記に迷う場合は、ひらがな書きを活用します。「<suggestion>とうてい</suggestion>」を使います</message>
+        <example correction="とうてい"><marker>到底</marker>納得できない</example>
+      </rule>
+      <rule>
+        <pattern>
+          <and>
+            <token>果たして</token>
+            <token postag="副詞-一般"/>
+          </and>
+        </pattern>
+        <message>漢字かひらがなかで表記に迷う場合は、ひらがな書きを活用します。「<suggestion>はたして</suggestion>」を使います</message>
+        <example correction="はたして"><marker>果たして</marker>納得できない</example>
+      </rule>
+      <rule>
+        <pattern>
+          <marker>
+            <and>
+              <token>一際</token>
+              <token postag="副詞-一般"/>
+            </and>
+          </marker>
+          <token postag="形容詞.*" postag_regexp="yes"/>
+        </pattern>
+        <message>漢字かひらがなかで表記に迷う場合は、ひらがな書きを活用します。「<suggestion>ひときわ</suggestion>」を使います</message>
+        <example correction="ひときわ"><marker>一際</marker>高くそびえる山</example>
+        <example correction="ひときわ"><marker>一際</marker>速い車</example>
+      </rule>
+      <rule>
+        <pattern>
+          <!-- 他[他/名詞-一般*] なら[なる/動詞-自立*] ぬ[ぬ/助動詞*] -->
+          <marker>
+            <token regexp="yes">他|外</token>
+            <token>なら</token>
+            <token>ぬ</token>
+          </marker>
+        </pattern>
+        <message>漢字かひらがなかで表記に迷う場合は、ひらがな書きを活用します。「<suggestion>ほかならぬ</suggestion>」を使います</message>
+        <example correction="ほかならぬ"><marker>他ならぬ</marker>君のことだから</example>
+        <example correction="ほかならぬ"><marker>外ならぬ</marker>君のことだから</example>
+      </rule>
+      <rule>
+        <pattern>
+          <marker>
+            <and>
+              <token>全く</token>
+              <token postag="副詞-助詞類接続"/>
+            </and>
+          </marker>
+        </pattern>
+        <message>漢字かひらがなかで表記に迷う場合は、ひらがな書きを活用します。「<suggestion>まったく</suggestion>」を使います</message>
+        <example correction="まったく"><marker>全く</marker>話にならない</example>
+      </rule>
+      <rule>
+        <pattern>
+          <marker>
+            <and>
+              <token>元々</token>
+              <token postag="副詞-助詞類接続"/>
+            </and>
+          </marker>
+        </pattern>
+        <message>漢字かひらがなかで表記に迷う場合は、ひらがな書きを活用します。「<suggestion>もともと</suggestion>」を使います</message>
+        <example correction="もともと">失敗して<marker>元々</marker>だ</example>
+      </rule>
+      <rule>
+        <pattern>
+          <marker>
+            <token regexp="yes" inflected="yes">(?:分かる|解る|判る)</token>
+          </marker>
+        </pattern>
+        <message>漢字かひらがなかで表記に迷う場合は、ひらがな書きを活用します。「<suggestion><match no="1" regexp_match="(?:分か|解|判)" regexp_replace="わか"/></suggestion>」を使います</message>
+        <example correction="わかり">よく<marker>分かり</marker>ます</example>
+        <example correction="わかり">よく<marker>解り</marker>ません</example>
+        <example correction="わかる">よく<marker>判る</marker>ひとですね</example>
+      </rule>
+      <rule>
+        <pattern>
+          <marker>
+            <and>
+              <token>一つ一つ</token>
+              <token postag="名詞-一般"/>
+            </and>
+          </marker>
+        </pattern>
+        <message>漢字かひらがなかで表記に迷う場合は、ひらがな書きを活用します。「<suggestion>ひとつひとつ</suggestion>」を使います</message>
+        <example correction="ひとつひとつ"><marker>一つ一つ</marker>の仕事を大事にする</example>
+      </rule>
+      <rule>
+        <pattern>
+          <marker>
+            <and>
+              <token>私</token>
+              <token postag="名詞-代名詞-一般"/>
+            </and>
+          </marker>
+        </pattern>
+        <message>漢字かひらがなかで表記に迷う場合は、ひらがな書きを活用します。「<suggestion>わたし</suggestion>」を使います</message>
+        <example correction="わたし"><marker>私</marker>とあなた</example>
+      </rule>
+      <rule>
+        <pattern>
+          <marker>
+            <and>
+              <token>我々</token>
+              <token postag="名詞-代名詞-一般"/>
+            </and>
+          </marker>
+        </pattern>
+        <message>漢字かひらがなかで表記に迷う場合は、ひらがな書きを活用します。「<suggestion>われわれ</suggestion>」を使います</message>
+        <example correction="われわれ"><marker>我々</marker>も人間だ</example>
+      </rule>
+      <rule>
+        <pattern>
+          <marker>
+            <and>
+              <token>我が</token>
+              <token postag="連体詞"/>
+            </and>
+          </marker>
+        </pattern>
+        <message>漢字かひらがなかで表記に迷う場合は、ひらがな書きを活用します。「<suggestion>わが</suggestion>」を使います</message>
+        <example correction="わが"><marker>我が</marker>闘争をもう読みましたか</example>
+      </rule>
+    </rulegroup>
   </category>
 </rules>
