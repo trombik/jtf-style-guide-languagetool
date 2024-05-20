@@ -3,7 +3,37 @@
 <?xml-stylesheet type="text/css" href="../rules.css" title="Easy editing stylesheet" ?>
 <rules xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lang="ja" xsi:noNamespaceSchemaLocation="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/rules.xsd">
   <category id="JTF-2_2_2" name="算用数字と漢数字の使い分け">
-    <rulegroup id="JTF-2_2_2-SANYOU_KANYOU_SUUJI" name="算用数字と漢数字の使い分け">
+    <rulegroup id="JTF-2_2_2-SANYOU_KANYOU_SUUJI_SANYOUSUUJI" name="数量を表現し、数を数えられるもの">
+      <!-- TODO does not match "一億2000万円", "一億2,000万円" -->
+      <rule>
+        <pattern>
+          <marker>
+            <and>
+              <token regexp="yes" min="1" max="-1">[〇一二三四五六七八九十百千]</token>
+              <token postag="名詞-数"/>
+            </and>
+          </marker>
+          <token regexp="yes" min="0" max="1">[万億京垓]</token>
+          <token postag="名詞-接尾-助数詞"/>
+        </pattern>
+        <message>数量を表現し、数を数えられるものは算用数字を使用します。</message>
+        <suggestion>1億</suggestion>
+        <suggestion>1000億</suggestion>
+        <example correction="1億|1000億"><marker>二</marker>億人の人がいた</example>
+        <example correction="1億|1000億"><marker>二十</marker>億人の人がいた</example>
+        <example correction="1億|1000億"><marker>二千十</marker>億人の人がいた</example>
+        <example correction="1億|1000億"><marker>二</marker>人の人がいた</example>
+        <example correction="1億|1000億"><marker>二十</marker>人の人がいた</example>
+        <example correction="1億|1000億"><marker>二千十</marker>人の人がいた</example>
+        <example correction="1億|1000億"><marker>二千</marker>億人の人がいた</example>
+        <example correction="1億|1000億"><marker>一千二百二十二</marker>億人の人がいた</example>
+        <example correction="1億|1000億">認められた予算は<marker>一千二百二十二</marker>億円でした</example>
+        <example correction="1億|1000億"><marker>二千</marker>人の人がいた</example>
+        <example correction="1億|1000億"><marker>二千</marker>万人の人がいた</example>
+        <example correction="1億|1000億">一億<marker>二千</marker>万人の人がいた</example>
+      </rule>
+    </rulegroup>
+    <rulegroup id="JTF-2_2_2-SANYOU_KANYOU_SUUJI_KANYOUSUUJI" name="漢数字を使う慣用的表現、熟語、概数、固有名詞、副詞など">
       <rule>
         <pattern>
           <token>世界</token>
