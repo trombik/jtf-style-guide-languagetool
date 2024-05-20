@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../print.xsl" title="Pretty print" ?>
+<?xml-stylesheet type="text/css" href="../rules.css" title="Easy editing stylesheet" ?>
+<rules xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lang="ja" xsi:noNamespaceSchemaLocation="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/rules.xsd">
+  <category id="JTF-2_2_3" name="一部の助数詞に関する表記">
+    <!-- 2.2.3 一部の助数詞に関する表記 -->
+    <rulegroup id="JTF-2_2_3-JOSUUSHI-KA" name="〜か月 〜か年">
+      <rule>
+        <pattern>
+          <and>
+            <token regexp="yes">[ヵカヶケ箇個][月年国所]</token>
+            <token postag="名詞-接尾-助数詞"/>
+          </and>
+        </pattern>
+        <message>助数詞に伴う「ヵ」、「か」、「カ」、「ヶ」、「ケ」、「箇」、「個」の表記は原則として、ひらがなの「<suggestion><match no="1" regexp_match="[ヵカヶケ箇個]" regexp_replace="か"/></suggestion>」を使います。</message>
+        <example correction="か月">3<marker>ヵ月</marker>未満</example>
+        <example correction="か月">数<marker>ヵ月</marker></example>
+        <example correction="か所">10<marker>ヵ所</marker></example>
+        <example correction="か国">3<marker>ヵ国</marker>会議</example>
+        <example correction="か年">5<marker>ヵ年</marker>計画</example>
+        <example correction="か月">一<marker>ヶ月</marker></example>
+        <example correction="か月">一<marker>カ月</marker></example>
+        <example correction="か月">一<marker>ヶ月</marker></example>
+        <example correction="か月">一<marker>ケ月</marker></example>
+        <example correction="か月">一<marker>箇月</marker></example>
+        <example correction="か月">一<marker>個月</marker></example>
+        <example correction="か年">一<marker>ヶ年</marker></example>
+        <example correction="か年">一<marker>カ年</marker></example>
+        <example correction="か年">一<marker>ヶ年</marker></example>
+        <example correction="か年">一<marker>ケ年</marker></example>
+        <example correction="か年">一<marker>箇年</marker></example>
+        <example correction="か年">一<marker>個年</marker></example>
+        <example correction="か国">一<marker>ヶ国</marker></example>
+        <example correction="か国">一<marker>カ国</marker></example>
+        <example correction="か国">一<marker>ヶ国</marker></example>
+        <example correction="か国">一<marker>ケ国</marker></example>
+        <example correction="か国">一<marker>箇国</marker></example>
+        <example correction="か国">一<marker>個国</marker></example>
+        <example correction="か所">一<marker>ヶ所</marker></example>
+        <example correction="か所">一<marker>カ所</marker></example>
+        <example correction="か所">一<marker>ヶ所</marker></example>
+        <example correction="か所">一<marker>ケ所</marker></example>
+        <example correction="か所">一<marker>箇所</marker></example>
+      </rule>
+      <rule>
+        <pattern>
+          <!-- 一[一/名詞-数*] 個[個/名詞-接尾-助数詞*] 所[所/名詞-接尾-一般*,所 -->
+          <and>
+            <token>個</token>
+            <token postag="名詞-接尾-助数詞"/>
+          </and>
+          <and>
+            <token>所</token>
+            <token postag="名詞-接尾-一般"/>
+          </and>
+        </pattern>
+        <message>助数詞に伴う「ヵ」、「か」、「カ」、「ヶ」、「ケ」、「箇」、「個」の表記は原則として、ひらがなの「<suggestion><match no="1" regexp_match="[ヵカヶケ箇個]" regexp_replace="か"/><match no="2"/></suggestion>」を使います。</message>
+        <example correction="か所">一<marker>個所</marker></example>
+      </rule>
+    </rulegroup>
+  </category>
+</rules>
