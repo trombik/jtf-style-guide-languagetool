@@ -1,5 +1,29 @@
 # Japan Translation Federation Style Guide version 3.0 for `languagetool`
 
+## Table of contents
+
+<!-- vim-markdown-toc GFM -->
+
+* [LICENCE AND COPYRIGHT NOTICE](#licence-and-copyright-notice)
+* [Limitations](#limitations)
+    * [1.2.1 句点（。）と読点（、）](#121-句点と読点)
+    * [1.2.2 ピリオド（.）とカンマ（,）](#122-ピリオドとカンマ)
+    * [2.2.2 算用数字と漢数字の使い分け](#222-算用数字と漢数字の使い分け)
+* [References](#references)
+* [Requirements](#requirements)
+    * [Unix OS](#unix-os)
+* [Setup](#setup)
+    * [For Unix](#for-unix)
+* [Testing a rule file](#testing-a-rule-file)
+* [Building the grammar file](#building-the-grammar-file)
+* [Install the grammar file](#install-the-grammar-file)
+* [Running the server](#running-the-server)
+* [Usage](#usage)
+    * [Desktop](#desktop)
+    * [OmegaT](#omegat)
+
+<!-- vim-markdown-toc -->
+
 ## LICENCE AND COPYRIGHT NOTICE
 
 The grammar file is distributed under [CC BY 4.0 Deed Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/)
@@ -8,6 +32,31 @@ The grammar file is distributed under [CC BY 4.0 Deed Attribution 4.0 Internatio
 * &copy; 2024/05/12 Tomoyuki Sakurai (@trombik)
 
 Other files are under [ISC license](ISC).
+
+## Limitations
+
+In general, the rules are imperfect due to limitations in the implementation
+(XML, the unmaintained back-end tagger,
+[lucene-gosen](https://github.com/lucene-gosen/lucene-gosen), and
+the sentence-based approach of `languagetool`). This is especially problematic
+when creating a style rule that checks spaces and special characters.
+
+The goal is, creating *80% good* grammar file so that `OmegaT` can suggest
+possible mistakes in Japanese target files.
+
+The below is a non-exhaustive list of the known limitations.
+
+### 1.2.1 句点（。）と読点（、）
+
+As rules are sentence-based, punctuation marks cannot be enforced.
+
+### 1.2.2 ピリオド（.）とカンマ（,）
+
+Not perfect, needs more test cases.
+
+### 2.2.2 算用数字と漢数字の使い分け
+
+It does not detect possible mistakes, such as "一億2000万円".
 
 ## References
 
