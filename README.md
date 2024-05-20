@@ -6,6 +6,11 @@
 
 * [LICENCE AND COPYRIGHT NOTICE](#licence-and-copyright-notice)
 * [Limitations](#limitations)
+    * [1.1.1 本文](#111-本文)
+    * [1.1.2 見出し](#112-見出し)
+    * [1.1.3 箇条書き](#113-箇条書き)
+    * [1.1.4 図表内のテキスト](#114-図表内のテキスト)
+    * [1.1.5 図表のキャプション](#115-図表のキャプション)
     * [1.2.1 句点（。）と読点（、）](#121-句点と読点)
     * [1.2.2 ピリオド（.）とカンマ（,）](#122-ピリオドとカンマ)
     * [2.2.2 算用数字と漢数字の使い分け](#222-算用数字と漢数字の使い分け)
@@ -45,6 +50,26 @@ The goal is, creating *80% good* grammar file so that `OmegaT` can suggest
 possible mistakes in Japanese target files.
 
 The below is a non-exhaustive list of the known limitations.
+
+### 1.1.1 本文
+
+Not supported at all.
+
+### 1.1.2 見出し
+
+Not supported at all.
+
+### 1.1.3 箇条書き
+
+Not supported at all.
+
+### 1.1.4 図表内のテキスト
+
+Not supported at all.
+
+### 1.1.5 図表のキャプション
+
+Not supported at all.
 
 ### 1.2.1 句点（。）と読点（、）
 
