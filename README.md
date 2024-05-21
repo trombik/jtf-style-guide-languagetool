@@ -13,6 +13,7 @@
     * [1.1.5 図表のキャプション](#115-図表のキャプション)
     * [1.2.1 句点（。）と読点（、）](#121-句点と読点)
     * [1.2.2 ピリオド（.）とカンマ（,）](#122-ピリオドとカンマ)
+    * [2.1.2 漢字](#212-漢字)
     * [2.2.2 算用数字と漢数字の使い分け](#222-算用数字と漢数字の使い分け)
 * [References](#references)
 * [Requirements](#requirements)
@@ -78,6 +79,11 @@ As rules are sentence-based, punctuation marks cannot be enforced.
 ### 1.2.2 ピリオド（.）とカンマ（,）
 
 Not perfect, needs more test cases.
+
+### 2.1.2 漢字
+
+Some non-常用漢字 might not be detected. See
+[the definition of non-常用漢字](rules/utils/non-jouyou-kanji/).
 
 ### 2.2.2 算用数字と漢数字の使い分け
 
