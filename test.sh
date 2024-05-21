@@ -36,7 +36,7 @@ if [ "${MY_OS}" = "FreeBSD" ]; then
     TMPFILE_SENTENCE=`mktemp -t "${MY_NAME}-sentence"` || exit 1
 else
     TMPFILE=`mktemp "${MY_NAME}.XXXXXXXXXX"` || exit 1
-    TMPFILE_SENTENCE=`mktemp "${MY_NAME}-sentence.XXXXXXXXXX"` || exit 1
+    TMPFILE_SENTENCE=`mktemp --tmpdir "${MY_NAME}-sentence.XXXXXXXXXX"` || exit 1
 fi
 
 get_number_of_line() {
