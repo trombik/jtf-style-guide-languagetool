@@ -53,7 +53,12 @@ count_match()
              --rulefile "${RULE_FILE}" \
              --enablecategories "${CATEGORY}" \
              -eo \
-             --json ${file}) | jq '[ .matches[] ]| length'`
+             --json ${file}) | tee "${TMPFILE}" | jq '[ .matches[] ]| length'`
+    if grep -q "Test failure" "${TMPFILE}"; then
+        echo "languagetool raised an exception"
+        cat "${TMPFILE}"
+        cleanup_and_fail
+    fi
     echo "${n_matches}"
 }
 
@@ -66,7 +71,12 @@ show_match_result()
              --rulefile "${RULE_FILE}" \
              --enablecategories "${CATEGORY}" \
              -eo \
-             --json ${file}) | jq`
+             --json ${file}) | tee "${TMPFILE}" | jq`
+    if grep -q "Test failure" "${TMPFILE}"; then
+        echo "languagetool raised an exception"
+        cat "${TMPFILE}"
+        cleanup_and_fail
+    fi
 }
 
 cleanup()
