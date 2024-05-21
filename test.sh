@@ -33,8 +33,10 @@ MY_OS=`uname -s`
 
 if [ "${MY_OS}" = "FreeBSD" ]; then
     TMPFILE=`mktemp -t "${MY_NAME}"` || exit 1
+    TMPFILE_SENTENCE=`mktemp -t "${MY_NAME}-sentence"` || exit 1
 else
     TMPFILE=`mktemp "${MY_NAME}.XXXXXXXXXX"` || exit 1
+    TMPFILE_SENTENCE=`mktemp "${MY_NAME}-sentence.XXXXXXXXXX"` || exit 1
 fi
 
 get_number_of_line() {
@@ -42,10 +44,36 @@ get_number_of_line() {
     wc -l "${FILE}" | sed -e 's/^[[:space:]]*//' | cut -f 1 -d' '
 }
 
+count_match()
+{
+    local file=$1; shift
+    local n_matches=`(cd ${LANGUAGETOOL_DIR} && \
+        java -jar languagetool-commandline.jar \
+             --language ja-JP \
+             --rulefile "${RULE_FILE}" \
+             --enablecategories "${CATEGORY}" \
+             -eo \
+             --json ${file}) | jq '[ .matches[] ]| length'`
+    echo "${n_matches}"
+}
+
+show_match_result()
+{
+    local file=$1; shift
+    local n_matches=`(cd ${LANGUAGETOOL_DIR} && \
+        java -jar languagetool-commandline.jar \
+             --language ja-JP \
+             --rulefile "${RULE_FILE}" \
+             --enablecategories "${CATEGORY}" \
+             -eo \
+             --json ${file}) | jq`
+}
+
 cleanup()
 {
     rm -f "${GRAMMAR_CUSTOM_FILE}"
     rm -f "${TMPFILE}"
+    rm -f "${TMPFILE_SENTENCE}"
 }
 cleanup_and_fail()
 {
@@ -92,23 +120,22 @@ for F in `ls -1 ${TEST_DIR_BAD}/*.txt`; do
     N_LINES=`get_number_of_line ${F}`
 
     # skip if the test is empty
-    if [ ${N_LINES} -ne 0 ]; then
+    if [ ${N_LINES} -eq 0 ]; then
         echo "${F} is empty, skipping"
         continue
     fi
-    N_MATCHES=`(cd ${LANGUAGETOOL_DIR} && \
-        java -jar languagetool-commandline.jar \
-             --language ja-JP \
-             --rulefile "${RULE_FILE}" \
-             --enablecategories "${CATEGORY}" \
-             -eo \
-             --json ${F}) | jq '[ .matches[] ]| length'`
-    if [ ${N_LINES} -ne ${N_MATCHES} ]; then
-        echo "Expected match: ${N_LINES}"
+    while read -r LINE; do
+        echo "Test sentence: [${LINE}]"
+        echo "${LINE}" > "${TMPFILE_SENTENCE}"
+        N_MATCHES=`count_match "${TMPFILE_SENTENCE}"`
         echo "Actual match: ${N_MATCHES}"
-        echo "Test failed on test file: ${F}"
-        cleanup_and_fail
-    fi
+        if [ ${N_MATCHES} -ne 1 ]; then
+            echo "Test failed on test file: ${F}"
+            echo "Re-running the test to show the output ..."
+            show_match_result "${TMPFILE_SENTENCE}"
+            cleanup_and_fail
+        fi
+    done < "${F}"
 done
 
 echo "Starting local tests (good)..."
@@ -122,18 +149,18 @@ for F in `ls -1 ${TEST_DIR_GOOD}/*.txt`; do
         echo "${F} is empty, skipping"
         continue
     fi
-    N_MATCHES=`(cd ${LANGUAGETOOL_DIR} && \
-        java -jar languagetool-commandline.jar \
-             --language ja-JP \
-             --rulefile "${RULE_FILE}" \
-             --enablecategories "${CATEGORY}" \
-             -eo \
-             --json ${F}) | jq '[ .matches[] ]| length'`
-    if [ ${N_MATCHES} -ne 0 ]; then
+    while read -r LINE; do
+        echo "Test sentence: [${LINE}]"
+        echo "${LINE}" > "${TMPFILE_SENTENCE}"
+        N_MATCHES=`count_match "${TMPFILE_SENTENCE}"`
         echo "Actual match: ${N_MATCHES}"
-        echo "Test failed on test file: ${F}"
-        cleanup_and_fail
-    fi
+        if [ ${N_MATCHES} -ne 0 ]; then
+            echo "Test failed on test file: ${F}"
+            echo "Re-running the test to show the output ..."
+            show_match_result "${TMPFILE_SENTENCE}"
+            cleanup_and_fail
+        fi
+    done < "${F}"
 done
 echo "Success"
 cleanup
