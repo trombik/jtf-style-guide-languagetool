@@ -54,7 +54,7 @@ count_match()
              --enablecategories "${CATEGORY}" \
              -eo \
              --json ${file}) | tee "${TMPFILE}" | jq '[ .matches[] ]| length'`
-    if grep -q "Test failure" "${TMPFILE}"; then
+    if grep -q "Exception in thread" "${TMPFILE}"; then
         echo "languagetool raised an exception"
         cat "${TMPFILE}"
         cleanup_and_fail
@@ -72,7 +72,7 @@ show_match_result()
              --enablecategories "${CATEGORY}" \
              -eo \
              --json ${file}) | tee "${TMPFILE}" | jq`
-    if grep -q "Test failure" "${TMPFILE}"; then
+    if grep -q "Exception in thread" "${TMPFILE}"; then
         echo "languagetool raised an exception"
         cat "${TMPFILE}"
         cleanup_and_fail
