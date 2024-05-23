@@ -14,8 +14,9 @@
     * [1.2.1 句点（。）と読点（、）](#121-句点と読点)
     * [1.2.2 ピリオド（.）とカンマ（,）](#122-ピリオドとカンマ)
     * [2.1.2 漢字](#212-漢字)
-    * [2.1.5 カタカナ](#215-カタカナ)
     * [2.1.3 漢字の送りがな](#213-漢字の送りがな)
+    * [2.1.4 複合語の送りがな](#214-複合語の送りがな)
+    * [2.1.5 カタカナ](#215-カタカナ)
     * [2.2.2 算用数字と漢数字の使い分け](#222-算用数字と漢数字の使い分け)
 * [References](#references)
 * [Requirements](#requirements)
@@ -87,14 +88,19 @@ Not perfect, needs more test cases.
 Some non-常用漢字 might not be detected. See
 [the definition of non-常用漢字](rules/utils/non-jouyou-kanji/).
 
-### 2.1.5 カタカナ
-
-Supported, but the coverage is not comprehensive.
-
 ### [2.1.3 漢字の送りがな](rules/jtf/2.1.3)
 
 All the bad examples in the style guide are supported. There should be more
 checks.
+
+### [2.1.4 複合語の送りがな](rules/jtf/2.1.4)
+
+All the bad examples in the style guide are supported. There should be more
+checks.
+
+### 2.1.5 カタカナ
+
+Supported, but the coverage is not comprehensive.
 
 ### 2.2.2 算用数字と漢数字の使い分け
 
