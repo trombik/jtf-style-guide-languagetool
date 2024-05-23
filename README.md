@@ -191,3 +191,7 @@ TBW.
 
 For OmegaT, open `Options` > `Preferences` > `LanguageTool`. Select `Remote
 server`, and type `http://127.0.0.1:8081/v2/check` in `URL`.
+
+Click `View` in the menu bar, check `Mark Language Checker Issues`.
+
+After that, matched words, or violations, are underscored with a wavy line.
