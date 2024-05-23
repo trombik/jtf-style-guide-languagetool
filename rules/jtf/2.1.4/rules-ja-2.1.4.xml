@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../print.xsl" title="Pretty print" ?>
+<?xml-stylesheet type="text/css" href="../rules.css" title="Easy editing stylesheet" ?>
+<rules lang="ja" xsi:noNamespaceSchemaLocation="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/rules.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <category id="JTF-2_1_4" name="">
+      <rulegroup id="JTF-2_1_4-HUKUGOUGO" name="複合語の送りがな">
+        <rule>
+          <pattern>
+            <marker>
+              <and>
+                <token postag="名詞.*" postag_regexp="yes"/>
+                <token>書</token>
+              </and>
+              <and>
+                <token postag="動詞.*" postag_regexp="yes"/>
+                <token inflected="yes">込む</token>
+              </and>
+            </marker>
+          </pattern>
+          <message>「<suggestion><match no="1" regexp_match="書" regexp_replace="書き"/><match no="2"/></suggestion>」を使います。不適切な送り仮名です</message>
+          <example correction="書き込む">ディスクに<marker>書込む</marker></example>
+          <example correction="書き込ん">ディスクに<marker>書込ん</marker>でください</example>
+        </rule>
+        <rule>
+          <pattern>
+            <marker>
+              <and>
+                <token postag="動詞.*" postag_regexp="yes"/>
+                <token inflected="yes">取扱う</token>
+              </and>
+            </marker>
+          </pattern>
+          <message>「<suggestion><match no="1" regexp_match="取" regexp_replace="取り"/></suggestion>」を使います。不適切な送り仮名です</message>
+          <example correction="取り扱う">荷物を<marker>取扱う</marker></example>
+          <example correction="取り扱っ">荷物を<marker>取扱っ</marker>ていません</example>
+        </rule>
+        <rule>
+          <pattern>
+            <marker>
+              <and>
+                <token postag="動詞.*" postag_regexp="yes"/>
+                <token inflected="yes">引換える</token>
+              </and>
+            </marker>
+          </pattern>
+          <message>「<suggestion><match no="1" regexp_match="引" regexp_replace="引き"/></suggestion>」を使います。不適切な送り仮名です</message>
+          <example correction="引き換える">ここで当選くじを<marker>引換える</marker></example>
+        </rule>
+        <rule>
+          <pattern>
+            <marker>
+              <and>
+                <token postag="動詞.*" postag_regexp="yes"/>
+                <token inflected="yes">申込む</token>
+              </and>
+            </marker>
+          </pattern>
+          <message>「<suggestion><match no="1" regexp_match="申" regexp_replace="申し"/></suggestion>」を使います。不適切な送り仮名です</message>
+          <example correction="申し込む">ここで<marker>申込む</marker></example>
+        </rule>
+        <rule>
+          <pattern>
+            <marker>
+              <and>
+                <token postag="動詞.*" postag_regexp="yes"/>
+                <token inflected="yes">請負う</token>
+              </and>
+            </marker>
+          </pattern>
+          <message>「<suggestion><match no="1" regexp_match="請" regexp_replace="請け"/></suggestion>」を使います。不適切な送り仮名です</message>
+          <example correction="請け負う">ここで<marker>請負う</marker></example>
+        </rule>
+        <rule>
+          <pattern>
+            <marker>
+              <and>
+                <token postag="動詞.*" postag_regexp="yes"/>
+                <token inflected="yes">組立てる</token>
+              </and>
+            </marker>
+          </pattern>
+          <message>「<suggestion><match no="1" regexp_match="組" regexp_replace="組み"/></suggestion>」を使います。不適切な送り仮名です</message>
+          <example correction="組み立てる">ここで<marker>組立てる</marker></example>
+        </rule>
+        <rule>
+          <pattern>
+            <marker>
+              <and>
+                <token postag="名詞.*" postag_regexp="yes"/>
+                <token>取り締まり</token>
+              </and>
+              <and>
+                <token postag="名詞.*" postag_regexp="yes"/>
+                <token>役</token>
+              </and>
+            </marker>
+          </pattern>
+          <message>「<suggestion>取締役</suggestion>」を使います。不適切な送り仮名です</message>
+          <example correction="取締役">私は<marker>取り締まり役</marker>だ</example>
+        </rule>
+        <rule>
+          <pattern>
+            <marker>
+              <and>
+                <token postag="名詞.*" postag_regexp="yes"/>
+                <token>請け負い</token>
+              </and>
+            </marker>
+          </pattern>
+          <message>「<suggestion>請負</suggestion>」を使います。不適切な送り仮名です</message>
+          <example correction="請負">私は<marker>請け負い</marker>側です。</example>
+        </rule>
+        <rule>
+          <pattern>
+            <marker>
+              <and>
+                <token postag="名詞.*" postag_regexp="yes"/>
+                <token>繰り入れ</token>
+              </and>
+              <and>
+                <token postag="名詞.*" postag_regexp="yes"/>
+                <token>率</token>
+              </and>
+            </marker>
+          </pattern>
+          <message>「<suggestion>繰入率</suggestion>」を使います。不適切な送り仮名です</message>
+          <example correction="繰入率"><marker>繰り入れ率</marker>は繰入率を使います</example>
+        </rule>
+        <rule>
+          <pattern>
+            <marker>
+              <and>
+                <token postag="名詞.*" postag_regexp="yes"/>
+                <token>申し込み</token>
+              </and>
+              <and>
+                <token postag="名詞.*" postag_regexp="yes"/>
+                <token>書</token>
+              </and>
+            </marker>
+          </pattern>
+          <message>「<suggestion>申込書</suggestion>」を使います。不適切な送り仮名です</message>
+          <example correction="申込書"><marker>申し込み書</marker>は申込書を使います</example>
+        </rule>
+        <rule>
+          <pattern>
+            <marker>
+              <and>
+                <token postag="名詞.*" postag_regexp="yes"/>
+                <token>売り上げ</token>
+              </and>
+              <and>
+                <token postag="名詞.*" postag_regexp="yes"/>
+                <token>金</token>
+              </and>
+            </marker>
+          </pattern>
+          <message>「<suggestion>売上金</suggestion>」を使います。不適切な送り仮名です</message>
+          <example correction="売上金"><marker>売り上げ金</marker>は売上金を使います</example>
+        </rule>
+      </rulegroup>
+  </category>
+</rules>
