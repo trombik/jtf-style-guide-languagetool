@@ -3,52 +3,105 @@
 <?xml-stylesheet type="text/css" href="../rules.css" title="Easy editing stylesheet" ?>
 <rules lang="ja" xsi:noNamespaceSchemaLocation="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/rules.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <category id="JTF-2_1_3" name="漢字の送りがな">
-      <rule id="JTF-2_1_3-okonau" name="行う">
-        <!--
-                [/SENT_START*] 儀式[儀式/名詞-一般*] を[を/助詞-格助詞-一般*] 行なっ[行なう/動詞-自立*] た[た/助動詞*,た/SENT_END*]
-                -->
-        <pattern>
-          <token inflected="yes">行なう</token>
-        </pattern>
-        <message>不適切な送り仮名があります。<suggestion><match no="1" regexp_match="な([っうい])" regexp_replace="$1"/></suggestion>を使います。</message>
-        <example correction="行う">儀式を<marker>行なう</marker></example>
-        <example correction="行っ">儀式を<marker>行なっ</marker>た</example>
-        <example correction="行い">儀式を<marker>行ない</marker>ながら</example>
-        <example correction="行え">儀式を<marker>行なえ</marker>ない</example>
-      </rule>
-      <rule id="JTF-2_1_3-okonau" name="行える">>
-        <!--
-                [/SENT_START*] 儀式[儀式/名詞-一般*] を[を/助詞-格助詞-一般*] 行[行/名詞-一般*] なえ[なえる/動詞-自立*] ない[ない/助動詞*,ない/SENT_END*]
-                -->
-        <pattern>
-          <and>
-            <token postag="名詞-一般"/>
-            <token>行</token>
-          </and>
-          <and>
-            <token postag="動詞-自立"/>
-            <token inflected="yes">なえる</token>
-          </and>
-        </pattern>
-        <message>不適切な送り仮名があります。<suggestion>行<match no="2" regexp_match="な(え)" regexp_replace="$1"/></suggestion>を使います。</message>
-        <example correction="行え">儀式を<marker>行なえ</marker>ない</example>
-      </rule>
-      <rule id="JTF-2_1_3-arawasu" name="表す">
-        <!-- [/SENT_START*] A[A/未知語*] は[は/助詞-係助詞*] B[B/未知語*] を[を/助詞-格助詞-一般*] 表わす[表わす/動詞-自立*,表わす/SENT_END*] -->
-        <pattern>
-          <marker>
+      <rulegroup id="JTF-2_1_3-OKURIGANA" name="漢字の送りがな">
+        <rule>
+          <!--
+                  [/SENT_START*] 儀式[儀式/名詞-一般*] を[を/助詞-格助詞-一般*] 行なっ[行なう/動詞-自立*] た[た/助動詞*,た/SENT_END*]
+                  -->
+          <pattern>
+            <token inflected="yes">行なう</token>
+          </pattern>
+          <message>「<suggestion><match no="1" regexp_match="な([っういお])" regexp_replace="$1"/></suggestion>」を使います。不適切な送り仮名です</message>
+          <example correction="行う">儀式を<marker>行なう</marker></example>
+          <example correction="行っ">儀式を<marker>行なっ</marker>た</example>
+          <example correction="行い">儀式を<marker>行ない</marker>ながら</example>
+          <example correction="行お">儀式を<marker>行なお</marker>う</example>
+        </rule>
+        <rule>
+          <!--
+                  [/SENT_START*] 儀式[儀式/名詞-一般*] を[を/助詞-格助詞-一般*] 行[行/名詞-一般*] なえ[なえる/動詞-自立*] ない[ない/助動詞*,ない/SENT_END*]
+                  -->
+          <pattern>
+            <and>
+              <token postag="名詞-一般"/>
+              <token>行</token>
+            </and>
             <and>
               <token postag="動詞-自立"/>
-              <token inflected="yes">表わす</token>
+              <token inflected="yes">なえる</token>
             </and>
-          </marker>
-        </pattern>
-        <message>不適切な送り仮名があります。「<suggestion><match no="1" regexp_match="わ([さしすせそ])" regexp_replace="$1"/></suggestion>」を使います。</message>
-        <example correction="表さ">Aで<marker>表わさ</marker>ない</example>
-        <example correction="表し">AはBを<marker>表わし</marker>ます</example>
-        <example correction="表す">AはBを<marker>表わす</marker></example>
-        <example correction="表せ">AはBを<marker>表わせ</marker>ません</example>
-        <example correction="表そ">Aで<marker>表わそ</marker>う</example>
-      </rule>
+          </pattern>
+          <message>「<suggestion>行<match no="2" regexp_match="な(え)" regexp_replace="$1"/></suggestion>」を使います。不適切な送り仮名です</message>
+          <example correction="行え">儀式を<marker>行なえ</marker>ない</example>
+        </rule>
+        <rule>
+          <!-- [/SENT_START*] A[A/未知語*] は[は/助詞-係助詞*] B[B/未知語*] を[を/助詞-格助詞-一般*] 表わす[表わす/動詞-自立*,表わす/SENT_END*] -->
+          <pattern>
+            <marker>
+              <and>
+                <token postag="動詞-自立"/>
+                <token inflected="yes">表わす</token>
+              </and>
+            </marker>
+          </pattern>
+          <message>「<suggestion><match no="1" regexp_match="わ([さしすせそ])" regexp_replace="$1"/></suggestion>」を使います。不適切な送り仮名です</message>
+          <example correction="表さ">Aで<marker>表わさ</marker>ない</example>
+          <example correction="表し">AはBを<marker>表わし</marker>ます</example>
+          <example correction="表す">AはBを<marker>表わす</marker></example>
+          <example correction="表せ">AはBを<marker>表わせ</marker>ません</example>
+          <example correction="表そ">Aで<marker>表わそ</marker>う</example>
+        </rule>
+        <rule>
+          <pattern>
+            <marker>
+              <and>
+                <token postag="動詞-自立"/>
+                <token inflected="yes">現われる</token>
+              </and>
+            </marker>
+          </pattern>
+          <message>「<suggestion><match no="1" regexp_match="わ" regexp_replace=""/></suggestion>」を使います。不適切な送り仮名です</message>
+          <example correction="現れる">メタルスライムが<marker>現われる</marker></example>
+          <example correction="現れ">メタルスライムが<marker>現われ</marker>た</example>
+        </rule>
+        <rule>
+          <pattern>
+            <marker>
+              <and>
+                <token postag="動詞-自立"/>
+                <token inflected="yes">浮ぶ</token>
+              </and>
+            </marker>
+          </pattern>
+          <message>「<suggestion><match no="1" regexp_match="浮" regexp_replace="浮か"/></suggestion>」を使います。不適切な送り仮名です</message>
+          <example correction="浮かぶ">水に<marker>浮ぶ</marker></example>
+          <example correction="浮かん">水に<marker>浮ん</marker>だ</example>
+        </rule>
+        <rule>
+          <pattern>
+            <marker>
+              <and>
+                <token postag="動詞-自立"/>
+                <token inflected="yes">終る</token>
+              </and>
+            </marker>
+          </pattern>
+          <message>「<suggestion><match no="1" regexp_match="終" regexp_replace="終わ"/></suggestion>」を使います。不適切な送り仮名です</message>
+          <example correction="終わる">残念ですが、日本は<marker>終る</marker></example>
+          <example correction="終わっ">残念ですが、日本は<marker>終っ</marker>た</example>
+        </rule>
+        <rule>
+          <pattern>
+            <marker>
+              <and>
+                <token postag="名詞-一般"/>
+                <token>終り</token>
+              </and>
+            </marker>
+          </pattern>
+          <message>「<suggestion><match no="1" regexp_match="終" regexp_replace="終わ"/></suggestion>」を使います。不適切な送り仮名です</message>
+          <example correction="終わり">残念ですが、日本は<marker>終り</marker>です</example>
+        </rule>
+      </rulegroup>
   </category>
 </rules>
