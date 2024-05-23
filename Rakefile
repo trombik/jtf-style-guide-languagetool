@@ -20,9 +20,11 @@ require "pathname"
 require "shellwords"
 require "yaml"
 
+rule_file_glob = "rules/jtf/*.*.*/rules-ja-*.xml"
+
 desc "Run tests on all rules"
 task :test do
-  Dir.glob("rules/jtf/*.*.*/rules-ja-*.xml").each do |f|
+  Dir.glob(rule_file_glob).each do |f|
     sh "./test.sh #{f.shellescape}" do |ok, res|
       raise "Test failed on `#{f}` with #{res.exitstatus}" unless ok
     end
@@ -60,9 +62,19 @@ end
 
 task :build do
   require "nokogiri"
+
+  # when the rule directory contains Rakefile, it is assumed that `rake build`
+  # updates the rule file, often using other files.
+  Dir.glob(rule_file_glob).each do |f|
+    dir = Pathname.new(f).dirname
+    if File.exist?(dir / "Rakefile")
+      sh "rake --directory #{dir.to_s.shellescape} build"
+    end
+  end
+
   xml = Nokogiri::XML(template, nil, "UTF-8")
   rules = xml.at_xpath("//rules")
-  Dir.glob("rules/jtf/*.*.*/rules-ja-*.xml").each do |f|
+  Dir.glob(rule_file_glob).each do |f|
     Nokogiri::XML(File.read(f)).xpath("//rules/category").each do |c|
       rules.add_child(c)
     end
