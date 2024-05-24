@@ -1,0 +1,47 @@
+# frozen_string_literal: true
+
+# Copyright (c) 2024 Tomoyuki Sakurai <y@trombik.org>
+#
+# ISC license
+#
+# Permission to use, copy, modify, and distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+#
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+template = <<XML
+    <rule>
+      <regexp mark="1">%%BAD_PATTERN%%</regexp>
+      <message>「<suggestion><match no="1"/>ー</suggestion>」を使います。カタカナ語の末尾の長音は原則として省略しません。%%NOTE%%</message>
+      <example correction="%%GOOD%%"><marker>%%BAD%%</marker>は使えません</example>
+    </rule>
+XML
+
+task :build do
+  require "nokogiri"
+
+  file = "rules-ja-2.1.6.xml"
+  list_file = "katakana_yougo.txt"
+  doc = Nokogiri::XML(File.read(file))
+  f = File.read(list_file)
+  f.each_line do |line|
+    bad, note = line.split("\t")
+    bad.chomp!
+    # see https://github.com/textlint-ja/textlint-rule-preset-JTF-style/pull/47
+    bad_pattern = "(#{bad})([^ー][^ァ-ン])"
+    good = "#{bad}ー"
+    rule = template.gsub("%%BAD_PATTERN%%", bad_pattern).gsub("%%BAD%%", bad).gsub("%%GOOD%%", good).gsub("%%NOTE%%", note ? note.chomp : "")
+    rule_fragment = Nokogiri::XML.fragment(rule)
+    doc.at_xpath("//rules/category/rulegroup").add_child(rule_fragment)
+  end
+  sh "mv #{file} #{file}.old"
+  f = File.open(file, "w")
+  f.write(doc.to_xml)
+end
