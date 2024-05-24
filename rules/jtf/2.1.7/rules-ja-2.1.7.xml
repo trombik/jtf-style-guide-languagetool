@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../print.xsl" title="Pretty print" ?>
+<?xml-stylesheet type="text/css" href="../rules.css" title="Easy editing stylesheet" ?>
+<!DOCTYPE rules [
+<!ENTITY re_katakana_go "[ァ-ヶー]">
+]>
+<rules lang="ja" xsi:noNamespaceSchemaLocation="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/rules.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <category id="JTF-2_1_7" name="カタカナ複合語">
+    <rule id="JTF-2_1_7-KATANA-HUKUGOUGO" name="カタカナ複合語のおそれ">
+      <regexp>&re_katakana_go;{12,}</regexp>
+      <message>12文字以上のカタカナが続いています。複合語かどうかを確認します。</message>
+      <suggestion>長いカタカナ</suggestion>
+      <example correction="長いカタカナ"><marker>カーナビゲーションシステム</marker></example>
+    </rule>
+  </category>
+</rules>

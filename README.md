@@ -18,6 +18,7 @@
     * [2.1.4 複合語の送りがな](#214-複合語の送りがな)
     * [2.1.5 カタカナ](#215-カタカナ)
     * [2.1.6 カタカナ語の長音](#216-カタカナ語の長音)
+    * [2.1.7 カタカナ複合語](#217-カタカナ複合語)
     * [2.2.2 算用数字と漢数字の使い分け](#222-算用数字と漢数字の使い分け)
 * [References](#references)
 * [Requirements](#requirements)
@@ -89,12 +90,12 @@ Not perfect, needs more test cases.
 Some non-常用漢字 might not be detected. See
 [the definition of non-常用漢字](rules/utils/non-jouyou-kanji/).
 
-### [2.1.3 漢字の送りがな](rules/jtf/2.1.3)
+### 2.1.3 [漢字の送りがな](rules/jtf/2.1.3)
 
 All the bad examples in the style guide are supported. There should be more
 checks.
 
-### [2.1.4 複合語の送りがな](rules/jtf/2.1.4)
+### 2.1.4 [複合語の送りがな](rules/jtf/2.1.4)
 
 All the bad examples in the style guide are supported. There should be more
 checks.
@@ -107,6 +108,11 @@ Supported, but the coverage is not comprehensive.
 
 All the bad examples in the style guide are checked. There should be more bad
 rules.
+
+### 2.1.7 [カタカナ複合語](rules/jtf/2.1.7)
+
+The rule does not check "カタカナ複合語". However, it warns if more than 11
+katakana characters are found.
 
 ### 2.2.2 算用数字と漢数字の使い分け
 
