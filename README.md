@@ -17,6 +17,7 @@
     * [2.1.3 漢字の送りがな](#213-漢字の送りがな)
     * [2.1.4 複合語の送りがな](#214-複合語の送りがな)
     * [2.1.5 カタカナ](#215-カタカナ)
+    * [2.1.6 カタカナ語の長音](#216-カタカナ語の長音)
     * [2.2.2 算用数字と漢数字の使い分け](#222-算用数字と漢数字の使い分け)
 * [References](#references)
 * [Requirements](#requirements)
@@ -101,6 +102,11 @@ checks.
 ### 2.1.5 カタカナ
 
 Supported, but the coverage is not comprehensive.
+
+### 2.1.6 カタカナ語の長音
+
+All the bad examples in the style guide are checked. There should be more bad
+rules.
 
 ### 2.2.2 算用数字と漢数字の使い分け
 
