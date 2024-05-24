@@ -24,6 +24,7 @@
     * [2.1.10 算用数字の位取りの表記](#2110-算用数字の位取りの表記)
     * [2.2.1 ひらがなと漢字の使い分け](#221-ひらがなと漢字の使い分け)
     * [2.2.2 算用数字と漢数字の使い分け](#222-算用数字と漢数字の使い分け)
+    * [2.3.1 単一文字間のスペースの有無](#231-単一文字間のスペースの有無)
 * [References](#references)
 * [Requirements](#requirements)
     * [Unix OS](#unix-os)
@@ -138,6 +139,10 @@ Supported.
 ### 2.2.2 算用数字と漢数字の使い分け
 
 It does not detect possible mistakes, such as "一億2000万円".
+
+### 2.3.1 単一文字間のスペースの有無
+
+Unsupported.
 
 ## References
 
