@@ -21,6 +21,7 @@
     * [2.1.7 カタカナ複合語](#217-カタカナ複合語)
     * [2.1.8 算用数字](#218-算用数字)
     * [2.1.9 アルファベット](#219-アルファベット)
+    * [2.1.10 [算用数字の位取りの表記}(rules/jtf/2.1.10)](#2110-算用数字の位取りの表記rulesjtf2110)
     * [2.2.2 算用数字と漢数字の使い分け](#222-算用数字と漢数字の使い分け)
 * [References](#references)
 * [Requirements](#requirements)
@@ -124,6 +125,10 @@ Only checks simple patterns. Does not fully match complicated ones, such as "
 ### 2.1.9 [アルファベット](rules/jtf/2.1.9)
 
 Supported.
+
+### 2.1.10 [算用数字の位取りの表記}(rules/jtf/2.1.10)
+
+The "ZENKAKU" decimal point, or "．", cannot be checked.
 
 ### 2.2.2 算用数字と漢数字の使い分け
 

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../print.xsl" title="Pretty print" ?>
+<?xml-stylesheet type="text/css" href="../rules.css" title="Easy editing stylesheet" ?>
+<rules lang="ja" xsi:noNamespaceSchemaLocation="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/rules.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <category id="JTF-2_1_10" name="算用数字の位取りの表記">
+    <rulegroup id="JTF-2_1_10-SANYOUSUUJI" name="算用数字の位取りの表記">
+      <rule>
+        <regexp mark="1">\d+(，)\d+</regexp>
+        <message>「<suggestion>,</suggestion>」を使います。桁区切りには「カンマ」を使います</message>
+        <example correction=",">10<marker>，</marker>000</example>
+      </rule>
+      <!-- the rule below does not work due to technical limitations -->
+      <!--
+      <rule>
+        <pattern>
+          <token regexp="yes">\d+</token>
+          <marker>
+            <token regexp="yes">[．]</token>
+          </marker>
+          <token regexp="yes">\d+</token>
+        </pattern>
+        <message>「<suggestion>.</suggestion>」を使います。小数点には「ピリオド」を使います</message>
+        <example correction=".">小数点10<marker>．</marker>1</example>
+      </rule>
+      -->
+    </rulegroup>
+  </category>
+</rules>
