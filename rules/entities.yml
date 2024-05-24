@@ -9,6 +9,8 @@ re_hiragana:
   '[ぁ-ん]'
 re_katakana:
   '[ァ-ヶ]'
+re_katakana_go:
+  '[ァ-ヶー]'
 re_hankakau_kana:
   '[\uFF65-\uFF9F]'
 re_non_jouyou_kanji:
