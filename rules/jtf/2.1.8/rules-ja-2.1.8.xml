@@ -13,18 +13,19 @@
           </antipattern>
           <and>
             <token postag="名詞-数"/>
-            <token regexp="yes">[一-十]</token>
+            <token regexp="yes">[一-十千万億兆京]</token>
           </and>
           <token postag="名詞-接尾-助数詞"/>
         </pattern>
         <message>半角数字を使います。</message>
         <suggestion>2<match no="2"/></suggestion>
         <example correction="2枚">新聞紙を<marker>二枚</marker>ください。</example>
+        <example correction="2枚">新聞紙を二十<marker>三枚</marker>ください。</example>
         <example correction="2部">新聞紙を<marker>二部</marker>ください。</example>
         <example correction="2冊">本を<marker>二冊</marker>ください。</example>
         <example correction="2桁">数字が<marker>二桁</marker>違う。</example>
         <example correction="2回"><marker>二回</marker>やってみよう。</example>
-        <example correction="2番目"><marker>二番目</marker>の人です。。</example>
+        <example correction="2番目"><marker>二番目</marker>の人です。</example>
       </rule>
       <rule id="JTF-2_1_8-kansuuji">
         <pattern>
@@ -35,6 +36,14 @@
         </pattern>
         <message>漢数字を使います。「<suggestion>もう一度</suggestion>」を使います。</message>
         <example correction="もう一度"><marker>もう1度</marker>やってみよう。</example>
+      </rule>
+    </rulegroup>
+    <rulegroup id="JTF-2_1_8-SANYOUSUUJI" name="算用数字 全角">
+      <rule>
+        <regexp>[０-９]+</regexp>
+        <message>算用数字は「半角」で表記します。用途によっては全角を許容します。</message>
+        <suggestion>半角数字</suggestion>
+        <example correction="半角数字"><marker>９０</marker></example>
       </rule>
     </rulegroup>
   </category>

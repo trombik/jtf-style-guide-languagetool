@@ -19,6 +19,7 @@
     * [2.1.5 カタカナ](#215-カタカナ)
     * [2.1.6 カタカナ語の長音](#216-カタカナ語の長音)
     * [2.1.7 カタカナ複合語](#217-カタカナ複合語)
+    * [2.1.8 算用数字](#218-算用数字)
     * [2.2.2 算用数字と漢数字の使い分け](#222-算用数字と漢数字の使い分け)
 * [References](#references)
 * [Requirements](#requirements)
@@ -113,6 +114,11 @@ rules.
 
 The rule does not check "カタカナ複合語". However, it warns if more than 11
 katakana characters are found.
+
+### 2.1.8 [算用数字](rules/jtf/2.1.8)
+
+Only checks simple patterns. Does not fully match complicated ones, such as "
+９，０００" or "±９．００", only partially.
 
 ### 2.2.2 算用数字と漢数字の使い分け
 
