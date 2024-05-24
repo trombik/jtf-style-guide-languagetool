@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../print.xsl" title="Pretty print" ?>
+<?xml-stylesheet type="text/css" href="../rules.css" title="Easy editing stylesheet" ?>
+<rules lang="ja" xsi:noNamespaceSchemaLocation="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/rules.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <category id="JTF-3_1_1" name="句点（。）">
+    <rulegroup id="JTF-3_1_1-HANKAKU-KUTEN" name="句点（。）">
+      <rule>
+        <regexp>[\uFF61]</regexp>
+        <message>「<suggestion>。</suggestion>」と使います。句点（。）は「全角」で表記します。</message>
+        <example correction="。">句点（。）は「全角」で表記します<marker>｡</marker></example>
+        <example correction="。">ピリオド"."は使えますが、半角句点"<marker>｡</marker>"は使えません。</example>
+      </rule>
+      <!-- the rule below does not work -->
+      <!--
+      <rule>
+        <regexp>。）</regexp>
+        <message>「）。」を使います。文中に丸かっこが入る場合も閉じかっこの前に句点を打ちません。</message>
+        <example>（関連企業を含みます<marker>。）</marker></example>
+      </rule>
+      -->
+    </rulegroup>
+  </category>
+</rules>
