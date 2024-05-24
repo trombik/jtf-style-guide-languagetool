@@ -34,9 +34,11 @@ MY_OS=`uname -s`
 if [ "${MY_OS}" = "FreeBSD" ]; then
     TMPFILE=`mktemp -t "${MY_NAME}"` || exit 1
     TMPFILE_SENTENCE=`mktemp -t "${MY_NAME}-sentence"` || exit 1
+    TMPFILE_STDERR=`mktemp -t "${MY_NAME}-stderr"` || exit 1
 else
     TMPFILE=`mktemp "${MY_NAME}.XXXXXXXXXX"` || exit 1
     TMPFILE_SENTENCE=`mktemp --tmpdir "${MY_NAME}-sentence.XXXXXXXXXX"` || exit 1
+    TMPFILE_STDERR=`mktemp --tmpdir "${MY_NAME}-stderr.XXXXXXXXXX"` || exit 1
 fi
 
 get_number_of_line() {
@@ -53,11 +55,18 @@ count_match()
              --rulefile "${RULE_FILE}" \
              --enablecategories "${CATEGORY}" \
              -eo \
-             --json ${file}) | tee "${TMPFILE}" | jq '[ .matches[] ]| length'`
+             --json ${file} 2>${TMPFILE_STDERR}) | tee "${TMPFILE}" | jq '[ .matches[] ]| length'`
     if grep -q "Exception in thread" "${TMPFILE}"; then
-        echo "languagetool raised an exception"
-        cat "${TMPFILE}"
-        cleanup_and_fail
+        echo "languagetool raised an exception" >&2
+        cat "${TMPFILE}" >&2
+        echo "" >&2
+        return 1
+    fi
+    if grep -q "Exception in thread" "${TMPFILE_STDERR}"; then
+        echo "languagetool raised an exception" >&2
+        cat "${TMPFILE_STDERR}" >&2
+        echo "" >&2
+        return 1
     fi
     echo "${n_matches}"
 }
@@ -71,11 +80,18 @@ show_match_result()
              --rulefile "${RULE_FILE}" \
              --enablecategories "${CATEGORY}" \
              -eo \
-             --json ${file}) | tee "${TMPFILE}" | jq`
+             --json ${file} 2>${TMPFILE_STDERR}) | tee "${TMPFILE}" | jq`
     if grep -q "Exception in thread" "${TMPFILE}"; then
-        echo "languagetool raised an exception"
-        cat "${TMPFILE}"
-        cleanup_and_fail
+        echo "languagetool raised an exception" >&2
+        cat "${TMPFILE}" >&2
+        echo "" >&2
+        return 1
+    fi
+    if grep -q "Exception in thread" "${TMPFILE_STDERR}"; then
+        echo "languagetool raised an exception" >&2
+        cat "${TMPFILE_STDERR}" >&2
+        echo "" >&2
+        return 1
     fi
 }
 
@@ -84,10 +100,12 @@ cleanup()
     rm -f "${GRAMMAR_CUSTOM_FILE}"
     rm -f "${TMPFILE}"
     rm -f "${TMPFILE_SENTENCE}"
+    rm -f "${TMPFILE_STDERR}"
 }
 cleanup_and_fail()
 {
     cleanup
+    echo "Failed"
     exit 1
 }
 
@@ -138,6 +156,9 @@ for F in `ls -1 ${TEST_DIR_BAD}/*.txt`; do
         echo "Test sentence: [${LINE}]"
         echo "${LINE}" > "${TMPFILE_SENTENCE}"
         N_MATCHES=`count_match "${TMPFILE_SENTENCE}"`
+        if [ $? -ne 0 ]; then
+            cleanup_and_fail
+        fi
         echo "Actual match: ${N_MATCHES}"
         if [ ${N_MATCHES} -ne 1 ]; then
             echo "Test failed on test file: ${F}"
@@ -163,6 +184,9 @@ for F in `ls -1 ${TEST_DIR_GOOD}/*.txt`; do
         echo "Test sentence: [${LINE}]"
         echo "${LINE}" > "${TMPFILE_SENTENCE}"
         N_MATCHES=`count_match "${TMPFILE_SENTENCE}"`
+        if [ $? -ne 0 ]; then
+            cleanup_and_fail
+        fi
         echo "Actual match: ${N_MATCHES}"
         if [ ${N_MATCHES} -ne 0 ]; then
             echo "Test failed on test file: ${F}"
