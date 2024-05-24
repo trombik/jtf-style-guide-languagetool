@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../print.xsl" title="Pretty print" ?>
+<?xml-stylesheet type="text/css" href="../rules.css" title="Easy editing stylesheet" ?>
+<rules lang="ja" xsi:noNamespaceSchemaLocation="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/rules.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <category id="JTF-2_1_9" name="アルファベット">
+    <rulegroup id="JTF-2_1_9" name="アルファベット">
+      <rule>
+        <regexp>[Ａ-Ｚ]+</regexp>
+        <message>アルファベットは「半角」で表記します。用途によっては全角を許容します</message>
+        <suggestion>半角アルファベット</suggestion>
+        <example correction="半角アルファベット"><marker>ＡＢＣ</marker></example>
+      </rule>
+    </rulegroup>
+  </category>
+</rules>

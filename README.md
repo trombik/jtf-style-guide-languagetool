@@ -20,6 +20,7 @@
     * [2.1.6 カタカナ語の長音](#216-カタカナ語の長音)
     * [2.1.7 カタカナ複合語](#217-カタカナ複合語)
     * [2.1.8 算用数字](#218-算用数字)
+    * [2.1.9 アルファベット](#219-アルファベット)
     * [2.2.2 算用数字と漢数字の使い分け](#222-算用数字と漢数字の使い分け)
 * [References](#references)
 * [Requirements](#requirements)
@@ -119,6 +120,10 @@ katakana characters are found.
 
 Only checks simple patterns. Does not fully match complicated ones, such as "
 ９，０００" or "±９．００", only partially.
+
+### 2.1.9 [アルファベット](rules/jtf/2.1.9)
+
+Supported.
 
 ### 2.2.2 算用数字と漢数字の使い分け
 
