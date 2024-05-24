@@ -25,6 +25,11 @@ jobs:
       - name: Setup
         run: |
           sh setup.sh
+
+      - name: Build all rules
+        run: |
+          bundle exec rake build
+
       - name: Test
         run: |
           bundle exec rake test
