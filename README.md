@@ -28,6 +28,7 @@
     * [2.3.1.2 全角文字どうし](#2312-全角文字どうし)
     * [2.3.1.3 半角文字どうし](#2313-半角文字どうし)
     * [2.3.2 かっこ類と隣接する文字の間のスペースの有無](#232-かっこ類と隣接する文字の間のスペースの有無)
+    * [3.1.1 句点（。）](#311-句点)
 * [References](#references)
 * [Requirements](#requirements)
     * [Unix OS](#unix-os)
@@ -158,6 +159,10 @@ Unsupported.
 ### 2.3.2 かっこ類と隣接する文字の間のスペースの有無
 
 Unsupported.
+
+### 3.1.1 [句点（。）](rules/jtf/3.1.1)
+
+The check is not ideal at all.
 
 ## References
 
