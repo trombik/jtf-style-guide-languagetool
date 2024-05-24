@@ -126,7 +126,7 @@ Only checks simple patterns. Does not fully match complicated ones, such as "
 
 Supported.
 
-### 2.1.10 [算用数字の位取りの表記}(rules/jtf/2.1.10)
+### 2.1.10 [算用数字の位取りの表記](rules/jtf/2.1.10)
 
 The "ZENKAKU" decimal point, or "．", cannot be checked.
 
