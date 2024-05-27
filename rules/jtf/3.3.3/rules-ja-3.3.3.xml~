@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../print.xsl" title="Pretty print" ?>
+<?xml-stylesheet type="text/css" href="../rules.css" title="Easy editing stylesheet" ?>
+<rules lang="ja" xsi:noNamespaceSchemaLocation="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/rules.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <category id="JTF-3_3_3" name="かぎかっこ「」">
+    <rulegroup id="JTF-3_3_3-KAGIKAKKO" name="かぎかっこ「」">
+      <rule>
+        <!-- かぎかっこの中にかぎかっこ -->
+        <regexp mark="1">「[^」]*(「)</regexp>
+        <message>かぎかっこの中にかぎかっこを使う場合は、<suggestion>二重かぎかっこ</suggestion>を使います</message>
+        <example correction="二重かぎかっこ">「かぎかっこの中に<marker>「</marker>かぎかっこ」は使わない。二重かぎかっこを使う」</example>
+      </rule>
+      <rule>
+        <!-- 閉じていないかぎかっこ -->
+        <regexp mark="1">「[^」]*(「)</regexp>
+        <message>かぎかっこの中にかぎかっこを使う場合は、<suggestion>二重かぎかっこ</suggestion>を使います</message>
+        <example correction="二重かぎかっこ">「かぎかっこの中に<marker>「</marker>かぎかっこ」は使わない。二重かぎかっこを使う」</example>
+      </rule>
+    </rulegroup>
+  </category>
+</rules>

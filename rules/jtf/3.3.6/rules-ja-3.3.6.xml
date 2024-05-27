@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../print.xsl" title="Pretty print" ?>
+<?xml-stylesheet type="text/css" href="../rules.css" title="Easy editing stylesheet" ?>
+<rules lang="ja" xsi:noNamespaceSchemaLocation="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/rules.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <category id="JTF-3_3_6" name="中かっこ{ }">
+    <rulegroup id="JTF-3_3_6-CHUUKAKKO" name="中かっこ{ }">
+      <pattern>
+        <token regexp="yes">[{}\uFF5B\uFF5D\u23A7\u23A8\u23A9\u23AA\u23AB\u23AC\u23AD\u23B0\u23B1\uFE37\uFE38\uFE5B\uFE5C\u2774\u2775]</token>
+      </pattern>
+      <message>中かっこがあります。原則として和文では使用しません。原文で中かっこが使用されており、原文どおりに使用する必要がある場合のみ使用します。使用する場合は<suggestion>半角中かっこ</suggestion>を使います。</message>
+      <example correction="半角中かっこ">中かっこ<marker>{</marker>は使いません</example>
+      <example correction="半角中かっこ">中かっこ<marker>}</marker>は使いません</example>
+    </rulegroup>
+  </category>
+</rules>

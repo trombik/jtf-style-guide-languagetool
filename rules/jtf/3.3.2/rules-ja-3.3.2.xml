@@ -2,21 +2,21 @@
 <?xml-stylesheet type="text/xsl" href="../print.xsl" title="Pretty print" ?>
 <?xml-stylesheet type="text/css" href="../rules.css" title="Easy editing stylesheet" ?>
 <rules lang="ja" xsi:noNamespaceSchemaLocation="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/rules.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <category id="JTF-3_3_1" name="丸かっこ">
-    <rulegroup id="JTF-3_3_1-MARUKAKKO" name="丸かっこ">
+  <category id="JTF-3_3_2" name="">
+    <rulegroup id="JTF-3_3_2-DAIKAKKO" name="大かっこ">
       <rule>
         <pattern>
-          <token>(</token>
+          <token>[</token>
         </pattern>
-        <message>丸かっこは全角を使います。"<suggestion>（</suggestion>"</message>
-        <example correction="（">括弧<marker>(</marker>かっこ）</example>
+        <message>大かっこは全角を使います。"<suggestion>［</suggestion></message>
+        <example correction="［"><marker>[</marker>括弧かっこ］</example>
       </rule>
       <rule>
         <pattern>
-          <token>)</token>
+          <token>]</token>
         </pattern>
-        <message>丸かっこは全角を使います。"<suggestion>）</suggestion>"</message>
-        <example correction="）">括弧（かっこ<marker>)</marker></example>
+        <message>大かっこは全角を使います。"<suggestion>］</suggestion>"</message>
+        <example correction="］">［括弧かっこ<marker>]</marker></example>
       </rule>
     </rulegroup>
   </category>

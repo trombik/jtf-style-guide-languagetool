@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../print.xsl" title="Pretty print" ?>
+<?xml-stylesheet type="text/css" href="../rules.css" title="Easy editing stylesheet" ?>
+<rules lang="ja" xsi:noNamespaceSchemaLocation="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/rules.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <category id="JTF-3_3_6" name="山かっこ〈 〉">
+    <rulegroup id="JTF-3_3_6-CHUUKAKKO" name="山かっこ〈 〉">
+      <rule>
+        <pattern>
+          <token regexp="yes">[\u3008\u3009\u2329\u232A\u276C\u276D\u2770\u2771\u29FC\u29FD\u27E8\u27E9\uFE3F\uFE40]</token>
+        </pattern>
+        <message>山かっこがあります。原則として和文では使用しません。原文で山かっこが使用されており、原文どおりに使用する必要がある場合のみ使用します。使用する場合は<suggestion>全角山かっこ</suggestion>を使います。</message>
+        <example correction="全角山かっこ">山かっこ<marker>〈</marker>は使いません</example>
+        <example correction="全角山かっこ">山かっこ<marker>〉</marker>は使いません</example>
+      </rule>
+    </rulegroup>
+  </category>
+</rules>

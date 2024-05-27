@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../print.xsl" title="Pretty print" ?>
+<?xml-stylesheet type="text/css" href="../rules.css" title="Easy editing stylesheet" ?>
+<rules lang="ja" xsi:noNamespaceSchemaLocation="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/rules.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <category id="JTF-3_3_8" name="一重引用符">
+    <rulegroup id="JTF-3_3_8-signle_quote" name="一重引用符">
+      <pattern>
+        <token>[&apos;\u2018\u2019\u201A]</token>
+      </pattern>
+      <message><suggestion>一重引用符は原則として和文では使用しません</suggestion>。原文で一重引用符が使用されており、原文どおりに使用する必要がある場合のみ使用します。</message>
+      <example correction="一重引用符は原則として和文では使用しません">一重引用符「&apos;」は原則として和文では使用しません</example>
+    </rulegroup>
+  </category>
+</rules>
