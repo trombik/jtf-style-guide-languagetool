@@ -24,9 +24,9 @@ template = <<XML
     </rule>
 XML
 
+file = "rules-ja-2.1.5.xml"
 task :build do
   require "nokogiri"
-  file = "rules-ja-2.1.5.xml"
   list_file = "katakana_yougo.txt"
   doc = Nokogiri::XML(File.read(file))
 
@@ -40,4 +40,9 @@ task :build do
   sh "mv #{file} #{file}.old"
   f = File.open(file, "w")
   f.write(doc.to_xml)
+end
+
+task :clean do
+  sh "git checkout #{file}"
+  sh "rm -f #{file}.old"
 end
