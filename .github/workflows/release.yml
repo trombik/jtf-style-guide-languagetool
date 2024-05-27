@@ -6,6 +6,9 @@ on:
     tags:
       - "v*.*.*"
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -35,6 +38,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         # https://github.com/softprops/action-gh-release
         with:
+          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
           files: |
             grammar_custom.xml
             LICENSE.txt
