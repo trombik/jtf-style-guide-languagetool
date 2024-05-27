@@ -81,3 +81,12 @@ task :build do
   end
   puts xml
 end
+
+task :clean do
+  Dir.glob(rule_file_glob).each do |f|
+    dir = Pathname.new(f).dirname
+    if File.exist?(dir / "Rakefile")
+      sh "rake --directory #{dir.to_s.shellescape} clean"
+    end
+  end
+end

@@ -299,8 +299,17 @@ the dependencies.
 Run:
 
 ```sh
-bundle exec rake build | xmllint --format - > grammar_custom.xml
+bundle exec rake build
 ```
+
+Some rules are generated dynamically. To clean up *after* `build`, run:
+
+```sh
+bundle exec rake clean
+```
+
+Do NOT run `bundle exec rake clean` if you have not committed all the changes.
+Your work-in-progress might be overwritten.
 
 ## Install the grammar file
 
