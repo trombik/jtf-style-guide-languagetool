@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../print.xsl" title="Pretty print" ?>
+<?xml-stylesheet type="text/css" href="../rules.css" title="Easy editing stylesheet" ?>
+<rules lang="ja" xsi:noNamespaceSchemaLocation="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/rules.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <category id="JTF-3_2_9" name="ダッシュ（―）">
+    <rulegroup id="JTF-3_2_9-dash" name="ダッシュ（―）">
+      <rule>
+        <pattern>
+          <token regexp="yes">[\u2012\u2013\u2014\u2015\u2053\u2E3A]</token>
+        </pattern>
+        <message>原則として和文ではダッシュ（―）を使用しません。</message>
+        <suggestion>ダッシュを使用しません</suggestion>
+        <example correction="ダッシュを使用しません">A<marker>―</marker>B</example>
+      </rule>
+    </rulegroup>
+  </category>
+</rules>
