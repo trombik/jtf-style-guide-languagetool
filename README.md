@@ -29,6 +29,8 @@
     * [2.3.1.3 半角文字どうし](#2313-半角文字どうし)
     * [2.3.2 かっこ類と隣接する文字の間のスペースの有無](#232-かっこ類と隣接する文字の間のスペースの有無)
     * [3.1.1 句点（。）](#311-句点)
+    * [3.2.1 感嘆符（！）](#321-感嘆符)
+    * [3.2.2 疑問符（？）](#322-疑問符)
 * [References](#references)
 * [Requirements](#requirements)
     * [Unix OS](#unix-os)
@@ -163,6 +165,14 @@ Unsupported.
 ### 3.1.1 [句点（。）](rules/jtf/3.1.1)
 
 The check is not ideal at all.
+
+### 3.2.1 [感嘆符（！）](rules/jtf/3.2.1)
+
+It does not check "全角スペース" after an exclamation mark.
+
+### 3.2.2 [疑問符（？）](rules/jtf/3.2.2)
+
+It does not check "全角スペース" after a question mark.
 
 ## References
 
