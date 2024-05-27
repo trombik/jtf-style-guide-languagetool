@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../print.xsl" title="Pretty print" ?>
+<?xml-stylesheet type="text/css" href="../rules.css" title="Easy editing stylesheet" ?>
+<rules lang="ja" xsi:noNamespaceSchemaLocation="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/rules.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <category id="JTF-3_2_2" name="疑問符（？）">
+    <rulegroup id="JTF-3_2_2-GIMONHU" name="疑問符（？）">
+      <rule>
+        <pattern>
+          <token>？</token>
+        </pattern>
+        <message>感嘆符が使われています。使用頻度を確認します。和文ではできるだけ句点を使用します。文末に疑問符を使用し、後に別の文が続く場合は、直後に全角スペースを挿入します。</message>
+        <suggestion>。</suggestion>
+        <example correction="。">読者は文書の内容を理解しているでしょうか<marker>？</marker></example>
+      </rule>
+    </rulegroup>
+  </category>
+</rules>
