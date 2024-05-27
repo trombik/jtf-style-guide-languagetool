@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../print.xsl" title="Pretty print" ?>
+<?xml-stylesheet type="text/css" href="../rules.css" title="Easy editing stylesheet" ?>
+<rules lang="ja" xsi:noNamespaceSchemaLocation="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/rules.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <category id="JTF-3_3_4" name="二重かぎかっこ『』">
+    <rulegroup id="JTF-3_3_4-NIJUUKAGIKAKKO" name="二重かぎかっこ『』">
+      <rule>
+        <!-- 閉じていないかぎかっこ -->
+        <pattern>
+          <token>「</token>
+          <marker>
+            <token regexp="yes" min="0" max="-1">[^』]+</token>
+            <token postag="SENT_END"/>
+          </marker>
+        </pattern>
+        <message>かぎかっこが閉じていません</message>
+        <suggestion>かぎかっこが』で閉じていません</suggestion>
+        <example correction="かぎかっこが』で閉じていません">「<marker>かぎかっこは必ず閉じます</marker></example>
+      </rule>
+      <rule>
+        <!-- 開いていないかぎかっこ -->
+        <regexp mark="1">^([^『]*)」</regexp>
+        <message>閉じかぎかっこで始まるかぎかっこがあります。かっこは<suggestion>『開きかぎかっこ</suggestion>で始めます</message>
+        <example correction="『開きかぎかっこ"><marker>このように</marker>」開いていないかぎかっこ</example>
+      </rule>
+    </rulegroup>
+  </category>
+</rules>

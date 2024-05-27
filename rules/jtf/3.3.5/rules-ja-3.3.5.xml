@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../print.xsl" title="Pretty print" ?>
+<?xml-stylesheet type="text/css" href="../rules.css" title="Easy editing stylesheet" ?>
+<rules lang="ja" xsi:noNamespaceSchemaLocation="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/rules.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <category id="JTF-3_3_5" name="二重引用符">
+    <rulegroup id="JTF-3_3_5-NIJUINYOUHU" name="二重引用符">
+      <rule>
+        <!-- Right double quotation mark -->
+        <pattern>
+          <token>”</token>
+        </pattern>
+        <message>二重引用符は半角の「<suggestion>"</suggestion>」を使います。</message>
+        <example correction="&quot;">二重引用符は"半角<marker>”</marker></example>
+      </rule>
+      <rule>
+        <!-- Left double quotation mark -->
+        <pattern>
+          <token>“</token>
+        </pattern>
+        <message>二重引用符は半角の「<suggestion>"</suggestion>」を使います。</message>
+        <example correction="&quot;">二重引用符は<marker>“</marker>半角"</example>
+      </rule>
+    </rulegroup>
+  </category>
+</rules>
