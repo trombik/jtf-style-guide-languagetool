@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../print.xsl" title="Pretty print" ?>
+<?xml-stylesheet type="text/css" href="../rules.css" title="Easy editing stylesheet" ?>
+<rules lang="ja" xsi:noNamespaceSchemaLocation="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/rules.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <category id="JTF-3_2_4" name="中黒">
+    <rulegroup id="JTF-3_2_4-NAKAGURO" name="中黒">
+      <rule>
+        <pattern>
+          <token regexp="yes">[\u00B7\u0387\u2022\u2219\u22C5\uFF65]</token>
+        </pattern>
+        <message>中黒は全角の「<suggestion>・</suggestion>」を使います。</message>
+        <example correction="・">パーソナル<marker>･</marker>コンピューター</example>
+      </rule>
+    </rulegroup>
+  </category>
+</rules>

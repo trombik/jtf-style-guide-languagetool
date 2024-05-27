@@ -31,6 +31,13 @@
     * [3.1.1 句点（。）](#311-句点)
     * [3.2.1 感嘆符（！）](#321-感嘆符)
     * [3.2.2 疑問符（？）](#322-疑問符)
+    * [3.2.3 スラッシュ（/）（／）](#323-スラッシュ)
+    * [3.2.4 中黒（・）](#324-中黒・)
+    * [3.2.5 波線（〜）](#325-波線)
+    * [3.2.6 ハイフン（-）](#326-ハイフン-)
+    * [3.2.7 コロン（：）](#327-コロン)
+    * [セミコロン（；）](#セミコロン)
+    * [3.2.9 ダッシュ（―）](#329-ダッシュ)
 * [References](#references)
 * [Requirements](#requirements)
     * [Unix OS](#unix-os)
@@ -173,6 +180,34 @@ It does not check "全角スペース" after an exclamation mark.
 ### 3.2.2 [疑問符（？）](rules/jtf/3.2.2)
 
 It does not check "全角スペース" after a question mark.
+
+### 3.2.3 スラッシュ（/）（／）
+
+Not implemented.
+
+### 3.2.4 中黒（・）
+
+Supported.
+
+### 3.2.5 波線（〜）
+
+Supported.
+
+### 3.2.6 ハイフン（-）
+
+Not implemented.
+
+### 3.2.7 コロン（：）
+
+Not implemented.
+
+### セミコロン（；）
+
+Supported.
+
+### 3.2.9 ダッシュ（―）
+
+Supported.
 
 ## References
 

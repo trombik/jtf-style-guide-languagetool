@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../print.xsl" title="Pretty print" ?>
+<?xml-stylesheet type="text/css" href="../rules.css" title="Easy editing stylesheet" ?>
+<rules lang="ja" xsi:noNamespaceSchemaLocation="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/rules.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <category id="JTF-3_2_5" name="波線（〜）">
+    <rulegroup id="JTF-3_2_5-HASEN" name="波線（〜）">
+      <rule>
+        <pattern>
+          <token regexp="yes">\d+</token>
+          <marker>
+            <token regexp="yes">[\u007E\u02DC\u1FC0\u2053\u223C\u223F\u3030\uFF5E]</token>
+          </marker>
+          <token regexp="yes">\d+</token>
+        </pattern>
+        <message>波線は全角の「<suggestion>〜</suggestion>」を使います。数値の範囲を示す場合に使用します。</message>
+        <example correction="〜">18<marker>˜</marker>22歳</example>
+      </rule>
+      <rule>
+        <pattern>
+          <token regexp="yes">[^0-9]+</token>
+          <marker>
+            <token>〜</token>
+          </marker>
+        </pattern>
+        <message>波線は数値の範囲を示す場合に使用します。</message>
+        <suggestion>波線は使わない</suggestion>
+        <example correction="波線は使わない">こんにちわ<marker>〜</marker></example>
+      </rule>
+      <rule>
+        <pattern>
+          <marker>
+            <token>〜</token>
+          </marker>
+          <token regexp="yes">[^0-9]+</token>
+        </pattern>
+        <message>波線は数値の範囲を示す場合に使用します。</message>
+        <suggestion>波線は使わない</suggestion>
+        <example correction="波線は使わない">こんにちわ1234<marker>〜</marker>は、使わない</example>
+      </rule>
+    </rulegroup>
+  </category>
+</rules>
